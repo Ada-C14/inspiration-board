@@ -1,19 +1,29 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 import './Board.css';
 import Card from './Card';
-import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
 
-const Board = () => {
+
+const Board = (props) => {
+  
+  const getCards = () => {
+    const processed = props.cards.map(card => {
+      return(
+      <Card key={card.card.id} id={card.card.id} text={card.card.text} emoji={card.card.emoji} onDelete={props.deleteCard} />
+      );
+    })
+    return processed;
+  }
+
+
   return (
     <div>
-      Board
+      {getCards()}
     </div>
   )
 };
+
 Board.propTypes = {
 
 };
