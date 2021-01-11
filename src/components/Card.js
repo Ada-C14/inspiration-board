@@ -5,16 +5,18 @@ import emoji from 'emoji-dictionary';
 import './Card.css';
 
 const Card = (props) => {
-  // const {idNum, text, emojiString} = {...props}
-  // const [id, setId] = useState('');
-  // const [message, setMessage] = useState('');
-  // const [emojiName, setEmojiName] = useState('');
 
   return (
     <div className="card">
-      <p></p>
-      <p>Inspirational Message: {props.text}</p>
-      <p>Emoji: {props.emojiName ? emoji.getUnicode(props.emojiName) : emoji.getUnicode('hatching_chick')}</p>
+      <p>{props.text}</p>
+      {props.emojiName ? 
+      <p>Emoji: {emoji.getUnicode(props.emojiName)}</p> : <div></div> }
+      <button
+        onClick={() => props.deleteCardCallback(props.id)}
+        className="delete-btn"
+      >
+        Delete
+      </button>
     </div>
   );
 }
@@ -23,6 +25,7 @@ Card.propTypes = {
   id: PropTypes.number,
   text: PropTypes.string,
   emojiName: PropTypes.string,
+  deleteCardCallback: PropTypes.func.isRequired,
 };
 
 export default Card;
