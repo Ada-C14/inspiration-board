@@ -10,9 +10,9 @@ const App = () => {
       </header>
       <Board
         url="https://inspiration-board.herokuapp.com/"
-        boardName={`christabel`}
-        // two boards were accidentally created
-        // boardName={`christabel-sebastian`}
+        // two boards were accidentally created -- 'christabel' has a bazillion accidental stickies
+        // boardName={`christabel`}
+        boardName={`christabel-sebastian`}
       />
     </section>
   );
