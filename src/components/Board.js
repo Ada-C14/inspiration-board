@@ -51,7 +51,7 @@ const Board = ({url, boardName}) => {
 
 
   const deleteCardCallback = (cardId) => {
-    const revisedCards = cards.filter ((card) => { return (card.id !== cardId && card.text !== '"This place could be beautiful... You could make this place beautiful." - Maggie Smith, "Good Bones"' )});
+    const revisedCards = cards.filter ((card) => { return (card.id !== cardId)});
 
     axios.delete(`${url}/cards/${cardId}`)
       .then((response) => {
@@ -91,7 +91,7 @@ const Board = ({url, boardName}) => {
   }
 
   return (
-    <div>
+    <div className='board'>
       <NewCardForm nextId={nextId} addNewCard={addNewCardCallback} />
       {loadBoard()}
     </div>

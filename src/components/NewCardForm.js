@@ -13,26 +13,37 @@ const NewCardForm = (props) => {
   })
 
   const onInputChange = (event) => {
-    setFormFields({...formFields, id: props.nextId, [event.target.name]: event.target.value});
-    console.log(formFields)
+    const newFormFields = {...formFields, id: props.nextId, [event.target.name]: event.target.value} 
+    setFormFields(newFormFields);
+
+    console.log(newFormFields);
   }
 
   return(
     <div className='new-card-form'>
       <h3>Add a new Sticky to the Board</h3>
-      <form className='new-card-form__form' onClick={(event) => {props.addNewCard(event, formFields)}} type='submit' >
-        <div className='new-card-form__data-div'>
-          {/* <label className='.new-card-form__form-label'>Message</label> */}
-          <input 
-            className='.new-card-form__form-textarea' 
-            placeholder='Enter an inspiring message...' 
-            name='text' 
-            type='text' 
-            value={formFields.text}
-            onChange={onInputChange} />
-        </div>
+      <form className='new-card-form__form'>
+        <input 
+          className='.new-card-form__form-textarea' 
+          placeholder='Enter an inspiring message...' 
+          name='text' 
+          type='text' 
+          value={formFields.text}
+          onChange={onInputChange} />
+        
+        <select name='emojiName' onChange={onInputChange} id='emoji'>
+          {
+            EMOJI_LIST.map((emojiSelection) => {
+              return (
+                <option value={emojiSelection} >{emoji.getUnicode(emojiSelection)}</option>
+              )
+            })
+          }
+        </select>
+
+
+        <input className='new-card-form__form-button' value='Add Sticky' onClick={(event) => {props.addNewCard(event, formFields)}} type='submit' />
       </form>
-      <button className='new-card-form__form-button'  >Add Sticky</button>
     </div>
   )
 }
