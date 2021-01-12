@@ -7,15 +7,46 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-const Board = () => {
+const Board = (props) => {
+
+  // const cardList = CARD_DATA.map((card) => {
+  //   if (card.text && card.emoji) {
+  //     return ({
+  //       card: {
+  //         text: card.text,
+  //         emoji: card.emoji
+  //       } 
+  //     })
+  //   } else if (card.text) {
+  //     return ({
+  //       card: {
+  //         text: card.text,
+  //         emoji: null
+  //       } 
+  //     })
+  //   } else if (card.emoji) {
+  //     return ({
+  //       card: {
+  //         text: null,
+  //         emoji: card.emoji
+  //       } 
+  //     })
+  //   }
+  // })
+
   return (
-    <div>
-      Board
+    <div className="board">
+      <Card text="hello" emoji="beer" />
+      <Card text="fuck shit" emoji="cat" />
+      <Card text="i am smart" emoji="brain" />
     </div>
   )
 };
-Board.propTypes = {
 
+
+Board.propTypes = {
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired,
 };
 
 export default Board;
