@@ -8,7 +8,6 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 const cards = CARD_DATA.cards.map ((card) => {
-  console.log(card)
   return (
     <Card
     key={card.id}
@@ -21,12 +20,12 @@ const cards = CARD_DATA.cards.map ((card) => {
 
 const Board = () => {
 
-  useEffect(() => {
-    localStorage.setItem('test', JSON.stringify(CARD_DATA));
-  }, []);
+  // useEffect(() => {
+  //   localStorage.setItem('test', JSON.stringify(CARD_DATA));
+  // }, []);
   return (
     <div>
-      Board {cards}
+      {cards}
     </div>
   )
 };
