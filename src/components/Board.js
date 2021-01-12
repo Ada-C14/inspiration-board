@@ -37,7 +37,7 @@ const Board = (props) => {
     const availableCards = cards.find((card) => { 
       return (card.id !== cardID)
     });
-    
+
     axios.delete(deleteCardsURLEndpoint + cardID)
     .then((response) => {
       console.log(`${cardID} was deleted.`)
@@ -56,7 +56,7 @@ const Board = (props) => {
       id={card.id}
       text={card.text ? card.text : ''}
       emoji={card.emoji ? card.emoji : ''}
-      deleteCardCallback = {deleteCard}
+      onDeleteCardCallback = {deleteCard}
       />
     })
   } 

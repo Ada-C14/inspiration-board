@@ -21,7 +21,7 @@ const showEmoji = (emojiString) => {
         <div className="card__content-emoji">
           {showEmoji(props.emoji)}
         </div>
-        <button onClick={() => props.deleteCardCallback(props.id)}
+        <button onClick={() => props.onDeleteCardCallback(props.id)}
         className="card__delete">Remove</button>
       </div>
     </div>
