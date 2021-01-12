@@ -31,6 +31,8 @@
 .card__content-text {
   text-overflow: ellipsis;
   overflow: hidden;
+
+  font-family: 'Permanent Marker', Helvetica, sans-serif;
 }
 
 .card__content-emoji {
