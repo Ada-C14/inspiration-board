@@ -13,7 +13,8 @@ const Board = (props) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const getCardsURLEndpoint = props.url + props.boardName + "/cards"
-
+  const deleteCardsURLEndpoint = props.url + "/cards/"
+  
   useEffect(() => {
     axios.get(getCardsURLEndpoint)
     .then( (response) => {
@@ -32,17 +33,41 @@ const Board = (props) => {
     });
   },[]);
 
-  const cards = cardList.map((card) => {
-    return <Card key={card.id} id = { card.id}
-  text = { card.text ? card.text : ''} emoji={ card.emoji ? card.emoji : ''}
-  />});
+  const deleteCard = (cardID) => {
+    const availableCards = cards.find((card) => { 
+      return (card.id !== cardID)
+    });
+    
+    axios.delete(deleteCardsURLEndpoint + cardID)
+    .then((response) => {
+      console.log(`${cardID} was deleted.`)
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+      console.log(`Whoops, card not deleted: ${errorMessage}`)
+    });
+    setCardList(availableCards)
+  }
+
+  const cards = () => {
+    return cardList.map((card) => {
+      return <Card 
+      key={card.id}
+      id={card.id}
+      text={card.text ? card.text : ''}
+      emoji={card.emoji ? card.emoji : ''}
+      deleteCardCallback = {deleteCard}
+      />
+    })
+  } 
+  
   
   
     return (
       <div>
         <h1>Board</h1>
         <main>
-          { cards }
+          { cards() }
         </main>
       </div>
     )

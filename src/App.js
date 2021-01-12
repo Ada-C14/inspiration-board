@@ -4,8 +4,8 @@ import Board from './components/Board';
 
 const App = () => {
 
-  const BOARD_NAME = "stacy"
-  const BOARD_URL = "https://inspiration-board.herokuapp.com/boards/"
+  const BOARD_NAME = "/boards/stacy"
+  const API_URL = "https://inspiration-board.herokuapp.com"
 
   return (
     <section>
@@ -13,7 +13,7 @@ const App = () => {
         <h1 className="header__h1"><span className="header__text">Inspiration Board</span></h1>
       </header>
       <Board
-        url={BOARD_URL}
+        url={API_URL}
         boardName={BOARD_NAME}
       />
     </section>
