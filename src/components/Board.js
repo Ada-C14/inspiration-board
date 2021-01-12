@@ -7,15 +7,28 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-const Board = () => {
-  return (
-    <div>
-      Board
-    </div>
-  )
-};
-Board.propTypes = {
+const Board = (props) => {
 
+
+  const cards = CARD_DATA.cards.map((card) => {
+    return <Card key={card.id} id = { card.id}
+  text = { card.text ? card.text : ''} emoji={ card.emoji ? card.emoji : ''}
+  />});
+  
+  
+    return (
+      <div>
+        <h1>Board</h1>
+        <main>
+          { cards }
+        </main>
+      </div>
+    )
+}
+
+Board.propTypes = {
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired
 };
 
 export default Board;
