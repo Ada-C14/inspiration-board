@@ -7,14 +7,26 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
+const cards = CARD_DATA.cards.map ((card) => {
+  console.log(card)
+  return (
+    <Card
+    key={card.id}
+    text={card.text}
+    emoji={card.emoji}
+    />
+  );
+})
+
+
 const Board = () => {
 
   useEffect(() => {
-    
-  })
+    localStorage.setItem('test', JSON.stringify(CARD_DATA));
+  }, []);
   return (
     <div>
-      Board
+      Board {cards}
     </div>
   )
 };
