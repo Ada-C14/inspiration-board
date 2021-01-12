@@ -6,7 +6,9 @@ import './Card.css';
 
 const Card = (props) => {
 
-
+const showEmoji = (emojiString) => {
+  return emoji.getUnicode(emojiString)
+}
 
 
 
@@ -17,10 +19,9 @@ const Card = (props) => {
           {props.text}
         </div>
         <div className="card__content-emoji">
-          {props.emoji}
+          {showEmoji(props.emoji)}
         </div>
       </div>
-      Card
     </div>
   )
 }
