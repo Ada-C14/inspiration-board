@@ -8,17 +8,17 @@ import NewCardForm from './NewCardForm';
 // import CARD_DATA from '../data/card-data.json';
 
 
-
 const Board = ({url, boardName}) => {
-  const API_BOARD_URL = `${url}${boardName}/`
+  const API_BOARD_URL = `${url}/boards/${boardName}/`
+  const API_CARD_URL = `${url}/cards/`
+
+
   const [cards, setCards] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
-    axios.get(API_BOARD_URL+'cards')
+    axios.get(API_BOARD_URL+'/cards')
       .then(response => {
-        console.log("data")
-        console.log(typeof response.data)
         const apiCardList = response.data
         setCards(apiCardList)
       })
@@ -28,9 +28,25 @@ const Board = ({url, boardName}) => {
       })
   },[])
 
+ const deleteCard = cardId => {
+   const updatedCards = cards.filter(({card}) => card.id !== cardId)
+
+   if (updatedCards.length < cards.length) {
+      axios.delete(API_CARD_URL+cardId)
+        .then( response => {
+          setCards(updatedCards)
+          setErrorMessage('')
+        })
+        .catch( error => {
+          setErrorMessage(`Unable to delete card ${cardId}`)
+        })
+   }  
+ }
+
+
   const cardComponents = cards.map(({card}) => {
     return(
-    <Card text={card.text} cardEmoji={card.emoji} key={card.id} />
+    <Card key={card.id} id={card.id} text={card.text} cardEmoji={card.emoji} deleteCardCallback={deleteCard} />
     )
   })
 
@@ -43,6 +59,7 @@ const Board = ({url, boardName}) => {
     </div>
   )
 };
+
 Board.propTypes = {
   url: PropTypes.string.isRequired,
   boardName: PropTypes.string.isRequired
