@@ -24,7 +24,7 @@ const Board = () => {
   //   localStorage.setItem('test', JSON.stringify(CARD_DATA));
   // }, []);
   return (
-    <div>
+    <div className="board">
       {cards}
     </div>
   )
