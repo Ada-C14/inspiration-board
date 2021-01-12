@@ -17,17 +17,22 @@ const Board = (props) => {
   useEffect(() => {
     axios.get(getCardsURLEndpoint)
     .then( (response) => {
-      const apiCardList = response.data;
+      const apiCardList = response.data.map((apiCard) => {
+        return {
+          id: apiCard['card']['id'],
+          text: apiCard['card']['text'],
+          emoji: apiCard['card']['emoji'],
+        }
+      });
       setCardList(apiCardList);
     })
     .catch((error) => {
       setErrorMessage(error.message);
-      console.log(error.message);
+      console.log(errorMessage);
     });
   },[]);
 
-  console.log(cardList)
-  const cards = cardList.card.map((card) => {
+  const cards = cardList.map((card) => {
     return <Card key={card.id} id = { card.id}
   text = { card.text ? card.text : ''} emoji={ card.emoji ? card.emoji : ''}
   />});
