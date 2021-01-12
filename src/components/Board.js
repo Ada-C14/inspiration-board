@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -9,8 +9,25 @@ import CARD_DATA from '../data/card-data.json';
 
 const Board = (props) => {
 
+  const [cardList, setCardList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const cards = CARD_DATA.cards.map((card) => {
+  const getCardsURLEndpoint = props.url + props.boardName + "/cards"
+
+  useEffect(() => {
+    axios.get(getCardsURLEndpoint)
+    .then( (response) => {
+      const apiCardList = response.data;
+      setCardList(apiCardList);
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+      console.log(error.message);
+    });
+  },[]);
+
+  console.log(cardList)
+  const cards = cardList.card.map((card) => {
     return <Card key={card.id} id = { card.id}
   text = { card.text ? card.text : ''} emoji={ card.emoji ? card.emoji : ''}
   />});
