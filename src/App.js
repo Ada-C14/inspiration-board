@@ -11,8 +11,8 @@ const App = () => {
       <Board
         url="https://inspiration-board.herokuapp.com/"
         // two boards were accidentally created -- 'christabel' has a bazillion accidental stickies
-        boardName={`christabel`}
-        // boardName={`christabel-sebastian`}
+        // boardName={`christabel`}
+        boardName={`christabel-sebastian`}
       />
     </section>
   );

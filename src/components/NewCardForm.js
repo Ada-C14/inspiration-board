@@ -21,10 +21,10 @@ const NewCardForm = (props) => {
 
   return(
     <div className='new-card-form'>
-      <h3>Add a new Sticky to the Board</h3>
+      <h3 className='new-card-form__header'>Add a new sticky note to the Inspiration Board</h3>
       <form className='new-card-form__form'>
         <input 
-          className='.new-card-form__form-textarea' 
+          className='new-card-form__form-textarea' 
           placeholder='Enter an inspiring message...' 
           name='text' 
           type='text' 
@@ -39,10 +39,10 @@ const NewCardForm = (props) => {
               )
             })
           }
+
         </select>
-
-
         <input className='new-card-form__form-button' value='Add Sticky' onClick={(event) => {props.addNewCard(event, formFields)}} type='submit' />
+
       </form>
     </div>
   )
