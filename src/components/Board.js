@@ -8,6 +8,10 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 const Board = () => {
+
+  useEffect(() => {
+    
+  })
   return (
     <div>
       Board
