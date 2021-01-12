@@ -38,7 +38,7 @@ const Board = (props) => {
     <div className="board">
       <Card text="hello" emoji="beer" />
       <Card text="fuck shit" emoji="cat" />
-      <Card text="i am smart" emoji="brain" />
+      <Card text="i am smart" emoji="heart" />
     </div>
   )
 };
