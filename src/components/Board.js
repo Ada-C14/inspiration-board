@@ -9,9 +9,18 @@ import CARD_DATA from '../data/card-data.json';
 
 const Board = () => {
   const cards = CARD_DATA.cards.map((card) => {
-    return <Card text={card.text} emoji={card.emoji} />});
+    return (
+    <Card text={card.text} emoji={card.emoji} />
+    );
+  });
+
+
   
-  return {cards}
+  return (
+    <div>
+      {cards}
+    </div>)
+
 };
 
 Board.propTypes = {
