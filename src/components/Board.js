@@ -36,11 +36,36 @@ const Board = ({boardName}) => {
     })
   }, [boardName]);
 
+  const updateBoard = (updatedBoard) => {
+    const cards = [];
+
+    cardlist.forEach((card) => {
+      if (card.text === updatedBoard.text) {
+        cards.push(updatedBoard)
+      }
+      else 
+      cards.push(card)
+    });
+    
+    setCardList(cards);
+  };
+
+  const addCard = (card) => {
+    axios.post(`${API_URL}/${boardName}`, card)
+      .then((response) => {
+        const updatedBoard = [...cardlist, response.data]
+        setCardList(updatedBoard);
+        setErrorMessage('');
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+  }
+
   return (
     <div>
       Board
       {errorMessage ? <div className='error-msg'>{errorMessage}</div> : ''}
-
       {cardComponent}
     </div>
   )
