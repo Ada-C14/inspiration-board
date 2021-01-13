@@ -31,7 +31,7 @@ const Board = ({url, boardName}) => {
     const newCards = cards.filter(({card}) => card.id !== cardId)
 
     if (newCards.length < cards.length) {
-        axios.delete(API_CARD_URL+"cardId")
+        axios.delete(API_CARD_URL+cardId)
           .then( response => {
             setCards(newCards)
             setErrorMessage('')

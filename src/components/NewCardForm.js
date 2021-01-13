@@ -42,13 +42,14 @@ const NewCardForm = ({onSubmitCardCallback}) => {
         <label className="new-card-form__form-label" htmlFor="text">Message</label>
         <textarea className="new-card-form__form-textarea" onChange={onInputChange} name="text" value={cardFormFields.text} placeholder="Enter inspirational message here..." rows="4" cols="50" />
 
-          <label className="new-card-form__form-label" htmlFor="emoji">Emoji</label>
-          <div className="new-card-form__form-select">
-            {EMOJI_LIST.map( (emoji, i) => (
-                      emoji ? <button className="new-card-form__form-button" key={i} onClick={onInputChange} name="emoji" value={emoji}>{emojiName.getUnicode(emoji)}</button> : null
-                    ))}
-          </div>
-        <input type="submit" value="Add Card" className="new-card-form__form-button" />
+        <label className="new-card-form__form-label" htmlFor="emoji">Emoji</label>
+        <div className="new-card-form__form-buttons">
+          {EMOJI_LIST.map( (emoji, i) => (
+            <button className={"new-card-form__form-button " + (cardFormFields.emoji === emoji ? "active" : "")} key={i} onClick={onInputChange} name="emoji" value={emoji}>{emoji ? emojiName.getUnicode(emoji) : "None" }</button>
+          ))}
+        </div>  
+          
+        <input type="submit" value="Add Card" className="new-card-form__form-submit" />
       </form>
     </div>
 
