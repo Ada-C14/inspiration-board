@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import emoji from 'emoji-dictionary';
+import emojiName from 'emoji-dictionary';
 
 import './Card.css';
 
-const Card = ({id, text, cardEmoji, deleteCardCallback}) => {
+const Card = ({card, deleteCardCallback}) => {
+  const { id, text, emoji } = card
+
   return (
     <div className="card">
       {text ? text : null}
-      {cardEmoji ? emoji.getUnicode(cardEmoji) : null}
+      {emoji ? emojiName.getUnicode(emoji) : null}
       <button onClick={() => deleteCardCallback(id)}>Delete Card</button>
     </div>
   )
@@ -17,7 +19,7 @@ const Card = ({id, text, cardEmoji, deleteCardCallback}) => {
 Card.propTypes = {
   id: PropTypes.number.isRequired,
   text: PropTypes.string,
-  cardEmoji: PropTypes.string,
+  emoji: PropTypes.string,
   deleteCardCallback: PropTypes.func.isRequired
 };
 

@@ -12,7 +12,6 @@ const Board = ({url, boardName}) => {
   const API_BOARD_URL = `${url}/boards/${boardName}/`
   const API_CARD_URL = `${url}/cards/`
 
-
   const [cards, setCards] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
 
@@ -28,32 +27,45 @@ const Board = ({url, boardName}) => {
       })
   },[])
 
- const deleteCard = cardId => {
-   const updatedCards = cards.filter(({card}) => card.id !== cardId)
+  const deleteCard = cardId => {
+    const newCards = cards.filter(({card}) => card.id !== cardId)
 
-   if (updatedCards.length < cards.length) {
-      axios.delete(API_CARD_URL+cardId)
-        .then( response => {
-          setCards(updatedCards)
-          setErrorMessage('')
-        })
-        .catch( error => {
-          setErrorMessage(`Unable to delete card ${cardId}`)
-        })
-   }  
- }
+    if (newCards.length < cards.length) {
+        axios.delete(API_CARD_URL+cardId)
+          .then( response => {
+            setCards(newCards)
+            setErrorMessage('')
+          })
+          .catch( error => {
+            setErrorMessage(`Unable to delete card ${cardId}`)
+          })
+    }  
+  }
 
+  const addCard = cardData => {
+    const newCards = [...cards]
+
+    const nextId = newCards.reduce((accumulator, {card}) => {
+      return Math.max(accumulator, card.id);
+    }, 0)
+
+    cardData.id = nextId
+
+    newCards.push({card: cardData})
+
+    setCards(newCards)
+  }
 
   const cardComponents = cards.map(({card}) => {
     return(
-    <Card key={card.id} id={card.id} text={card.text} cardEmoji={card.emoji} deleteCardCallback={deleteCard} />
+    <Card key={card.id} card={card} deleteCardCallback={deleteCard} />
     )
   })
 
   return (
     <div>
-      Board
       { errorMessage ? errorMessage : null }
+      <NewCardForm onSubmitCardCallback={addCard} />
       { cardComponents }
     
     </div>
