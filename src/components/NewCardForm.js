@@ -10,28 +10,29 @@ const NewCardForm = ({onSubmitCardCallback}) => {
     id: null,
     text: "",
     emoji: ""
-  }
+  };
 
-  const [cardFormFields, setCardFormFields] = useState(emptyFields)
+  const [cardFormFields, setCardFormFields] = useState(emptyFields);
 
   const onInputChange = event => {
     event.preventDefault();
 
-    const { name, value } = event.target
+    const { name, value } = event.target;
     
     const newFormFields = {
       ...cardFormFields
-    }
-    newFormFields[name] = value
-    setCardFormFields(newFormFields)
+    };
+
+    newFormFields[name] = value;
+    setCardFormFields(newFormFields);
   }
 
   const onFormSubmit = event => {
     event.preventDefault();
 
-    onSubmitCardCallback(cardFormFields)
-    setCardFormFields(emptyFields)
-  }
+    onSubmitCardCallback(cardFormFields);
+    setCardFormFields(emptyFields);
+  };
   
 
   return(
@@ -52,9 +53,8 @@ const NewCardForm = ({onSubmitCardCallback}) => {
         <input type="submit" value="Add Card" className="new-card-form__form-submit" />
       </form>
     </div>
-
-  )
-}
+  );
+};
 
 NewCardForm.propTypes = {
   onSubmitCardCallback: PropTypes.func.isRequired
