@@ -2,7 +2,8 @@
 
 .new-card-form {
   width: 50%;
-  margin: auto;
+  max-width: 30rem;
+  margin: auto ;
   padding-bottom: 4rem;
 }
 
@@ -22,6 +23,7 @@
 .new-card-form__form-label  {
   grid-column: labels;
   grid-row: auto;
+  display: block
 }
 
 .new-card-form__form-select,
@@ -31,7 +33,13 @@
   font-size: 1.25em;
   grid-column: controls;
   grid-row: auto;
+  
 }
+
+.new-card-form__form-select button{
+  margin: 0.2rem
+}
+
 
 .new-card-form__form-button {
   background-color: inherit;

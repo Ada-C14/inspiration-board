@@ -31,7 +31,7 @@ const Board = ({url, boardName}) => {
     const newCards = cards.filter(({card}) => card.id !== cardId)
 
     if (newCards.length < cards.length) {
-        axios.delete(API_CARD_URL+cardId)
+        axios.delete(API_CARD_URL+"cardId")
           .then( response => {
             setCards(newCards)
             setErrorMessage('')
@@ -43,17 +43,15 @@ const Board = ({url, boardName}) => {
   }
 
   const addCard = cardData => {
-    const newCards = [...cards]
-
-    const nextId = newCards.reduce((accumulator, {card}) => {
-      return Math.max(accumulator, card.id);
-    }, 0)
-
-    cardData.id = nextId
-
-    newCards.push({card: cardData})
-
-    setCards(newCards)
+    axios.post(API_BOARD_URL+'/cards', cardData)
+      .then( response => {
+        const newCards = [...cards, response.data]
+        setCards(newCards)
+        setErrorMessage('')
+      })
+      .catch( error => {
+        setErrorMessage(error.message)
+      })
   }
 
   const cardComponents = cards.map(({card}) => {
@@ -63,8 +61,8 @@ const Board = ({url, boardName}) => {
   })
 
   return (
-    <div>
-      { errorMessage ? errorMessage : null }
+    <div className="board">
+      { errorMessage ? <div className="validation-errors-display">{errorMessage}</div> : null }
       <NewCardForm onSubmitCardCallback={addCard} />
       { cardComponents }
     

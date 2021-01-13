@@ -9,9 +9,11 @@ const Card = ({card, deleteCardCallback}) => {
 
   return (
     <div className="card">
-      {text ? text : null}
-      {emoji ? emojiName.getUnicode(emoji) : null}
-      <button onClick={() => deleteCardCallback(id)}>Delete Card</button>
+      <div className="card__content">
+        <p className="card__content-text">{text ? text : null}</p>
+        <p className="card__content-emoji">{emoji ? emojiName.getUnicode(emoji) : null}</p>
+      </div>
+      <button className="card__delete" onClick={() => deleteCardCallback(id)}>Delete Card</button>
     </div>
   )
 }
