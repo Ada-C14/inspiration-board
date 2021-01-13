@@ -7,22 +7,26 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-const cards = CARD_DATA.cards.map ((card) => {
-  return (
-    <Card
-    key={card.id}
-    text={card.text}
-    emoji={card.emoji}
-    />
-  );
-})
+const Board = (props) => {
+  const cards = CARD_DATA.cards.map ((card) => {
+    return (
+      <Card
+      key={card.id}
+      text={card.text}
+      emoji={card.emoji}
+      />
+    );
+  })
 
-
-const Board = () => {
-
-  // useEffect(() => {
-  //   localStorage.setItem('test', JSON.stringify(CARD_DATA));
-  // }, []);
+  useEffect(() => {
+    axios.get(props.url/props.boardName)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error.data)
+    });
+  }, []);
   return (
     <div className="board">
       {cards}
