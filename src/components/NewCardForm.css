@@ -19,12 +19,18 @@
   grid-gap: .8em;
 }
 
-.new-card-form__form-label  {
+/* .new-card-form__form-label  {
+  grid-column: labels;
+  grid-row: auto;
+} */
+
+
+.new-card-form__form-select  {
   grid-column: labels;
   grid-row: auto;
 }
 
-.new-card-form__form-select,
+/* .new-card-form__form-select, */
 .new-card-form__form-textarea,
 .new-card-form__form-button {
   font-family: 'Raleway', sans-serif;
@@ -33,8 +39,14 @@
   grid-row: auto;
 }
 
+
 .new-card-form__form-button {
   background-color: inherit;
   border: 1px solid black;
   font-size: 1em;
+  width: 150px;
+}
+
+.new-card-form__form-button:hover {
+  background-color: gray;
 }

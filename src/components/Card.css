@@ -12,6 +12,7 @@
 
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
+  grid-template-rows: 3fr 1fr;
   align-items: center;
 }
 
@@ -30,6 +31,8 @@
 .card__content-text {
   text-overflow: ellipsis;
   overflow: hidden;
+
+  font-family: 'Permanent Marker', Helvetica, sans-serif;
 }
 
 .card__content-emoji {
@@ -41,7 +44,17 @@
   margin: 0;
 }
 
-.card__delete {
+.card__delete-button {
   align-self: start;
   font-family: 'Permanent Marker', Helvetica, sans-serif;
+}
+
+.card__delete {
+  grid-row-start: 2;
+  grid-column-start: 2;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: top;
+
 }
