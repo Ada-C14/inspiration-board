@@ -2,7 +2,8 @@
 
 .new-card-form {
   width: 50%;
-  margin: auto;
+  max-width: 30rem;
+  margin: auto ;
   padding-bottom: 4rem;
 }
 
@@ -22,19 +23,30 @@
 .new-card-form__form-label  {
   grid-column: labels;
   grid-row: auto;
+  display: block
 }
 
-.new-card-form__form-select,
 .new-card-form__form-textarea,
-.new-card-form__form-button {
+.new-card-form__form-button,
+.new-card-form__form-submit {
   font-family: 'Raleway', sans-serif;
-  font-size: 1.25em;
+  font-size: 1em;
   grid-column: controls;
   grid-row: auto;
+  background-color: white;
 }
 
-.new-card-form__form-button {
+.new-card-form__form-button{
+  margin: 0.1em;
+  border-color: rgb(198, 230, 198);
+  border-style: double
+}
+
+.new-card-form__form-submit {
   background-color: inherit;
   border: 1px solid black;
-  font-size: 1em;
+}
+
+.active {
+  background-color: rgb(237, 203, 244)
 }
