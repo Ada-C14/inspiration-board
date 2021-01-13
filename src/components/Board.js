@@ -7,21 +7,16 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-const Board = (cards) => {
-  // let cardsList = [];
-
-  // for(const card of cards){
-  //   cardsList.push(<Card text={card.text} emoji={card.emoji}/>)
-  // }
-
-  return (
-    <div className='board'>
-      <Card text="test" emoji="smile"/>
-    </div>
-  )
+const Board = () => {
+  const cards = CARD_DATA.cards.map((card) => {
+    return <Card text={card.text} emoji={card.emoji} />});
+  
+  return {cards}
 };
-Board.propTypes = {
 
+Board.propTypes = {
+// url: PropTypes.string.isRequired,
+// boardName: PropTypes.string.isRequired
 };
 
 export default Board;
