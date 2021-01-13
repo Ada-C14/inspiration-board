@@ -81,7 +81,6 @@ const Board = ({url, boardName}) => {
         setErrorMessage(message);
         console.log(message)
       })
-
   }
 
   const loadBoard = () => {
@@ -91,9 +90,13 @@ const Board = ({url, boardName}) => {
   }
 
   return (
-    <div className='board'>
-      <NewCardForm nextId={nextId} addNewCard={addNewCardCallback} />
-      {loadBoard()}
+    <div>
+      <div className='new-card-form'>
+        <NewCardForm nextId={nextId} addNewCard={addNewCardCallback} />
+      </div>
+      <div className='board'>
+        {loadBoard()}
+      </div>
     </div>
   )
 };

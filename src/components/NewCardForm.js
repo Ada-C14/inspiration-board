@@ -21,7 +21,7 @@ const NewCardForm = (props) => {
 
   return(
     <div className='new-card-form'>
-      <h3 className='new-card-form__header'>Add a new sticky note to the Inspiration Board</h3>
+      <h3 className='new-card-form__header'>Add a new sticky note to this board!</h3>
       <form className='new-card-form__form'>
         <input 
           className='new-card-form__form-textarea' 
@@ -33,9 +33,9 @@ const NewCardForm = (props) => {
         
         <select name='emojiName' onChange={onInputChange} id='emoji'>
           {
-            EMOJI_LIST.map((emojiSelection) => {
+            EMOJI_LIST.map((emojiSelection, i) => {
               return (
-                <option value={emojiSelection} >{emoji.getUnicode(emojiSelection)}</option>
+                <option value={emojiSelection} key={emojiSelection.concat(i)}>{emoji.getUnicode(emojiSelection)}</option>
               )
             })
           }
@@ -50,7 +50,7 @@ const NewCardForm = (props) => {
 
 NewCardForm.propTypes = {
  nextId: PropTypes.number.isRequired,
- addNewCardCallback: PropTypes.func.isRequired,
+ addNewCard: PropTypes.func.isRequired,
 }
 
 export default NewCardForm;
