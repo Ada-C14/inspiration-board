@@ -8,9 +8,14 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 const Board = () => {
+  const cardComponents = CARD_DATA.cards.map((card) => {
+    return (
+      <Card text={card.text} emoji={card.emoji} />
+    )
+  })
   return (
     <div>
-      Board
+      {cardComponents}
     </div>
   )
 };
