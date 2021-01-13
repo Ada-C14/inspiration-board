@@ -29,7 +29,14 @@ const Board = () => {
     </div>
   )
 };
+
 Board.propTypes = {
+  cards: PropTypes.arrayOf(PropTypes.shape(
+    {
+      text: PropTypes.string,
+      emoji: PropTypes.string,
+    },
+  )),
 
 };
 
