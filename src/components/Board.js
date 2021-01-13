@@ -7,10 +7,25 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
+const cards = CARD_DATA.cards
+
 const Board = () => {
+  const cardComponent = cards.map((card, i) => {
+    return (
+        <Card
+        key={i}
+        text={card.text}
+        emoji={card.emoji}
+    />
+    )
+  })
+  console.log(cardComponent);
+
+  
   return (
     <div>
       Board
+      {cardComponent}
     </div>
   )
 };
