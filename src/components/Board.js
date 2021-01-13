@@ -7,10 +7,10 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-const Board = () => {
+const Board = (props) => {
   return (
     <div>
-      Board
+      {props.boardName}'s Board
     </div>
   )
 };
