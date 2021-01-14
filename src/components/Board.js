@@ -31,7 +31,7 @@ const Board = (props) => {
     })
 
     if (newCards.length < cards.length) {
-      axios.delete(`${props.url}${props.boardName}/cards/${id}`)
+      axios.delete(`${props.cardURL}/${id}`)
       .then((response) => {
         setErrorMessage(`Card ${id} deleted!`)
       })
