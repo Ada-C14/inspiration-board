@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
 const Board = ({url, boardName}) => {
   const [cardList, setCardList] = useState([]);
@@ -14,7 +14,6 @@ const Board = ({url, boardName}) => {
   useEffect(() => {
     axios.get(`${url}/${boardName}/cards/`)
     .then((response) => {
-      console.log(response.data)
       setCardList(response.data);
     })
     .catch((error) => {
@@ -38,6 +37,18 @@ const Board = ({url, boardName}) => {
     }
   }
 
+  const newCard = (card) => {
+    axios.post(`${url}/${boardName}/cards/`, card)
+      .then((response) => {
+        const updatedData = [...cardList, response.data];
+        setCardList(updatedData);
+        setErrorMessage('');
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+  }
+
   const cardComponents = cardList.map((card, i) => {
     return (
       <Card
@@ -55,11 +66,12 @@ const Board = ({url, boardName}) => {
   return (
     <div className='board'>
       { errorMessage ? <div><h2 className="validation-errors-display">{errorMessage}</h2></div> : '' }
-      <NewCardForm />
+      <NewCardForm addNewCard={newCard}/>
       {cardComponents}
     </div>
   )
 };
+
 Board.propTypes = {
   url: PropTypes.string.isRequired,
   boardName: PropTypes.string.isRequired
