@@ -14,7 +14,7 @@ const Board = (props) => {
   useEffect(() => {
     axios.get(`${props.url}${props.boardName}/cards`) 
       .then((response) => {
-        // console.log(response)
+        console.log(response)
         const apiCardList = response.data; 
         setCardList(apiCardList);
       })
@@ -23,11 +23,30 @@ const Board = (props) => {
       });
   }, []);
 
-  const cardComponents = CARD_DATA.cards.map((card) => {
+  const cardComponents = cardList.map(({card}) => {
     return (
-    <Card text={card.text} emoji={card.emoji}/>
+    <Card 
+        text={card.text} emoji={card.emoji} key={card.id} onDeleteCallback={deleteCard}/>
     )
   })
+
+  const deleteCard = (cardId) => {
+    const updatedCards = cardList.filter((card) => { 
+      return card.card.id !== cardId;
+    })
+
+    if (updatedCards.length < cardList.length) {
+      axios.delete(`${props.url}/cards/${cardId}`)
+      .then((response) => {
+        setCardList(updatedCards);
+        console.log(`Card ${cardId} successfully deleted`)
+      })
+      .catch((error) => {
+        setErrorMessage(`Card ${cardId} could not be deleted`);
+        console.log(errorMessage)
+      });
+    }
+  }
 
   return (
     <div>
