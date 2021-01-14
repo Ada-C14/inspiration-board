@@ -26,7 +26,7 @@ const Board = (props) => {
   const cardComponents = cardList.map(({card}) => {
     return (
     <Card 
-        text={card.text} emoji={card.emoji} key={card.id} onDeleteCallback={deleteCard}/>
+        text={card.text} emoji={card.emoji} key={card.id} id={card.id} onDeleteCallback={deleteCard}/>
     )
   })
 
@@ -48,9 +48,24 @@ const Board = (props) => {
     }
   }
 
+  const addCard = (card) => {
+    axios.post(`${props.url}${props.boardName}/cards`, card)
+      .then((response) => {
+        const updatedCards = [...cardList, response.data]
+        console.log("Card successfully added.")
+        setCardList(updatedCards);
+        setErrorMessage('');
+      })
+      .catch((error) => {
+        setErrorMessage('Card could not be added')
+      });
+
+  }
+
   return (
     <div>
       {cardComponents}
+      <NewCardForm onAddCard={addCard} />
     </div>
   )
 };
@@ -58,7 +73,6 @@ const Board = (props) => {
 Board.propTypes = {
   url: PropTypes.string.isRequired, 
   boardName: PropTypes.string.isRequired
-
 };
 
 export default Board;
