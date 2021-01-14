@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
 const Board = (props) => {
 
@@ -26,17 +26,18 @@ const Board = (props) => {
   
   const deleteCard = (id) => {
     
-    const newCards = cards.filter((card) => {
-      return card.id !== id;
+    const newCards = cards.filter((oneCard) => {
+      return oneCard.card.id !== id;
     })
 
     if (newCards.length < cards.length) {
-      axios.delete(`${props.cardURL}/${id}`)
+      axios.delete(`${props.cardUrl}${id}`)
       .then((response) => {
         setErrorMessage(`Card ${id} deleted!`)
       })
       .catch((error) => {
         setErrorMessage(`Unable to delete card #${id}`);
+        console.log(errorMessage)
       })
       setCards(newCards);
     }
@@ -57,15 +58,14 @@ const Board = (props) => {
   const cardComponents = cards.map(({card}) => {
     return(
     <Card key={card.id} 
-    id={card.id} 
     card={card} 
     deleteCardCallback={deleteCard}/>
     );
   });
 
   return (
-    <div classname="board">
-      <NewCardForm onAddCard={addCard}/>
+    <div className="board">
+      <NewCardForm onAddCallBack={addCard}/>
       {cardComponents}
     </div>
   )
