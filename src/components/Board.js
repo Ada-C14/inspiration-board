@@ -26,8 +26,8 @@ const Board = (props) => {
   
   const deleteCard = (id) => {
     
-    const newCards = cards.filter((singleCard) => {
-      return singleCard.card.id !== id;
+    const newCards = cards.filter((card) => {
+      return card.id !== id;
     })
 
     if (newCards.length < cards.length) {
@@ -42,6 +42,18 @@ const Board = (props) => {
     }
   }
 
+  const addCard = (card) => {
+    axios.post(`${props.url}${props.boardName}/cards`, card)
+      .then( response => {
+        const newCard = [...cards, response.data]
+        setCards(newCard)
+        setErrorMessage('')
+      })
+      .catch( error => {
+        setErrorMessage(error.message)
+      });
+  };
+
   const cardComponents = cards.map(({card}) => {
     return(
     <Card key={card.id} 
@@ -52,14 +64,16 @@ const Board = (props) => {
   });
 
   return (
-    <div>
+    <div classname="board">
+      <NewCardForm onAddCard={addCard}/>
       {cardComponents}
-
     </div>
   )
 };
 Board.propTypes = {
-
+  url: PropTypes.string.isRequired,
+  cardUrl: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired
 };
 
 export default Board;
