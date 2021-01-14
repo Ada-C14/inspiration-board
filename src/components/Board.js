@@ -7,20 +7,36 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-const Board = (props) => {
-  // const [cardList, setCardList] = useState([]);
-  const cardList = CARD_DATA.cards.map((card, i) => {
+const Board = ({url, boardName}) => {
+  const [cardList, setCardList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    axios.get(`${url}/${boardName}/cards`)
+    .then((response) => {
+      console.log(response.data)
+      setCardList(response.data);
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    });
+  }, []);
+
+
+  const cardComponents = cardList.map((card, i) => {
     return (
       <Card
-        text={card.text}
-        emoji={card.emoji}
+        text={card.card.text}
+        emoji={card.card.emoji}
+        id={card.card.id}
         key={i}
       />
     );
   });
+
   return (
     <div className='board'>
-      {cardList}
+      {cardComponents}
     </div>
   )
 };
