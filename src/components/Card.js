@@ -8,17 +8,16 @@ const Card = (props) => {
   return (
     <div className="card">
       <div className= "card_content">
-      <p className="card_content_text">You can do it!!</p>
-      <p className="card_content_emoji">{emoji.getUnicode ("heart eyes")}</p>
+      <p className="card__content_text">You can do it Ana!!</p>
+      <p className="card__content_emoji">{emoji.getUnicode("heart eyes")}</p>
       </div>
     </div>
   )
 }
 
 Card.propTypes = {
-  id: PropTypes.number,
-  text: PropTypes.string,
-  emoji: PropTypes.string,
+  text: PropTypes.string.isRequired,
+  emoji: PropTypes.string.isRequired
 };
 
 export default Card;
