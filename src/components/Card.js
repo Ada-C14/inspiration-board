@@ -21,7 +21,7 @@ const Card = (props) => {
 Card.propTypes = {
   text: PropTypes.string,
   emoji: PropTypes.string,
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
   onDeleteCard: PropTypes.func.isRequired
 };
 

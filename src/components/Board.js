@@ -12,7 +12,7 @@ const Board = ({url, boardName}) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    axios.get(`${url}/${boardName}/cards`)
+    axios.get(`${url}/${boardName}/cards/`)
     .then((response) => {
       console.log(response.data)
       setCardList(response.data);
@@ -33,7 +33,7 @@ const Board = ({url, boardName}) => {
           setCardList(newCardList);
         })
         .catch((error) => {
-          setErrorMessage(`Unable to delete student ${ id }`);
+          setErrorMessage(`Unable to delete card ${ id }`);
         })
     }
   }
@@ -54,6 +54,8 @@ const Board = ({url, boardName}) => {
 
   return (
     <div className='board'>
+      { errorMessage ? <div><h2 className="validation-errors-display">{errorMessage}</h2></div> : '' }
+      <NewCardForm />
       {cardComponents}
     </div>
   )
