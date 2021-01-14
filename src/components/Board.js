@@ -44,7 +44,10 @@ const Board = (props) => {
 
   const cardComponents = cards.map(({card}) => {
     return(
-    <Card key={card.id} id={card.id} card={card} deleteCardCallback={deleteCard}/>
+    <Card key={card.id} 
+    id={card.id} 
+    card={card} 
+    deleteCardCallback={deleteCard}/>
     );
   });
 
