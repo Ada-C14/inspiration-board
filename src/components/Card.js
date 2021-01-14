@@ -6,10 +6,13 @@ import './Card.css';
 
 const Card = (props) => {
   return (
-    <div className="card">
-      <div className="card_content">
+    <div className='card'>
+      <div className='card__content'>
         <p className='card__content-text'>{props.text}</p>
-        <p className='card__content-emoji'>{props.emoji}</p>
+        <p className='card__content-emoji'>{props.emoji}</p>        
+      </div>
+      <div>      
+        <button className='card_delete' onClick={() => props.onDeleteCard(props.id)}>X</button>
       </div>
     </div>
   )
@@ -18,7 +21,8 @@ const Card = (props) => {
 Card.propTypes = {
   text: PropTypes.string,
   emoji: PropTypes.string,
-  id: PropTypes.number
+  id: PropTypes.number,
+  onDeleteCard: PropTypes.func.isRequired
 };
 
 export default Card;

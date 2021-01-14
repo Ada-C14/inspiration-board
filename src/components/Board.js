@@ -22,6 +22,21 @@ const Board = ({url, boardName}) => {
     });
   }, []);
 
+  const deleteCard = (id) => {
+    const newCardList = cardList.filter((card) => {
+      return card.card.id !== id;
+    });
+
+    if (newCardList.length < cardList.length) {
+      axios.delete(`https://inspiration-board.herokuapp.com/cards/${ id }`)
+        .then((response) => {
+          setCardList(newCardList);
+        })
+        .catch((error) => {
+          setErrorMessage(`Unable to delete student ${ id }`);
+        })
+    }
+  }
 
   const cardComponents = cardList.map((card, i) => {
     return (
@@ -30,9 +45,12 @@ const Board = ({url, boardName}) => {
         emoji={card.card.emoji}
         id={card.card.id}
         key={i}
+        onDeleteCard={deleteCard}
       />
     );
   });
+
+
 
   return (
     <div className='board'>
