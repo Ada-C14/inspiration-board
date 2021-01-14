@@ -8,8 +8,8 @@ const Card = (props) => {
   return (
     <div className="card">
       <div className= "card_content">
-      <p className="card__content_text">You can do it Ana!!</p>
-      <p className="card__content_emoji">{emoji.getUnicode("heart eyes")}</p>
+      <p className="card__content-text">{props.text}</p>
+      <p className="card__content-emoji">{props.emoji ? emoji.getUnicode(props.emoji) : '' }</p>
       </div>
     </div>
   )

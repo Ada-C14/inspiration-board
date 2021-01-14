@@ -7,10 +7,17 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
+const API_URL_BASE = "https://inspiration-board.herokuapp.com/";
+
 const Board = () => {
+  const cardComponents = CARD_DATA.cards.map((card) => {
+    return (
+      <Card text ={card.text} emoji={card.emoji} />
+    )
+  })
   return (
     <div>
-      <Card/>
+      {cardComponents}
     </div>
   )
 };
