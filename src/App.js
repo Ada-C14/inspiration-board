@@ -10,10 +10,10 @@ const App = () => {
       </header>
       <Board
         url="https://inspiration-board.herokuapp.com/boards/"
-        boardName={`Ada-Lovelace`}
+        cardUrl="https://inspiration-board.herokuapp.com/cards/"
+        boardName={`li-dai`}
       />
     </section>
   );
 };
-
 export default App;
