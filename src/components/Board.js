@@ -62,12 +62,11 @@ const Board = ({url, boardName}) => {
   });
 
 
-
   return (
     <div className='board'>
       { errorMessage ? <div><h2 className="validation-errors-display">{errorMessage}</h2></div> : '' }
+      {cardComponents}      
       <NewCardForm addNewCard={newCard}/>
-      {cardComponents}
     </div>
   )
 };
