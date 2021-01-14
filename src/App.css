@@ -33,3 +33,10 @@ h1, h2 {
 
   transform: rotate(-3deg) skew(-3deg);
 }
+
+.new-board {
+  width: 50%;
+  margin: auto;
+  padding-bottom: 4rem;
+  font-size: 1.5em;
+}
