@@ -3,6 +3,7 @@ import './App.css';
 import Board from './components/Board';
 
 const App = () => {
+  const emoji = require("emoji-dictionary");
   return (
     <section>
       <header className="header">
