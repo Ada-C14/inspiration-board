@@ -11,6 +11,7 @@ const Board = () => {
   return (
     <div>
       Board
+      <Card/>
     </div>
   )
 };
