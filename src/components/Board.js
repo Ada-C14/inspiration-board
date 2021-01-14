@@ -24,14 +24,34 @@ const Board = (props) => {
       });
   }, []);
   
+  const deleteCard = (id) => {
+    
+    const newCards = cards.filter((singleCard) => {
+      return singleCard.card.id !== id;
+    })
+
+    if (newCards.length < cards.length) {
+      axios.delete(`${props.url}${props.boardName}/cards/${id}`)
+      .then((response) => {
+        setErrorMessage(`Card ${id} deleted!`)
+      })
+      .catch((error) => {
+        setErrorMessage(`Unable to delete card #${id}`);
+      })
+      setCards(newCards);
+    }
+  }
+
   const cardComponents = cards.map(({card}) => {
     return(
-    <Card key={card.id} card={card}/>
+    <Card key={card.id} id={card.id} card={card} deleteCardCallback={deleteCard}/>
     );
   });
+
   return (
     <div>
-      Board
+      {cardComponents}
+
     </div>
   )
 };
