@@ -1,6 +1,9 @@
 import React from 'react';
 import './App.css';
 import Board from './components/Board';
+import emoji from 'emoji-dictionary';
+
+import axios from 'axios';
 
 const App = () => {
   return (
@@ -10,7 +13,7 @@ const App = () => {
       </header>
       <Board
         url="https://inspiration-board.herokuapp.com/boards/"
-        boardName={`Ada-Lovelace`}
+        boardName={`Ana-Parada`}
       />
     </section>
   );

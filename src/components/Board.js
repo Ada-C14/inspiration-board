@@ -11,13 +11,15 @@ const API_BOARD_URL = "https://inspiration-board.herokuapp.com/";
 
 const Board = (props) => {
 
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState(CARD_DATA.cards);
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    axios.get(API_BOARD_URL)
+    axios.get(`${props.url}${props.boardName}/cards`)
       .then((response) => {
-        const apiCards = response.data
+        const apiCards = response.data.map(data => {
+          return data.card
+        });
         setCards(apiCards);
       })
       .catch((error) => {
@@ -26,7 +28,7 @@ const Board = (props) => {
   }, []);
 
   
-  const cardComponents = CARD_DATA.cards.map((card) => {
+  const cardComponents = cards.map((card) => {
     return (
       <Card text ={card.text} emoji={card.emoji} />
     );
