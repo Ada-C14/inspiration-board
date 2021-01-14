@@ -13,12 +13,12 @@ const Board = ({url, boardName}) => {
 
   useEffect(() => {
     axios.get(`${url}/${boardName}/cards/`)
-    .then((response) => {
-      setCardList(response.data);
-    })
-    .catch((error) => {
-      setErrorMessage(error.message);
-    });
+      .then((response) => {
+        setCardList(response.data);
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
   }, []);
 
   const deleteCard = (id) => {
@@ -60,7 +60,6 @@ const Board = ({url, boardName}) => {
       />
     );
   });
-
 
   return (
     <div className='board'>
