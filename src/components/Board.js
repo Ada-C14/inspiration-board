@@ -31,7 +31,10 @@ const Board = (props) => {
     )
   })
   return (
-    <div>
+    <div className="board">
+      { errorMessage ? <div className='validation-errors-display'>
+          <ul className='validation-errors-display__list'>{ errorMessage }</ul>
+          </div> : '' }
       {cardComponents}
     </div>
   )
