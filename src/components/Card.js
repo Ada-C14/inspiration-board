@@ -17,7 +17,8 @@ const Card = (props) => {
 }
 
 Card.propTypes = {
-
+  card: PropTypes.object.isRequired,
+  deleteCardCallback: PropTypes.func.isRequired
 };
 
 export default Card;
