@@ -5,66 +5,71 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
 
-const cards = CARD_DATA.cards
-const API_URL = "https://inspiration-board.herokuapp.com/boards/"
 
-const Board = ({boardName}) => {
-  const [cardlist, setCardList] = useState([]);
+const Board = ({url, boardName, cardUrl}) => {
+// console.log(url)
+  const [cardList, setCardList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
-
-  const cardComponent = cards.map((card, i) => {
-    return (
-        <Card
-        key={i}
-        text={card.text}
-        emoji={card.emoji}
-    />
-    )
-  })
+  // console.log(cardList)
 
   useEffect(() => {
-    axios.get(`${API_URL}/${boardName}`)
+    axios.get(`${url}${boardName}/cards`)
     .then((response) => {
       const apiCardList = response.data
       setCardList(apiCardList);
     })
     .catch((error) => {
       setErrorMessage(error.message);
-      console.log(error.message);
-    })
-  }, [boardName]);
-
-  const updateBoard = (updatedBoard) => {
-    const cards = [];
-
-    cardlist.forEach((card) => {
-      if (card.text === updatedBoard.text) {
-        cards.push(updatedBoard)
-      }
-      else 
-      cards.push(card)
+      // console.log(errorMessage);
     });
-    
-    setCardList(cards);
+  }, []);
+
+
+  const deleteCard = (id) => {
+    const newCardList = cardList.filter((cardObj) => {
+      // console.log(newCardList)
+      return cardObj.card.id !== id;
+    });
+
+    if (newCardList.length < cardList.length) {
+      axios.delete(`${cardUrl}${id}`)
+        .then((response) => {
+          setErrorMessage(`Card ${id} has been deleted`);
+        })
+        .catch((error) => {
+          setErrorMessage(`Could not delete card ${id}`);
+        });
+        setCardList(newCardList);
+    };
   };
 
   const addCard = (card) => {
-    axios.post(`${API_URL}/${boardName}`, card)
+    // console.log(card)
+    axios.post(`${url}${boardName}/cards`, card)
       .then((response) => {
-        const updatedBoard = [...cardlist, response.data]
+        const updatedBoard = [...cardList, response.data];
         setCardList(updatedBoard);
         setErrorMessage('');
       })
       .catch((error) => {
         setErrorMessage(error.message);
       });
-  }
+  };
+
+  const cardComponent = cardList.map(({card}) => {
+    return (
+        <Card
+        key={card.id}
+        card={card}
+        deleteCardCallback={deleteCard}
+    />
+    );
+  });
 
   return (
-    <div>
-      Board
+    <div className='board'>
+      <NewCardForm onAddCardCallback={addCard} />
       {errorMessage ? <div className='error-msg'>{errorMessage}</div> : ''}
       {cardComponent}
     </div>
