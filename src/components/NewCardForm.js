@@ -59,7 +59,6 @@ const NewCardForm = (props) => {
             </form>
         </div>
     )
-
 }
 
 NewCardForm.propTypes = {

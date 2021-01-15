@@ -15,7 +15,6 @@ const Board = (props) => {
   useEffect(() => {
     axios.get(`${props.url}${props.boardName}/cards`) 
       .then((response) => {
-        console.log(response)
         const apiCardList = response.data; 
         setCardList(apiCardList);
       })
@@ -33,16 +32,14 @@ const Board = (props) => {
     if (updatedCards.length < cardList.length) {
       axios.delete(`${API_URL}${cardId}`)
       .then((response) => {
-        // setCardList(updatedCards);
+        setCardList(updatedCards);
         setErrorMessage('');
         console.log(`Card ${cardId} successfully deleted`)
       })
       .catch((error) => {
         setErrorMessage(`Card ${cardId} could not be deleted`);
-        console.log(errorMessage)
+        console.log(errorMessage);
       });
-      setCardList(updatedCards);
-
     };
   };
 
@@ -50,12 +47,13 @@ const Board = (props) => {
     axios.post(`${props.url}${props.boardName}/cards`, card)
       .then((response) => {
         const updatedCards = [...cardList, response.data]
-        console.log("Card successfully added.")
+        console.log("Card successfully added.");
         setCardList(updatedCards);
         setErrorMessage('');
       })
       .catch((error) => {
-        setErrorMessage('Card could not be added')
+        setErrorMessage('Card could not be added');
+        console.log(errorMessage);
       });
 
   }
@@ -71,6 +69,10 @@ const Board = (props) => {
     <div>
       <NewCardForm onAddCard={addCard} />
       <div className="board">
+        { errorMessage ? 
+          <div className="validation-errors-display">
+            <ul className="validation-errors-display__list">{errorMessage}</ul>
+          </div> : '' }
         {cardComponents}
       </div>
     </div>
