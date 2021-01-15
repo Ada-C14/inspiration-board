@@ -12,7 +12,7 @@ const Board = ({url, boardName}) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    axios.get(`${url}${boardName}/cards`)
+    axios.get(`${url}boards/${boardName}/cards`)
       .then((response) => {
         // console.log(response);
         const fetchCards = [];
@@ -28,18 +28,32 @@ const Board = ({url, boardName}) => {
       })
   }, []);
 
-  const cardComponents = cardList.map((hash) => {
-    return <Card text={ hash.text } emoji={ hash.emoji } onDeleteCallback={deleteCard} />
-  });
-
-  const deleteCard = () => {
-
+  const deleteCard = (cardId) => {
+    axios.delete(`${url}cards/${cardId}`)
+      .then((response) => {
+        const stillCards = [];
+        cardList.forEach((card) => {
+          if (card.id != response.data.card.id) {
+            stillCards.push(card)
+          }
+        });
+        setCardList(stillCards);
+        setError('');
+      })
+      // on success - refresh cards?
+      .catch((error) => {
+        setError(error.response.data.cause);
+      })
   }
+
+  const cardComponents = cardList.map((hash) => {
+    return <Card text={ hash.text } emoji={ hash.emoji } id={ hash.id } onDeleteCallback={ deleteCard } />
+  });
 
   return (
     <div className="board">
       {/* TODO - why does CSS class not apply to error? */}
-      { error ? <p className='validation-errors-display'>{error}</p> : null }
+      { error ? <p className='validation-errors-display'>{ error }</p> : null }
       { cardComponents }
     </div>
   )
