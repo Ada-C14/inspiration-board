@@ -34,19 +34,19 @@ const Board = (props) => {
   },[]);
 
   const deleteCard = (cardID) => {
-    const availableCards = cards.find((card) => { 
-      return (card.id !== cardID)
-    });
+    const availableCards = cardList.filter((card) => { 
+      return card.id !== cardID;
+    })
 
     axios.delete(deleteCardsURLEndpoint + cardID)
     .then((response) => {
       console.log(`${cardID} was deleted.`)
+      setCardList(availableCards)
     })
     .catch((error) => {
       setErrorMessage(error.message);
       console.log(`Whoops, card not deleted: ${errorMessage}`)
     });
-    setCardList(availableCards)
   }
 
   const cards = () => {
