@@ -5,20 +5,19 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
 
 const Board = (props) => {
 
   const [cards, setCards] = useState([])
   const allCards = `${props.url}${props.boardName}/cards`
-  useEffect((props) => {
+  useEffect(() => {
     axios.get(allCards)
       .then((response) => {
         const apiCards = response.data.map( (element) => element.card );
         setCards(apiCards);
       })
       .catch((error) => {
-        // Handle errors here
+        console.log('something went wrong')
       })
   }, []);
 
@@ -36,11 +35,24 @@ const Board = (props) => {
     
   });
 
-  const cardList = cards.map( (card) => <Card id={ card.id } text={ card.text } emojiText={ card.emoji } deleteCard={deleteCard} />)
+  const addCard = ((cardInfo) => {
+    axios.post(allCards, cardInfo)
+      .then((response) => {
+        const cardsWithNewCard = [...cards, response.data.card]
+        setCards(cardsWithNewCard)
+      })
+      .catch((error) => {
+        // do something
+      })
+  })
 
+  const cardList = cards.map( (card) => <Card id={ card.id } text={ card.text } emojiText={ card.emoji } deleteCard={deleteCard} />)
   return (
-    <div className="board">
-      { cardList }
+    <div>
+      < NewCardForm onSubmitCallback={addCard} />
+      <div className="board">
+        { cardList }    
+      </div>
     </div>
   )
 };
