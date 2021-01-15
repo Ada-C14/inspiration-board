@@ -7,6 +7,8 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
+const API_CARDS_URL = 'https://inspiration-board.herokuapp.com/cards'
+
 const Board = (props) => {
 
   const [cards, setCards] = useState([])
@@ -31,7 +33,7 @@ const Board = (props) => {
     }) 
 
     if (newCards.length < cards.length) {
-      axios.delete(`${props.url}${props.boardName}/cards/${id}`)
+      axios.delete(`${API_CARDS_URL}/${id}`)
       .then((response) => {
         setErrorMessage(`Card ${id} was deleted!`);
       })
@@ -45,7 +47,7 @@ const Board = (props) => {
 
   const cardComponents = cards.map(({card}) => {
     return (
-      <Card text={card.text} emojiText={card.emoji} key={card.id} deleteCardCallback={deleteCard}/>
+      <Card text={card.text} emojiText={card.emoji} key={card.id} id={card.id} deleteCardCallback={deleteCard}/>
     )
   })
   return (

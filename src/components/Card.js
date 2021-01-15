@@ -10,8 +10,9 @@ const Card = (props) => {
   return (
     <div className="card">
       <div className="card__content">
-        <p className="card__content-text">{props.text}</p>
+        <p className="card__content-text">{props.text ? props.text : ''}</p>
         <p className="card__content-emoji">{props.emojiText ? emoji.getUnicode(props.emojiText) : ''}</p>
+        <button className="card__delete" onClick={ () => props.deleteCardCallback(props.id)}>Delete</button>
       </div>
     </div>
   )
@@ -19,7 +20,8 @@ const Card = (props) => {
 
 Card.propTypes = {
   text: PropTypes.string.isRequired,
-  emojiText: PropTypes.string.isRequired
+  emojiText: PropTypes.string.isRequired,
+  deleteCardCallback: PropTypes.func.isRequired
 };
 
 export default Card;
