@@ -7,7 +7,7 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
   
-const cards = CARD_DATA.cards.map ((card) => {
+const cardsTest = CARD_DATA.cards.map ((card) => {
   return (
     <Card
     key={card.id}
@@ -19,7 +19,7 @@ const cards = CARD_DATA.cards.map ((card) => {
 
 const Board = (props) => {
   const API_URL_BASE = `${props.url}/${props.boardName}/cards`
-  const [cards, setCards] = useState([]);
+  const [cardData, setCardData] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect( () => {
@@ -28,7 +28,7 @@ const Board = (props) => {
       // need to return card data, need to create list
       const apiCardData = response.data;
       console.log(apiCardData)
-      setCards(apiCardData.card)
+      setCardData(apiCardData.card)
     })
     .catch((error) => {
       // Still need to handle errors
@@ -36,9 +36,36 @@ const Board = (props) => {
     });
   }, []);
 
+  const updateCards = (updatedCard) => {
+    const cards = [];
+
+    cardData.forEach((card) => {
+      if (card.id === updatedCard.id) {
+        cards.push(updatedCard);
+      } else {
+        cards.push(card);
+      }
+    });
+    setCardData(cards)
+  }
+
+  const addCard = (card) => {
+    axios.post(API_URL_BASE, card)
+    .then((response) => {
+      const updatedData = [...cardData, response.data];
+      setCardData(updatedData);
+      setErrorMessage('');
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    })
+  }
+
   return (
     <div className="board">
-      {cards}
+      {errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : ''}
+      <Card cards={cardData} onUpdateCard={updateCards} />
+      <NewCardForm addCardCallback={addCard} />
     </div>
   )
 };
