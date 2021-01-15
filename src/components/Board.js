@@ -18,7 +18,7 @@ const cardsTest = CARD_DATA.cards.map ((card) => {
 })
 
 const Board = (props) => {
-  const API_URL_BASE = `${props.url}/${props.boardName}/cards`
+  const API_URL_BASE = `${props.url}${props.boardName}/cards`
   const [cardData, setCardData] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -65,7 +65,7 @@ const Board = (props) => {
     <div className="board">
       {errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : ''}
       <Card cards={cardData} onUpdateCard={updateCards} />
-      <NewCardForm addCardCallback={addCard} />
+      <NewCardForm sendSubmission={addCard} />
     </div>
   )
 };

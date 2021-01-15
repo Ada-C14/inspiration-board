@@ -33,27 +33,35 @@ const NewCardForm = (props) => {
 
   return (
     <div className="new-card-form">
-      <h3>Card Submission Form</h3>
-
+      <h1>Inspire Me, or someone, anyone, please and thank you!</h1>
       <form 
       className="new-card-form__form"
       onSubmit={onFormSubmit}>
-
-        <div className="new-card-form__header">
-
+        <label 
+        className="new-card-form__form-label">
+        Text:</label>
           <input
             name='text'
-            placeholder='text'
+            placeholder='YOUR TEXT HERE AND NOW'
             value={card.text}
             type='text'
             onChange={onInputChange}
             className={card.text === '' ? 'blankInput' : 'typedInput'} />
-        </div>
+        <label
+        className="new-card-form__form-label">
+        Emoji:</label>
+        <input
+          name='emoji'
+          placeholder='👀'
+          value={card.emoji}
+          // why doesn't this work? value={emoji.getUnicode(card.emoji)}
+          type='text'
+          onChange={onInputChange}/>
 
         <div className="NewCardForm__submit">
           <input 
           type="submit" 
-          value="Submit Line" 
+          value="Add Inspo" 
           className="new-card-form__form-button" />
         </div>
       </form>

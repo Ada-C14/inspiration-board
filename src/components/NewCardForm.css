@@ -38,3 +38,27 @@
   border: 1px solid black;
   font-size: 1em;
 }
+
+.blankInput {
+  background:
+        linear-gradient(red, transparent),
+        linear-gradient(to top left, lime, transparent),
+        linear-gradient(to top right, blue, transparent);
+    background-blend-mode: screen;
+}
+
+.typedInput {
+  background-color: whitesmoke;
+}
+
+::-webkit-input-placeholder {
+  color: darkslategray;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  color: rebeccapurple;
+  font-size:24px;
+}
+
+
