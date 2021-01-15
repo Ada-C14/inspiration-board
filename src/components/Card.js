@@ -2,22 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css';
 
-const Card = (props) => {
-
+const Card = ({card, deleteCardCallback}) => {
   return (
     <div className="card">
-      Card
-      <ul>
-        <li>text: {props.text}</li>
-        <li>emoji: {props.emoji}</li>
-      </ul>
+      <div className='card__content'>
+        <p className='card__content-text'>text: {card.text}</p>
+        <p className='card__content-emoji'>emoji: {card.emoji}</p>
+      </div>
+      <button className='card__delete'
+        onClick={() => deleteCardCallback(card.id)}
+      >
+        Delete
+      </button>
     </div>
+ 
   )
 }
 
 Card.propTypes = {
-  text: PropTypes.string,
-  emoji: PropTypes.string,
+  card: PropTypes.object.isRequired,
+  deleteCardCallback: PropTypes.func.isRequired
 };
 
 export default Card;

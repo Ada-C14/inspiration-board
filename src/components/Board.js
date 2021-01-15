@@ -77,12 +77,9 @@ const Board = ({url, boardName, cardUrl}) => {
 };
 
 Board.propTypes = {
-  cards: PropTypes.arrayOf(PropTypes.shape(
-    {
-      text: PropTypes.string,
-      emoji: PropTypes.string,
-    },
-  )),
+  url: PropTypes.string.isRequired,
+  cardUrl: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired,
 
 };
 
