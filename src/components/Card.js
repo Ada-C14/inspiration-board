@@ -4,12 +4,13 @@ import emoji from 'emoji-dictionary';
 
 import './Card.css';
 
-const Card = () => {
+const Card = (props) => {
   return (
     <div className="card">
       Card
       <div>
-        <p className="card__content-text">Every moment is a fresh beginning{emoji.getUnicode("heart_eyes")}</p>
+        <p className="card__content-text">{props.text}</p>
+        <p className="card__content-emoji">{emoji.getUnicode(`${props.emojiText}`)}</p>
       </div>
     </div>
   )
@@ -20,4 +21,3 @@ Card.propTypes = {
 };
 
 export default Card;
-// Every moment is a fresh beginning
