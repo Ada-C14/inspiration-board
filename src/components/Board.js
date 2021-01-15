@@ -9,15 +9,17 @@ import NewCardForm from './NewCardForm';
 const Board = (props) => {
 
   const [cards, setCards] = useState([])
+  const [errorMsg, setErrorMsg] = useState(null)
   const allCards = `${props.url}${props.boardName}/cards`
   useEffect(() => {
     axios.get(allCards)
       .then((response) => {
         const apiCards = response.data.map( (element) => element.card );
         setCards(apiCards);
+        setErrorMsg('');
       })
       .catch((error) => {
-        console.log('something went wrong')
+        setErrorMsg(error.message);
       })
   }, []);
 
@@ -27,9 +29,10 @@ const Board = (props) => {
       .then((response) => {
         const newCardList = cards.filter(card => card.id !== cardID)
         setCards(newCardList);
+        setErrorMsg('');
       })
       .catch((error) => {
-        //do something
+        setErrorMsg('Failed to delete card')
       })
     
     
@@ -39,17 +42,23 @@ const Board = (props) => {
     axios.post(allCards, cardInfo)
       .then((response) => {
         const cardsWithNewCard = [...cards, response.data.card]
-        setCards(cardsWithNewCard)
+        setCards(cardsWithNewCard);
+        setErrorMsg('')
       })
       .catch((error) => {
-        // do something
+        setErrorMsg(error.message)
       })
   })
+
+  const showErrors = () => {
+    if (errorMsg) return  <div className='error-msg'>{errorMsg}</div>
+  }
 
   const cardList = cards.map( (card) => <Card key={card.id} id={card.id} text={card.text} emojiText={card.emoji} deleteCard={deleteCard} />)
   return (
     <div>
       < NewCardForm onSubmitCallback={addCard} />
+      {showErrors()}
       <div className="board">
         {cardList}    
       </div>
