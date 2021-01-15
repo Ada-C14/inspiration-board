@@ -9,6 +9,7 @@ import NewCardForm from './NewCardForm';
 const Board = (props) => {
   const [cards, setCards] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
+  const CARD_URL = 'https://inspiration-board.herokuapp.com/cards/'
 
   useEffect(() => {
     axios.get(props.url)
@@ -19,13 +20,20 @@ const Board = (props) => {
     .catch((error) => {setErrorMessage(error.message);});
   }, []);
 
+  const deleteCard = (cardId) => {
+    const newCards = cards.filter((card) => {return card.card.id !== cardId});
 
-  
-
+    if (newCards.length < cards.length) {
+      axios.delete(`${CARD_URL}${cardId}`)
+      .then((response) => {setErrorMessage(`Card ${cardId} deleted`);})
+      .catch((error) => {setErrorMessage(`Unable to delete card ${cardId}`);})
+    setCards(newCards);
+    }
+  };
 
   const displayCards = cards.map((card) => {
     return (
-      <Card key={card.card.id} card={card.card} />
+      <Card key={card.card.id} card={card.card} deleteCallback={deleteCard}/>
     )
   });
 
