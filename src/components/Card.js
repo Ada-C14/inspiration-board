@@ -8,21 +8,24 @@ const Card = (props) => {
   return (
     <div className="card">
       <div className="card__content">
+        {props.id}
         <p className="card__content-text">
           {/* {props.text? props.text : ''} */}
           {props.text || ''}
         </p>
         <p className="card__content-emoji">{props.emoji ? emoji.getUnicode(props.emoji) : ''}
         </p>
+        <button onClick={() => props.onDelete(props.id)}>delete</button>
       </div>
     </div>
   )
 }
 
 Card.propTypes = {
-  text: PropTypes.string.isRequired,
-  emoji: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired
+  text: PropTypes.string,
+  emoji: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
 export default Card;

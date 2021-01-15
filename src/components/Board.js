@@ -25,24 +25,34 @@ const Board = () => {
     });
   }, []);
 
-  const allCards = cardsList.map((card, i) => {
+  const deleteCard = ((id) => {
+    const urlDeleteCard = `https://inspiration-board.herokuapp.com/cards/${id}`
+    console.log(urlDeleteCard)
+    axios.delete(urlDeleteCard)
+    .then((response) => axios.get(url))
+    .then(response => setCardsList(response.data))
+    .catch((error) => {
+      setErrorMessage(error.message);
+      console.log(errorMessage)
+    })
+  })
+
+  const renderCards = cardsList.map((card, i) => {
     return (
-      <Card text={card.card.text} emoji={card.card.emoji} key ={i}/>
+      <div>
+      <Card id={card.card.id} text={card.card.text} emoji={card.card.emoji} onDelete={(id) => deleteCard(id)}/>
+      
+      </div>
     );
   });
 
   return(
     <div className='board'>
     { errorMessage ? <div><h2>{errorMessage}</h2></div> : '' }
-    {allCards}
+    {renderCards}
   </div>
   )
 
-  // const cards = CARD_DATA.cards.map((card) => {
-  //   return (
-  //   <Card text={card.text} emoji={card.emoji} />
-  //   );
-  // });
 
 };
 
