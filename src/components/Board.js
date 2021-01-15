@@ -30,12 +30,13 @@ const Board = (props) => {
   
   const cardComponents = cards.map((card) => {
     return (
-      <Card text ={card.text} emoji={card.emoji} />
+      <Card text ={card.text} emoji={card.emoji} key={/>
     );
   });
 
   return (
-    <div>
+    <div className="board">
+      { errorMessage ? <div><h3 className="validation-errors-display">{errorMessage}</h3></div> : '' }
       {cardComponents}
     </div>
   )
