@@ -10,6 +10,7 @@ const Card = (props) => {
       <section className="card__content">
         <h4 className="card__content-text">{props.text}</h4>
         <h4 className="card__content-emoji">{emoji.getUnicode(props.emoji) || props.emoji}</h4>
+        <button onClick={props.deleteCard}>Delete Card</button>
       </section>
     </div>
   )

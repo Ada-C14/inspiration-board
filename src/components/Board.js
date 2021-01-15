@@ -1,46 +1,73 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
 
 const Board = (props) => {
 
-  // const cardList = CARD_DATA.map((card) => {
-  //   if (card.text && card.emoji) {
-  //     return ({
-  //       card: {
-  //         text: card.text,
-  //         emoji: card.emoji
-  //       } 
-  //     })
-  //   } else if (card.text) {
-  //     return ({
-  //       card: {
-  //         text: card.text,
-  //         emoji: null
-  //       } 
-  //     })
-  //   } else if (card.emoji) {
-  //     return ({
-  //       card: {
-  //         text: null,
-  //         emoji: card.emoji
-  //       } 
-  //     })
-  //   }
-  // })
+    const allCards = `${props.url}${props.boardName}/cards`
+
+    const [cards, setCards] = useState([]);
+    const [errorMessage, setErrorMessage] = useState(null);
+  
+    useEffect(() => {
+      axios.get(allCards)
+        .then((response) => {
+          const apiCardList = response.data.map((element) => element.card);
+          setCards(apiCardList);
+        })
+        .catch((error) => {
+          setErrorMessage(error.message);
+          console.log(error.message);
+        });
+    }, []);
+
+
+    const addCard = ((newCard) => { // need to create NewCardForm
+      axios.post(allCards, newCard)
+        .then((response) => {
+          const newCardList = [...cardList, response.data.card]
+          setCards(newCardList)
+        })
+        .catch((error) => {
+          setErrorMessage(error.message);
+          console.log(error.message);  
+        });
+    })
+
+    const deleteCard = (cardToDelete) => {
+      axios.delete(allCards, cardToDelete)
+        .then((response) => {
+          const newCardList = cards.delete(cardToDelete)
+          setCards(newCardList)
+        })
+        .catch((error) => {
+          setErrorMessage(error.message);
+          console.log(error.message);  
+        });
+    }
+
+    const cardList = cards.map((card) =>
+      <Card 
+        key={card.id}
+        id={card.id}
+        text={card.text}
+        emoji={card.emoji}
+        deleteCard={deleteCard}
+        />
+    )
+
 
   return (
     <div className="board">
-      <Card text="hello" emoji="beer" />
-      <Card text="fuck shit" emoji="cat" />
-      <Card text="i am smart" emoji="heart" />
+      {cardList}
+      <button onSubmit={addCard}>Add Card</button>
     </div>
   )
+  
 };
 
 
