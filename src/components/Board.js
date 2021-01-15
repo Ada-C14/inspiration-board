@@ -11,14 +11,10 @@ const Board = ({url, boardName}) => {
   const [cardList, setCardList] = useState([]);
   const [error, setError] = useState('');
 
-  // const cards = CARD_DATA.cards.map((card) => {
-  //   return <Card text={ card.text } emoji={ card.emoji } />
-  // })
-  
-
   useEffect(() => {
     axios.get(`${url}${boardName}/cards`)
       .then((response) => {
+        // console.log(response);
         const fetchCards = [];
         response.data.forEach((hash) => {
           fetchCards.push(hash.card);
@@ -27,14 +23,18 @@ const Board = ({url, boardName}) => {
         setError('');
       })
       .catch((error) => {
-        // TODO: how to access the "cause" field that gets returned in Postman
-        setError(error.message);
+        // console.log(error.response);
+        setError(error.response.data.cause);
       })
   }, []);
 
   const cardComponents = cardList.map((hash) => {
-    return <Card text={ hash.text } emoji={ hash.emoji } />
+    return <Card text={ hash.text } emoji={ hash.emoji } onDeleteCallback={deleteCard} />
   });
+
+  const deleteCard = () => {
+
+  }
 
   return (
     <div className="board">
