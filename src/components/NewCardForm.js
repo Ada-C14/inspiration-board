@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
 
-const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+const EMOJI_LIST = ['', ...emoji.names]
 
 const NewCardForm = (props) => {
   const [formFields, setFormFields] = useState({
@@ -64,14 +64,14 @@ const NewCardForm = (props) => {
       className="new-card-form"
       onSubmit={onCardSubmit}
       >
-        <header className="new-card-form__header">Add a new card </header>
+        <h2 className="new-card-form__header">Add a new card </h2>
         <div>
           <label className="new-card-form__form-label" name="text">Message: </label>
           <input name="text" onChange={onInputChange} value={formFields.text} className="new-card-form__form-textarea" />
         </div>
         <div>
           <label className="new-card-form__form-label" >Emoji: </label>
-          <Select className="new-card-form__form-select" options={emojiOptions} name="emoji" value={cardEmoji} onChange={onSelect} />
+          <Select className="new-card-form__form-select" options={emojiOptions} placeholder="Select or search..." name="emoji" value={cardEmoji} onChange={onSelect} />
         </div>
         <input 
           className="new-card-form__form-button"
