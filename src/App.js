@@ -8,9 +8,9 @@ const App = () => {
       <header className="header">
         <h1 className="header__h1"><span className="header__text">Inspiration Board</span></h1>
       </header>
-      <Board
+      <Board 
         url="https://inspiration-board.herokuapp.com/boards/"
-        boardName={`ringo`}
+        boardName={`ringgo`}
       />
     </section>
   );
