@@ -13,6 +13,8 @@ const NewCardForm = (props) => {
   });
   const [cardEmoji, setCardEmoji] = useState('')
 
+  const isEnabled = formFields.text || formFields.emoji
+
   const onInputChange = (event) => {
     const newFormFields = {
       ...formFields,
@@ -76,7 +78,8 @@ const NewCardForm = (props) => {
         <input 
           className="new-card-form__form-button"
           type="submit"
-          value="Add Card"/>
+          value="Add Card"
+          disabled={!isEnabled}/>
       </form>
   );
 };

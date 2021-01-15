@@ -46,12 +46,12 @@ const Board = (props) => {
       })
   })
 
-  const cardList = cards.map( (card) => <Card id={ card.id } text={ card.text } emojiText={ card.emoji } deleteCard={deleteCard} />)
+  const cardList = cards.map( (card) => <Card key={card.id} id={card.id} text={card.text} emojiText={card.emoji} deleteCard={deleteCard} />)
   return (
     <div>
       < NewCardForm onSubmitCallback={addCard} />
       <div className="board">
-        { cardList }    
+        {cardList}    
       </div>
     </div>
   )
