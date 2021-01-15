@@ -9,14 +9,14 @@ import CARD_DATA from '../data/card-data.json';
 
 const Board = (props) => {
 
-  const [cards, setCardsList] = useState([])
+  const [cards, setCards] = useState([])
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     axios.get(`${props.url}${props.boardName}/cards`)
       .then( (response) => {
-        const apiCardList = response.data;
-        setCardsList(apiCardList);
+        const apiCards = response.data;
+        setCards(apiCards);
       })
       .catch( (error) => {
         setErrorMessage(error.message);
@@ -24,10 +24,28 @@ const Board = (props) => {
       });
   }, []);
 
+  const deleteCard = (id) => {
+
+    const newCards = cards.filter((singleCard) => {
+      return singleCard.card.id !== id;
+    }) 
+
+    if (newCards.length < cards.length) {
+      axios.delete(`${props.url}${props.boardName}/cards/${id}`)
+      .then((response) => {
+        setErrorMessage(`Card ${id} was deleted!`);
+      })
+      .catch((error) => {
+        setErrorMessage(`Unable to delete card #${id}`);
+      })
+      setCards(newCards);
+    }
+  }
+
 
   const cardComponents = cards.map(({card}) => {
     return (
-      <Card text={card.text} emojiText={card.emoji} key={card.id} />
+      <Card text={card.text} emojiText={card.emoji} key={card.id} deleteCardCallback={deleteCard}/>
     )
   })
   return (
