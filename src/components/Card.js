@@ -10,6 +10,7 @@ const Card = (props) => {
       {props.text}
       {emoji.getUnicode(`${props.emoji}`)}
     </div>
+    
   )
 }
 
