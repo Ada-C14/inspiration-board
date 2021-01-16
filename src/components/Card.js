@@ -15,7 +15,7 @@ const Card = (props) => {
         </p>
         <p className="card__content-emoji">{props.emoji ? emoji.getUnicode(props.emoji) : ''}
         </p>
-        <button onClick={() => props.onDelete(props.id)}>delete</button>
+        <button className="card__delete" onClick={() => props.onDelete(props.id)}>delete</button>
       </div>
     </div>
   )

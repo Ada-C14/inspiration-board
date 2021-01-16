@@ -7,14 +7,12 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-const url = 'https://inspiration-board.herokuapp.com/boards/noor/cards'
-
-const Board = () => {
+const Board = (props) => {
   const [cardsList, setCardsList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(()=>{
-    axios.get(url)
+    axios.get(props.url)
     .then((response) => {
       const apiCardsList = response.data;
       setCardsList(apiCardsList);
@@ -29,7 +27,7 @@ const Board = () => {
     const urlDeleteCard = `https://inspiration-board.herokuapp.com/cards/${id}`
     console.log(urlDeleteCard)
     axios.delete(urlDeleteCard)
-    .then((response) => axios.get(url))
+    .then((response) => axios.get(props.url))
     .then(response => setCardsList(response.data))
     .catch((error) => {
       setErrorMessage(error.message);
@@ -57,7 +55,7 @@ const Board = () => {
 };
 
 Board.propTypes = {
-// url: PropTypes.string.isRequired,
+url: PropTypes.string.isRequired,
 // boardName: PropTypes.string.isRequired
 };
 

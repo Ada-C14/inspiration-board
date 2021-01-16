@@ -9,7 +9,7 @@ const App = () => {
         <h1 className="header__h1"><span className="header__text">Inspiration Board</span></h1>
       </header>
       <Board
-        // url="https://inspiration-board.herokuapp.com/boards/noor/cards"
+        url="https://inspiration-board.herokuapp.com/boards/noor/cards"
         // boardName={`noor`}
       />
     </section>
