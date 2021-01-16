@@ -7,8 +7,8 @@ const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_
 
 const NewCardForm = (props) => {
     const [formFields, setFormFields] = useState({
-        text: null,
-        emoji: null,
+        text: "",
+        emoji: "",
     });
 
     const onTextChange = (event) => {
@@ -20,12 +20,13 @@ const NewCardForm = (props) => {
     const onFormSubmit = (event) => {
         event.preventDefault();
 
-        props.addCardCallback(formFields);
-
-        setFormFields({
-            text: "",
-            emoji: "",
-        });
+        if (inputValid()) {
+            props.addCardCallback(formFields);
+            setFormFields({
+                text: "",
+                emoji: "",
+            });
+        }
     };
 
     const emojiSelectMenu = EMOJI_LIST.map((emojiName) => {
@@ -35,6 +36,15 @@ const NewCardForm = (props) => {
             </option>
         )
     })
+
+    const inputValid = () => {
+        if (formFields.text !== "" || formFields.emoji !== "") {
+            return true
+        } else {
+            props.setError('text and emoji can not be blank. Please fill in at least one.')
+            return false
+        };
+    };
 
     return (
         <form className='new-card-form' onSubmit={onFormSubmit} >
