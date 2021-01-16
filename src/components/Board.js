@@ -31,6 +31,18 @@ const Board = (props) => {
     }
   };
 
+  const addCard = (card) => {
+    axios.post(props.url,card)
+      .then((response) => {
+        const updatedCards = [...cards, response.data];
+        setCards(updatedCards);
+        setErrorMessage('')
+      })
+      .catch((error) => {
+        setErrorMessage(error.message)
+      });
+  };
+
   const displayCards = cards.map((card) => {
     return (
       <Card key={card.card.id} card={card.card} deleteCallback={deleteCard}/>
@@ -38,8 +50,11 @@ const Board = (props) => {
   });
 
   return (
-    <div>
+    <div className='board'>
+      <div>
       {displayCards}
+      </div>
+      <NewCardForm addCardCallback={addCard}/>
     </div>
   )
 

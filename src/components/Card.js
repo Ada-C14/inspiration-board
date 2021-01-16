@@ -14,7 +14,9 @@ const Card = (props) => {
       </div>
       <button 
         onClick={() => props.deleteCallback(props.card.id)}
-        className='card__delete'>Delete Card</button>
+        className='card__delete'>
+          Delete Card
+      </button>
     </div>
   )
 }
