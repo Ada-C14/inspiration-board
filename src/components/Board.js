@@ -27,7 +27,6 @@ const Board = (props) => {
     .then((response) => {
       // need to return card data, need to create list
       const apiCardData = response.data;
-      console.log(apiCardData)
       setCardData(apiCardData)
     })
     .catch((error) => {
@@ -50,16 +49,13 @@ const Board = (props) => {
   }
 
   const addCard = (card) => {
-    console.log(card)
     axios.post(API_URL_BASE, card)
     .then((response) => {
-      console.log(cardData);
       const updatedData = [...cardData, response.data];
       setCardData(updatedData);
       setErrorMessage('');
     })
     .catch((error) => {
-      console.log(error.response)
       setErrorMessage(error.message);
     })
   }

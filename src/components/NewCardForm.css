@@ -26,7 +26,8 @@
 
 .new-card-form__form-select,
 .new-card-form__form-textarea,
-.new-card-form__form-button {
+.new-card-form__form-button
+ {
   font-family: 'Raleway', sans-serif;
   font-size: 1.25em;
   grid-column: controls;
@@ -44,21 +45,20 @@
         linear-gradient(red, transparent),
         linear-gradient(to top left, lime, transparent),
         linear-gradient(to top right, blue, transparent);
-    background-blend-mode: screen;
+  background-blend-mode: screen;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.25em;
 }
 
 .typedInput {
   background-color: whitesmoke;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.25em;
 }
 
 ::-webkit-input-placeholder {
   color: darkslategray;
   font-weight: bold;
-}
-
-input[type="text"] {
-  color: rebeccapurple;
-  font-size:24px;
 }
 
 

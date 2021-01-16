@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
 
-const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+const EMOJI_LIST = ["", ...emoji.names]
 
 const NewCardForm = (props) => {
   const initState = {
@@ -18,7 +18,7 @@ const NewCardForm = (props) => {
       ...card,
     };
 
-    newCard[event.target.name] = [event.target.value]
+    newCard[event.target.name] = event.target.value
     setCard(newCard);
   }
 
@@ -31,6 +31,15 @@ const NewCardForm = (props) => {
     setCard(initState);
   }
 
+  const getEmojiNames = EMOJI_LIST.map((name) => {
+    return (
+    <option key={name.id} 
+      value={name}>
+      {emoji.getUnicode(name)}
+    </option>
+    );
+    });
+
   return (
     <div className="new-card-form">
       <h1>Inspire Me, or someone, anyone, please and thank you!</h1>
@@ -40,7 +49,7 @@ const NewCardForm = (props) => {
         <label 
         className="new-card-form__form-label">
         Text:</label>
-          <input
+          <textarea
             name='text'
             placeholder='YOUR TEXT HERE AND NOW'
             value={card.text}
@@ -50,14 +59,12 @@ const NewCardForm = (props) => {
         <label
         className="new-card-form__form-label">
         Emoji:</label>
-        <input
+        <select className='new-card-form__form-select'
           name='emoji'
-          placeholder='👀'
-          value={card.emoji}
-          // why doesn't this work? value={emoji.getUnicode(card.emoji)}
           type='text'
-          onChange={onInputChange}/>
-
+          onChange={onInputChange}>
+          {getEmojiNames}
+        </select>
         <div className="NewCardForm__submit">
           <input 
           type="submit" 
