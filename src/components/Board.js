@@ -6,6 +6,7 @@ import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
+import newCard from './NewCardForm';
 
 const Board = (props) => {
   const [cardsList, setCardsList] = useState([]);
@@ -35,6 +36,17 @@ const Board = (props) => {
     })
   })
 
+  const addCard = ((card) => {
+    const urlAddCard = `${props.url}`
+    axios.post(urlAddCard, card)
+    .then((response) => axios.get(props.url))
+    .then(response => setCardsList(response.data))
+    .catch((error) => {
+      setErrorMessage(error.message);
+      console.log(errorMessage)
+    })
+  })
+
   const renderCards = cardsList.map((card, i) => {
     return (
       <div>
@@ -45,10 +57,13 @@ const Board = (props) => {
   });
 
   return(
-    <div className='board'>
-    { errorMessage ? <div><h2>{errorMessage}</h2></div> : '' }
-    {renderCards}
-  </div>
+    <div>
+      <div><NewCardForm onAddCard={addCard}/></div>
+      <div className='board'>
+      { errorMessage ? <div><h2>{errorMessage}</h2></div> : '' }
+      {renderCards}
+      </div>
+    </div>
   )
 
 

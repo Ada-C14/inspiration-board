@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
 
 const EMOJI_LIST = ["", "heart_eyes", "coffee", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
 
-const newCard = (props) => {
+const NewCard = (props) => {
     const [formFields, setFormFields] = useState({
         test: '',
         emoji: ''
@@ -31,8 +31,8 @@ const newCard = (props) => {
         })
     }
 
-    const emojies = EMOJI_LIST.map((emoji,i)=>{
-        return <option key={i} value={emoji}>{emoji.getUnicode(emoji)}</option>
+    const emojies = EMOJI_LIST.map((symbol,i)=>{
+        return <option key={i} value={symbol}>{emoji.getUnicode(symbol)}</option>
     })
 
     return(
@@ -58,4 +58,4 @@ const newCard = (props) => {
     )
 }
 
-export default newCard
+export default NewCard
