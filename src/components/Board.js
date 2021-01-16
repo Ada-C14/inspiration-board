@@ -5,34 +5,23 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
-  
-const cardsTest = CARD_DATA.cards.map ((card) => {
-  return (
-    <Card
-    key={card.id}
-    text={card.text}
-    emoji={card.emoji}
-    />
-  );
-})
 
 const Board = (props) => {
   const API_URL_BASE = `${props.url}${props.boardName}/cards`
   const [cardData, setCardData] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  useEffect( () => {
+  useEffect(() => {
     axios.get(API_URL_BASE)
-    .then((response) => {
-      // need to return card data, need to create list
-      const apiCardData = response.data;
-      setCardData(apiCardData)
-    })
-    .catch((error) => {
-      // Still need to handle errors
-      setErrorMessage(error.message);
-    });
+      .then((response) => {
+        // need to return card data, need to create list
+        const apiCardData = response.data;
+        setCardData(apiCardData)
+      })
+      .catch((error) => {
+        // Still need to handle errors
+        setErrorMessage(error.message);
+      });
   }, []);
 
   const updateCards = (updatedCard) => {
@@ -50,20 +39,30 @@ const Board = (props) => {
 
   const addCard = (card) => {
     axios.post(API_URL_BASE, card)
-    .then((response) => {
-      const updatedData = [...cardData, response.data];
-      setCardData(updatedData);
-      setErrorMessage('');
-    })
-    .catch((error) => {
-      setErrorMessage(error.message);
-    })
+      .then((response) => {
+        const updatedData = [...cardData, response.data];
+        setCardData(updatedData);
+        setErrorMessage('');
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      })
   }
+
+  const showCards = cardData.map((card) => {
+    return (
+      <Card
+        key={card.card.id}
+        text={card.card.text}
+        emoji={card.card.emoji}
+      />
+    );
+  })
 
   return (
     <div className="board">
       {errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : ''}
-      <Card cards={cardData} onUpdateCard={updateCards} />
+      {showCards}
       <NewCardForm sendSubmission={addCard} />
     </div>
   )
