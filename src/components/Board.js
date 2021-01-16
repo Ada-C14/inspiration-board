@@ -20,6 +20,7 @@ const Board = (props) => {
   })
   return (
     <div>
+      <h1>{props.boardName}</h1>
       {cards}
     </div>
   )
