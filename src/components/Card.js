@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 
@@ -8,8 +8,8 @@ const Card = (props) => {
   return (
     <div className="card">
       <div className="card__content">
-        <p className="card__content-text">{ props.text}</p>
-        <p className="card__content-emoji">{props.emoji}</p>
+        <p className="card__content-text">{ props.text ? props.text : null}</p>
+        <p className="card__content-emoji">{props.emoji ? emoji.getUnicode(props.emoji): null}</p>
       </div>
     </div>	  
   )
@@ -17,7 +17,9 @@ const Card = (props) => {
 
 Card.propTypes = {
   text: PropTypes.string,
-  emoji: PropTypes.string
+  emoji: PropTypes.string,
+  id: PropTypes.number
 };
 
 export default Card;
+ç
