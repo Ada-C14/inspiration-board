@@ -16,7 +16,7 @@ const Board = () => {
       <Card 
       key={uuidv4()}
       text={card.text}
-      emoji={card.Emoji}  //Side note in json 'emoji' is written as 'Emoji', but im passing it to card as 'emoji' 
+      emoji={card.emoji} 
     />
     )
   })
