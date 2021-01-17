@@ -84,6 +84,9 @@ const Board = (props) => {
     </div>
   );
 };
-Board.propTypes = {};
+Board.propTypes = {
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired,
+};
 
 export default Board;

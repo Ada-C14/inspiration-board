@@ -12,7 +12,6 @@ const App = () => {
           <span className="header__text">Inspiration Board</span>
         </h1>
       </header>
-      <select option />
       <Board
         url="https://inspiration-board.herokuapp.com/boards/"
         boardName={"ida"}
