@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Board from './components/Board';
+import axios from 'axios';
 
 const App = () => {
   return (
@@ -10,7 +11,7 @@ const App = () => {
       </header>
       <Board
         url="https://inspiration-board.herokuapp.com/boards/"
-        boardName={`Ada-Lovelace`}
+        boardName={`ida`}
       />
     </section>
   );
