@@ -7,13 +7,28 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-const Board = () => {
+const Board = (props) => {
+
+  const boardComponents = CARD_DATA.cards.map((card, key) => {
+    return (
+      <div className="board" key={key}>
+        <Card
+          text={card.text}
+          emoji={card.emoji}
+        />
+      </div>
+    )
+  });
+console.log(boardComponents)
   return (
     <div>
-      Board
+      {boardComponents}
     </div>
   )
-};
+}
+
+  
+
 Board.propTypes = {
 
 };
