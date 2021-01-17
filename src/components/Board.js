@@ -43,6 +43,18 @@ const Board = (props) => {
     }
   } 
 
+  const addCard = (card) => {
+    axios.post(`${API_BOARD_URL}${card}`);
+      .then((response) => {
+        const updatedCardData = [...cards,response.data];
+        setCards(updatedCardData);
+        setErrorMessage(error);
+      })
+      .catch((error) =>{
+        setErrorMessage(error.message);
+      });
+  }
+
   const cardComponents = cards.map((card) => {
     return (
       <Card text ={card.text} emoji={card.emoji} key={card.id} id={card.id} onDeleteCallback={deleteCard}/>
