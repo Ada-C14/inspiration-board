@@ -6,6 +6,9 @@ import './Card.css';
 
 const Card = (props) => {
   
+  const onButtonClick = () => {
+    props.deleteCardCallback(props.key)
+  }
   return (
     <div className="card">
       <ul className="card__content">
@@ -16,6 +19,9 @@ const Card = (props) => {
           {props.emoji === null ? '' : emoji_dict.getUnicode(props.emoji)}
         </li>
       </ul>
+      <button 
+      className='card__delete'
+      onClick={() => props.deleteCardCallback(props.id)}>Delete</button>
     </div>
   )
 }

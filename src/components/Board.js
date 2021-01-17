@@ -49,12 +49,34 @@ const Board = (props) => {
       })
   }
 
+  const deleteCard = (id) => {
+    console.log('delete card called')
+    const newCardData = cardData.filter((card) => {
+      return card.card.id !== id;
+    });
+    if (newCardData.length < cardData.length) {
+      axios.delete(`https://inspiration-board.herokuapp.com/cards/${id}`)
+        .then((response) => {
+          console.log(response.data)
+          setErrorMessage(`Card ${id} deleted`);
+        })
+        .catch((error) => {
+          console.log(error.message)
+          setErrorMessage(`Unable to delete card ${id}`);
+        })
+        setCardData(newCardData);
+    }
+
+  };
+
   const showCards = cardData.map((card) => {
     return (
       <Card
         key={card.card.id}
+        id={card.card.id}
         text={card.card.text}
         emoji={card.card.emoji}
+        deleteCardCallback={deleteCard}
       />
     );
   })
@@ -62,8 +84,8 @@ const Board = (props) => {
   return (
     <div className="board">
       {errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : ''}
-      {showCards}
       <NewCardForm sendSubmission={addCard} />
+      {showCards}
     </div>
   )
 };
