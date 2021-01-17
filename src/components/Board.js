@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
 const Board = (props) => {
 
@@ -36,14 +36,12 @@ const Board = (props) => {
   const addCard = (newCardInput) => {
     axios.post(API_URL_BASE, newCardInput)
       .then((response) => {
-        // What should we do when we know the post request worked?
         const updateCardsList = [...cardsList, ...newCardInput];
 
         setCardList(updateCardsList);
         setErrorMessage('');
       })
       .catch((error) => {
-        // What should we do when we know the post request failed?
         setErrorMessage(error.message);
       });
   };
@@ -72,8 +70,10 @@ const Board = (props) => {
     </div>
   )
 };
-Board.propTypes = {
 
+Board.propTypes = {
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired,
 };
 
 export default Board;
