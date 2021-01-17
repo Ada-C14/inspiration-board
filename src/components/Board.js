@@ -10,7 +10,7 @@ import CARD_DATA from '../data/card-data.json';
 const Board = () => {
   return (
     <div>
-      Board
+      <Card text='test' emoji='cat'></Card>
     </div>
   )
 };
