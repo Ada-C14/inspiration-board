@@ -33,6 +33,21 @@ const Board = (props) => {
       });
   }, [cardsList]);
 
+  const addCard = (newCardInput) => {
+    axios.post(API_URL_BASE, newCardInput)
+      .then((response) => {
+        // What should we do when we know the post request worked?
+        const updateCardsList = [...cardsList, ...newCardInput];
+
+        setCardList(updateCardsList);
+        setErrorMessage('');
+      })
+      .catch((error) => {
+        // What should we do when we know the post request failed?
+        setErrorMessage(error.message);
+      });
+  };
+
   const deleteCard = (cardId) => {
 
     const API_URL_BASE_DELETE = `https://inspiration-board.herokuapp.com/cards/${cardId}`
@@ -51,8 +66,9 @@ const Board = (props) => {
 }
 
   return (
-    <div>
+    <div className= "board">
       {cardsList}
+      <NewCardForm addCardCallback={addCard}/>
     </div>
   )
 };
