@@ -28,7 +28,7 @@ const Board = (props) => {
   },[]);
 
   const deleteCard = (id) => {
-    const newCardList = cards.filter((card)=> {
+    const newCardList = cards.filter((card)=> { // function card will return card to delete
       return card.id !== id;
     });
 
@@ -44,11 +44,10 @@ const Board = (props) => {
   } 
 
   const addCard = (card) => {
-    axios.post(`${API_BOARD_URL}${card}`);
+    axios.post(`${props.url}${props.boardName}/cards`, card)
       .then((response) => {
         const updatedCardData = [...cards,response.data];
         setCards(updatedCardData);
-        setErrorMessage(error);
       })
       .catch((error) =>{
         setErrorMessage(error.message);
@@ -63,13 +62,17 @@ const Board = (props) => {
 
   return (
     <div className="board">
-      { errorMessage ? <div><h3 className="validation-errors-display">{errorMessage}</h3></div> : '' }
+       <NewCardForm addNewCardCallback={addCard}/>
+      { errorMessage ? <div className="validation-errors-display" >
+        <ul className="validation-errors-display__list">{errorMessage}</ul></div> : '' }
       {cardComponents}
     </div>
   )
 };
-Board.propTypes = {
 
+Board.propTypes = {
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired
 };
 
 export default Board;
