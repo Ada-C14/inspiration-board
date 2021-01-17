@@ -31,11 +31,11 @@ const NewCardForm = (props) => {
     });
   };
 
-  // validate emoji
-  const emojiValid = () => {
-    return EMOJI_LIST.includes(formFields.emoji)
-    // .match(/\S+@\S+/) || formFields.emoji === '';
-  }
+  // // validate emoji
+  // const emojiValid = () => {
+  //   return EMOJI_LIST.includes(formFields.emoji)
+  //   // .match(/\S+@\S+/) || formFields.emoji === '';
+  // }
 
   return (
     <form
@@ -60,7 +60,7 @@ const NewCardForm = (props) => {
           name="emoji"
           onChange={onInputChange}
           value={formFields.emoji}
-          className={emojiValid() ? "valid" : "invalid"}
+          // className={emojiValid() ? "valid" : "invalid"}
         />
       </div>
       <input

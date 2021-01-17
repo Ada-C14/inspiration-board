@@ -40,7 +40,7 @@ const Board = (props) => {
   // }
 
   const addCard = (card) => {
-    axios.post(props.url + props.boardName, card)
+    axios.post(props.url + props.boardName + '/cards', card)
       .then((response) => {
         // What should we do when we know the post request worked?
         const updatedData = [...cardList, response.data];
@@ -61,7 +61,6 @@ const Board = (props) => {
   //   </div>
 
   const boardComponents = cardList.map(({card}) => {
-    console.log(card)
     return (
       <div className="board">
         <Card key={card.id}
@@ -71,10 +70,10 @@ const Board = (props) => {
       </div>
     )
   });
-console.log(boardComponents)
+
   return (
     <div>
-      <NewCardForm onAddCallBack={addCard}/>
+      <NewCardForm addCardCallback={addCard}/>
       {boardComponents}
     </div>
   )
