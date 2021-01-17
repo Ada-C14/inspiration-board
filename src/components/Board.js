@@ -6,13 +6,30 @@ import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
 
+
+const cardList = (cards, deleteCard) => {
+  return (cards.map((card) => {
+    return(
+      <Card 
+        key={card.id}
+        id={card.id}
+        text={card.text}
+        emoji={card.emoji}
+        deleteCardCallback={deleteCard}
+        />
+    )
+}))
+}
+
 const Board = (props) => {
 
-    const allCards = `${props.url}${props.boardName}/cards`
+    const allCards = `${props.url}boards/${props.boardName}/cards`
 
     const [cards, setCards] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
   
+ 
+
     useEffect(() => {
       axios.get(allCards)
         .then((response) => {
@@ -29,7 +46,7 @@ const Board = (props) => {
     const addCard = ((newCard) => { // need to create NewCardForm
       axios.post(allCards, newCard)
         .then((response) => {
-          const newCardList = [...cardList, response.data.card]
+          const newCardList = [...cards, response.data.card]
           setCards(newCardList)
         })
         .catch((error) => {
@@ -38,32 +55,28 @@ const Board = (props) => {
         });
     })
 
-    const deleteCard = (cardToDelete) => {
-      axios.delete(allCards, cardToDelete)
-        .then((response) => {
-          const newCardList = cards.delete(cardToDelete)
-          setCards(newCardList)
-        })
-        .catch((error) => {
-          setErrorMessage(error.message);
-          console.log(error.message);  
-        });
-    }
+    const deleteCard = (id) => {
+      
+      const newCardList = cards.filter((card) => {
+        return card.id !== id
+      })
 
-    const cardList = cards.map((card) =>
-      <Card 
-        key={card.id}
-        id={card.id}
-        text={card.text}
-        emoji={card.emoji}
-        deleteCard={deleteCard}
-        />
-    )
+      if (newCardList.length < cards.length) {
+        axios.delete(`${props.url}cards/${id}`)
+          .then((response) => {
+            setErrorMessage(`Card ${id} deleted`)
+          })
+          .catch((error) => {
+            setErrorMessage(`Card ${id} not deleted`)
+          })
+          setCards(newCardList);
+      }
+    }
 
 
   return (
     <div className="board">
-      {cardList}
+      {cardList(cards, deleteCard)}
       <button onSubmit={addCard}>Add Card</button>
     </div>
   )

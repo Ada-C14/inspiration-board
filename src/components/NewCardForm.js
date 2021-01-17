@@ -9,12 +9,12 @@ const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_
 const NewCardForm = (props) => {
     
 
-    props.onSubmitCallBack
+    // props.onSubmitCallBack
 
-    const [formFields, setFormFields] = useState({
-        text: '',
-        emoji: ''
-    })
+    // const [formFields, setFormFields] = useState({
+    //     text: '',
+    //     emoji: ''
+    // })
 
     return(
         <form></form>
