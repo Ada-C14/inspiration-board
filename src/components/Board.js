@@ -8,14 +8,32 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 const Board = () => {
+
+  const generateCards = () => {
+    const cards = CARD_DATA[`cards`];
+    let cardsComponentArray = [];
+
+  for (const card of cards) 
+  {
+    cardsComponentArray.push(
+      <Card
+          text={card[`text`]}
+          emoji={card[`emoji`]}
+      />
+    )
+  }
+
+    return cardsComponentArray;
+  }  
+
   return (
-    <div>
-      Board
+    <div className = 'board'>
+      {generateCards()}
     </div>
   )
 };
 Board.propTypes = {
-
+  // DONT FORGET TO ADD MEEEEE
 };
 
 export default Board;
