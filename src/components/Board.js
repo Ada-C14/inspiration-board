@@ -14,7 +14,7 @@ const Board = (props) => {
 
  
   useEffect(() => {
-    console.log(`${props.url}${props.boardName}/cards`)
+    // console.log(`${props.url}${props.boardName}/cards`)
     axios.get(`${props.url}${props.boardName}/cards`)
       .then((response) => {
         // Get the list of cards
@@ -47,16 +47,23 @@ const Board = (props) => {
       });
   };
 
-  // const deleteCard = (card) => {
-  //   axios.delete(`${props.url}`, card)
-  //   .then((response) =>  {
-  //     const updateData = [...cardList, response.data];
-  //     setCardList(updatedData);
-  //   })
-  //   .catch ((error) => {
-  //     setErrorMessage(error.message);
-  //   })
-  // };
+  const deleteStudent = (id) => {
+    // console.log(id)
+    const newCardList = cardList.filter((card) => {
+      return card.card.id !== id;
+    });
+
+    if (newCardList.length < cardList.length) {
+      axios.delete(`${ props.url }/${ id }`)
+        .then((response) => {
+          setErrorMessage(`Student ${ id } deleted`);
+        })
+        .catch((error) => {
+          setErrorMessage(`Unable to delete student ${ id }`);
+        })
+      setCardList(newCardList);
+    }
+  }
   const renderCard = cardList.map((card) => {
     console.log(card)
     return (
@@ -65,15 +72,11 @@ const Board = (props) => {
         id={card.card.id}
         text={card.card.text}
         emojis={card.card.emoji}
+        deleteStudentCallback={deleteStudent}
         />
     )})
 // console.log(cardList)
-// <button
-// onClick={() => props.deleteStudentCallback(props.id)}
-// className="delete-btn"
-// >
-// Delete
-// </button>
+
   return (
     <div>
 
