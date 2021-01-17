@@ -60,6 +60,7 @@ const NewCardForm = (props) => {
           name="emoji"
           onChange={onInputChange}
           value={formFields.emoji}
+          className="text"
           // className={emojiValid() ? "valid" : "invalid"}
         />
       </div>

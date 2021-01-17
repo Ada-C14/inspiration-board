@@ -39,13 +39,31 @@ const Board = (props) => {
   //   setCardList(cards);
   // }
 
+
+  const deleteCard = (id) => {
+    const newCardList = cardList.filter((obj) => {
+      return obj.card.id !== id;
+    });
+
+    if (newCardList.length < cardList.length) {
+      axios.delete(`https://inspiration-board.herokuapp.com/cards/${ id }`)
+        .then((response) => {
+          setErrorMessage(`Card ${ id } deleted`);
+        })
+        .catch((error) => {
+          setErrorMessage(`Unable to delete card ${ id }`);
+        })
+      setCardList(newCardList);
+    }
+  }
+
   const addCard = (card) => {
     axios.post(props.url + props.boardName + '/cards', card)
       .then((response) => {
         // What should we do when we know the post request worked?
         const updatedData = [...cardList, response.data];
         setCardList(updatedData);
-        setErrorMessage('');
+        setErrorMessage(`Card ${ card.text} ${card.emoji } added`);
       })
       .catch((error) => {
         // What should we do when we know the post request failed?
@@ -60,12 +78,14 @@ const Board = (props) => {
   //     <NewCardForm addCardCallback={addCard} />
   //   </div>
 
-  const boardComponents = cardList.map(({card}) => {
+  const boardComponents = cardList.map((obj) => {
     return (
       <div className="board">
-        <Card key={card.id}
-          text={card.text}
-          emoji={card.emoji}
+        <Card key={obj.card.id}
+          text={obj.card.text}
+          emoji={obj.card.emoji}
+          id={obj.card.id}
+          deleteCardCallback={deleteCard}
         />
       </div>
     )
@@ -73,6 +93,7 @@ const Board = (props) => {
 
   return (
     <div>
+      {errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : ''}
       <NewCardForm addCardCallback={addCard}/>
       {boardComponents}
     </div>
