@@ -21,7 +21,7 @@ const Card = (props) => {
 
 Card.propTypes = {
   text: PropTypes.string,
-  emoji: PropTypes.string,
+  emoji: PropTypes.string,  
 };
 
 export default Card;
