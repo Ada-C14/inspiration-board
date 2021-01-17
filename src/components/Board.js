@@ -20,7 +20,6 @@ const Board = () => {
 
   return (
     <div className="board">
-      Board
       {cardComponents}
     </div>
   )
