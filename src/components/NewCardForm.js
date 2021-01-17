@@ -27,13 +27,28 @@ const NewCardForm = (props) => {
 
     const onInputChange = (event) => {
         console.log(`Changing field ${ event.target.name } to ${ event.target.value }`);
-        // Duplicate formFields into new object
-        const newFormFields = {
-          ...formFields,
+
+        if (event.target.name === `emoji`) {
+            const selectedEmoji = emoji.getName(event.target.value)
+            const newFormFields = {
+                ...formFields,
+              }
+            
+              newFormFields[event.target.name] = selectedEmoji;
+              console.log(newFormFields[event.target.name])
+              setFormFields(newFormFields);
+              console.log(newFormFields);
         }
-      
-        newFormFields[event.target.name] = event.target.value;
-        setFormFields(newFormFields);
+        else {
+            const newFormFields = {
+                ...formFields,
+              }
+            
+              newFormFields[event.target.name] = event.target.value;
+              console.log(newFormFields[event.target.name])
+              setFormFields(newFormFields);
+              console.log(newFormFields);
+        }
     };
 
     const onFormSubmit = (event) => {
@@ -65,7 +80,7 @@ const NewCardForm = (props) => {
                     type="text-area" 
                 />
             <label className="new-card-form__form-select"></label>
-                    <select className="new-card-form__form-select" onChange={onInputChange}>
+                    <select className="new-card-form__form-select" onChange={onInputChange} name="emoji" value={formFields.emoji}>
                     <option selected="">Select Emoji...</option>
                     {generateEmojiList()}
                     </select>
