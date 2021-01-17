@@ -13,7 +13,7 @@ const Board = (props) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(()=>{
-    axios.get(props.url)
+    axios.get(`${props.url}/${props.boardName}/cards/`)
     .then((response) => {
       const apiCardsList = response.data;
       setCardsList(apiCardsList);
@@ -28,7 +28,7 @@ const Board = (props) => {
     const urlDeleteCard = `https://inspiration-board.herokuapp.com/cards/${id}`
     console.log(urlDeleteCard)
     axios.delete(urlDeleteCard)
-    .then((response) => axios.get(props.url))
+    .then((response) => axios.get(`${props.url}/${props.boardName}/cards/`))
     .then(response => setCardsList(response.data))
     .catch((error) => {
       setErrorMessage(error.message);
@@ -37,9 +37,9 @@ const Board = (props) => {
   })
 
   const addCard = ((card) => {
-    const urlAddCard = `${props.url}`
+    const urlAddCard = `${`${props.url}/${props.boardName}/cards/`}`
     axios.post(urlAddCard, card)
-    .then((response) => axios.get(props.url))
+    .then((response) => axios.get(`${props.url}/${props.boardName}/cards/`))
     .then(response => setCardsList(response.data))
     .catch((error) => {
       setErrorMessage(error.message);
@@ -71,6 +71,7 @@ const Board = (props) => {
 
 Board.propTypes = {
 url: PropTypes.string.isRequired,
+boardName: PropTypes.string.isRequired
 };
 
 export default Board;
