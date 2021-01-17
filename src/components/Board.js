@@ -7,15 +7,15 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-const API_URL_BASE = 'https://inspiration-board.herokuapp.com/boards/oatcake/cards';
+// const API_URL_BASE = 'https://inspiration-board.herokuapp.com/boards/oatcake/cards';
 
-const Board = () => {
+const Board = (props) => {
 
   const [cardList, setCardList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    axios.get(API_URL_BASE)
+    axios.get(`${props.url}/${props.boardName}/cards`)
       .then((response) => {
         // Get the list of cards
         const apiCardList = response.data;
