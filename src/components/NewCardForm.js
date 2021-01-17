@@ -7,7 +7,7 @@ const EMOJI_LIST = ["", "heart_eyes", "coffee", "clap", "sparkling_heart", "hear
 
 const NewCard = (props) => {
     const [formFields, setFormFields] = useState({
-        test: '',
+        text: '',
         emoji: ''
     });
 
@@ -26,7 +26,7 @@ const NewCard = (props) => {
         props.onAddCard(formFields)
 
         setFormFields({
-            test: '',
+            text: '',
             emoji: ''
         })
     }
