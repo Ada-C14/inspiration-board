@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -7,16 +7,34 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-const Board = () => {
+const Board = (props) => {
   
+  const API_URL_BOARD = 'https://inspiration-board.herokuapp.com/boards/'
   
-  const cardList = CARD_DATA.cards.map((card) => {
-    return <Card text={card.text} emoji={card.emoji}/>
+  const [cardsList, setCardsList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+      axios.get(props.url + props.boardName + '/cards')
+      .then((response) => {
+          const apiCardsList = response.data;
+          setCardsList(apiCardsList)
+      })
+      .catch((
+        error) => {
+        setErrorMessage(error.message);
+        console.log(error.message);
+      });
+  }, []);
+
+  const cardComponentsList = cardsList.map((card) => {
+    return <Card text={card.card.text} emoji={card.card.emoji} key={card.key}/>
   })
   return (
     <div>
+      { errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : '' }
       <h3>Board</h3>
-      {cardList}
+      {cardComponentsList}
     </div>
   )
 };
