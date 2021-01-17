@@ -8,14 +8,16 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 const Board = () => {
+  
   return (
     <div>
       Board
+      <Card />
     </div>
   )
 };
 Board.propTypes = {
-
+  cards: PropTypes.arrayOf(PropTypes.string.isRequired)
 };
 
 export default Board;
