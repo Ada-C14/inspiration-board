@@ -13,7 +13,10 @@ const Card = () => {
 }
 
 Card.propTypes = {
-
+  card: PropTypes.shape({
+    emoji: PropTypes.string,
+    text: PropTypes.string
+  })
 };
 
 export default Card;
