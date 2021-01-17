@@ -47,6 +47,7 @@ const Board = (props) => {
     
   }
 
+ 
   // wave1-render a list of cards
   // CARD_DATA is a obj that has a key(cards) and value(array)
   const cardComponents = cards.map(oneCard => {
@@ -57,20 +58,41 @@ const Board = (props) => {
         emojiText={oneCard.card.emoji}
         onDeleteCard={deleteCard}
         id={oneCard.card.id}
-
       />
     )
   })
 
+  // wave3
+  // POST requests to the API to create a card on the API.
+  const addNewCard = (newcard) => {
+
+    axios.post(`${props.url}${props.boardName}/cards`, newcard)
+      .then((response) => {
+        const updatedData = [...cards, response.data];
+        setCards(updatedData)
+        setErrorMessage('')
+      })
+      .catch((error) => {
+        setErrorMessage(errorMessage)
+      });
+    
+  }
+
+
 
   
   return (
-    <div>
+    <div classname="board">
+      <NewCardForm onAddCard={addNewCard}/>
       {cardComponents}
+
     </div>
   )
 };
 Board.propTypes = {
+  boardName: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired
+
 
 };
 
