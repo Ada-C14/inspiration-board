@@ -46,6 +46,10 @@ const Board = (props) => {
     }
   }
 
+  const addCard = () => {
+
+  }
+
   const cardComponents = cardList.map((obj) => {
     return (<Card key={obj.card.id} text={obj.card.text} emoji={obj.card.emoji} deleteCardCallback={deleteCard} id={obj.card.id} />
     );
@@ -54,6 +58,7 @@ const Board = (props) => {
   return (
     <div>
       <h2>{props.boardName}</h2>
+      <NewCardForm addCardCallback={addCard} />
       {cardComponents}
     </div>
   )
