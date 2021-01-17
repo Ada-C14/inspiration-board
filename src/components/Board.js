@@ -12,17 +12,19 @@ const API_URL_BASE = 'https://inspiration-board.herokuapp.com/boards/oatcake/car
 const Board = () => {
 
   const [cardList, setCardList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     axios.get(API_URL_BASE)
       .then((response) => {
-        // Get the list of students
+        // Get the list of cards
         const apiCardList = response.data;
         // Set the state
         setCardList(apiCardList);
       })
       .catch((error) => {
-        // Still need to handle errors
+        setErrorMessage(error.message);
+        console.log(error.message);
       });
   }, []);
   // ...
@@ -48,7 +50,7 @@ const Board = () => {
 
   return (
     <div className = 'board'>
-      {generateCards(cardList)}
+      { errorMessage ? <div><h2 className="validation-errors-display">{errorMessage}</h2></div> : generateCards(cardList) }
     </div>
   )
 };
