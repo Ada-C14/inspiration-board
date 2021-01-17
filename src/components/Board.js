@@ -36,22 +36,36 @@ const Board = (props) => {
       axios.delete(`${API_CARDS_URL}/${id}`)
       .then((response) => {
         setErrorMessage(`Card ${id} was deleted!`);
+        setCards(newCards);
       })
       .catch((error) => {
         setErrorMessage(`Unable to delete card #${id}`);
       })
-      setCards(newCards);
+      
     }
   }
+
+  const addCard = (card) => {
+    axios.post(`${props.url}${props.boardName}/cards`, card)
+      .then( response => {
+        const newCard = [...cards, response.data]
+        setCards(newCard)
+        setErrorMessage('')
+      })
+      .catch( error => {
+        setErrorMessage(error.message)
+      });
+  };
 
 
   const cardComponents = cards.map(({card}) => {
     return (
-      <Card text={card.text} emojiText={card.emoji} key={card.id} id={card.id} deleteCardCallback={deleteCard}/>
+      <Card text={card.text} emojiText={card.emoji} key={card.id} id={card.id} onDeleteCallback={deleteCard}/>
     )
   })
   return (
     <div className="board">
+      <NewCardForm onAddCallBack={addCard}/>
       { errorMessage ? <div className='validation-errors-display'>
           <ul className='validation-errors-display__list'>{ errorMessage }</ul>
           </div> : '' }
