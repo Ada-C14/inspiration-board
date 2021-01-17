@@ -34,9 +34,10 @@ const NewCardForm = props => {
     });
   };
 
-  const generateEmojiOptions = () => {
-    return EMOJI_LIST.map((name, i) => <option key={i} value={name}>emoji.getUnicode(name)</option>)
-  };
+  const emojiOptions = EMOJI_LIST.map((name, i) => 
+    <option key={i} value={name}>
+      {emoji.getUnicode(name)}
+    </option>);
   
   return (
     <div className="new-card-form">
@@ -50,7 +51,7 @@ const NewCardForm = props => {
         <div>
           <label htmlFor="emoji" className="new-card-form__label">Emoji: </label>
           <select className="new-card-form__select" name="emoji" value={formFields.emoji} onChange={onInputChange}>
-            {generateEmojiOptions}
+            {emojiOptions}
           </select>
         </div>
 

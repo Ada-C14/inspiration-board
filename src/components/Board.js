@@ -17,13 +17,13 @@ const Board = (props) => {
 
   useEffect(() => {
     axios.get(`${props.url}boards/${props.boardName}/cards`)
-      .then((response) => {
-        const apiCardList = response.data
-        setCardList(apiCardList);
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-      });
+    .then((response) => {
+      const apiCardList = response.data
+      setCardList(apiCardList);
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    });
   }, []);
 
   const deleteCard = cardId => {
@@ -38,7 +38,18 @@ const Board = (props) => {
         setErrorMessage(error.message);
       });
     }
-  }
+  };
+
+  const addCard = cardObj => {
+    axios.post(`${props.url}boards/${props.boardName}/cards`, cardObj)
+    .then((response) => {
+      const updatedData = [...cardList, response.data];
+      setCardList(updatedData);
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    });
+  };
 
   const cards = cardList.map(cardObj => {
     return <Card 
@@ -51,10 +62,13 @@ const Board = (props) => {
 
   return (
     <div className="board">
+      { errorMessage ? <div className="validation-errors-display">{errorMessage}</div> : '' }
       {cards}
+      <NewCardForm addCard={addCard} />
     </div>
   )
 };
+
 Board.propTypes = {
   url: PropTypes.string.isRequired,
   boardName: PropTypes.string.isRequired
