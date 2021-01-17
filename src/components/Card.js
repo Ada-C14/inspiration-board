@@ -10,6 +10,7 @@ const Card = (props) => {
       <div className="card__content">
         { (props.text) ? <div className="card__content-text">{props.text}</div> : <span />}
         { (props.emoji) ? <div className="card__content-emoji">{emoji.getUnicode(`${props.emoji}`)}</div> : <span />}
+        <div className="card__delete"><button className="card__delete">delete</button></div>
       </div>
     </div>
   )
