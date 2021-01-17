@@ -8,9 +8,15 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 const Board = () => {
+  // using and incrementer in map not the best way to add a key??
+  const cardComponents = CARD_DATA.cards.map ((card, i) => {
+    return (
+      <Card message={card} key={i}/>
+    )
+  })
   return (
     <div>
-      Board
+      {cardComponents}
     </div>
   )
 };
