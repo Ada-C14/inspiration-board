@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -7,15 +7,29 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-const Board = (props) => {
-  //console.log(CARD_DATA.cards[0].text.replace(/\s/g,''))
-  //console.log(props.boardName + CARD_DATA.cards[0].text.replace(/\s/g,''))
 
-  const cards = CARD_DATA.cards.map(card => {
+
+const Board = (props) => {
+  const API_URL_BASE = `https://inspiration-board.herokuapp.com/boards/${props.boardName}/cards`
+
+  const [allCards, setAllCards] = useState([])
+
+  useEffect(() => {
+    axios.get(API_URL_BASE)
+    .then((response) => {
+      // How to handle a successful response
+      setAllCards(response.data)
+    })
+    .catch((error) => {
+      // Still need to handle errors
+    });
+  }, [cards]);
+
+  const cards = allCards.map(card => {
     return <Card
-      //key={card.text.replace(/\s/g,'')}
-      text={card.text}
-      emoji={card.emoji}
+      key={card.card.id}
+      text={card.card.text}
+      emoji={card.card.emoji}
     />
   })
   return (
