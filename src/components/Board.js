@@ -12,36 +12,39 @@ import NewCardFrom from './NewCardForm';
 const Board = (props) => {
 
   const [cardList, setCardList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   // populates board with cards when component first mounts
   useEffect(() => {
     axios.get(props.boardUrl + props.boardName + '/cards')
       .then( (response) => {
         //successful response
-        console.log(response.data);
         setCardList(response.data);
+        setErrorMessage('');
       })
       .catch((error) => {
-        // console.log(error)
+        setErrorMessage(error.message);
       });
   }, []);
 
 
   const deleteCard = (id) => {
-    axios.delete(props.cardUrl + id)
-      .then( () => {
-        axios.get(props.boardUrl + props.boardName + '/cards')
-          .then( (response) => {
-            //successful response
-            setCardList(response.data);
-          })
-          .catch((error) => {
-            // console.log(error)
-          });
-      })
-      .catch( (error) => {
-        // console.log(error);
-      })
+    
+    const newCardList = cardList.filter((element) => {
+      return element.card.id !== id;
+    });
+
+    if (newCardList.length < cardList.length) {
+      axios.delete(props.cardUrl + id)
+        .then( (response) => {
+          setErrorMessage(`card ${id} deleted`);
+          setCardList(newCardList);
+        })
+        .catch( (error) => {
+          setErrorMessage(`Unable to delete card ${id}`)
+        });
+      
+    }
   }
 
   const addCard = (card) => {
@@ -50,18 +53,13 @@ const Board = (props) => {
     axios.post(props.boardUrl + props.boardName + '/cards', {...card})
     
       .then( (response) => {
-        axios.get(props.boardUrl + props.boardName + '/cards')
-        .then( (response) => {
-          //successful response
-          setCardList(response.data);
-        })
-        .catch((error) => {
-          // console.log(error)
-        });
+        console.log(response.data);
+        const updatedCards = [response.data, ...cardList];
+        setCardList(updatedCards)
         
       })
       .catch((error) => {
-        console.log(error);
+        setErrorMessage(error.message);
       })
   }
 
@@ -73,6 +71,7 @@ const Board = (props) => {
   })
   return (
     <div>
+      {errorMessage ? <div><h2 className="validation-errors-display">{errorMessage}</h2></div> : ''}
       <NewCardFrom addCardCallback={addCard} />
       <div className="board">
         {cardComponents}
