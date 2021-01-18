@@ -25,7 +25,8 @@ class Board extends Component {
   constructor() {
     super();
     this.state = {
-      cards: []
+      cards: [],
+      message: ''
     }
   }
   
@@ -36,9 +37,9 @@ class Board extends Component {
         const cards = []
         response.data.forEach((card) =>
           cards.push({
-            text: card.text,
-            emoji: card.emoji,
-            id: card.id
+            text: card.card.text,
+            emoji: card.card.emoji,
+            id: card.card.id
           })
         )
         this.setState(cards)
@@ -48,13 +49,39 @@ class Board extends Component {
       })
   };
 
-  // const getCards = 
+  getCards = () => {
+    return this.state.cards.map((card, index) => {
+      return <Card 
+        text={card.text}
+        emoji={card.emoji}
+        id={card.id}
+        key={index}
+      />
+    })
+  }
+
+  addCard = (card) => {
+    axios.post(`${this.props.url}${this.props.boardName}/cards`, card)
+      .then(response => {
+        card.id = response.data.card.id
+      })
+      .catch(error => {
+        this.setState({message: error.data})
+      })
+      const cards = this.state.cards
+      cards.push(card)
+  }
 
   render() {
     return (
-      <ul>
-        <li>{this.state.cards}</li>
-      </ul>
+      <div>
+        <NewCardForm
+          addCardCallback={this.addCard}
+        />
+        <main className="board">
+          {this.getCards()}
+        </main>
+      </div>
     )
   }
 };
