@@ -41,7 +41,7 @@ const Board = (props) => {
     }, []);
 
 
-    const addCard = ((newCard) => { // need to create NewCardForm
+    const addCard = ((newCard) => { 
 
       axios.post(allCards, newCard)
         .then((response) => {
@@ -77,6 +77,7 @@ const Board = (props) => {
   return (
     <div>
       <NewCardForm addCardCallback={addCard}/>
+      <h4 class="validation-errors-display">{errorMessage}</h4>
       <br/>
       <div className="board">
         {cardList(cards, deleteCard)}

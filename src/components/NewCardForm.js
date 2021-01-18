@@ -9,10 +9,8 @@ const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_
 const NewCardForm = (props) => {
 
     const [formFields, setFormFields] = useState({
-        card: {
             text: '',
             emoji: ''
-        }
     })
 
     const onInputChange = (event) => {
@@ -25,10 +23,8 @@ const NewCardForm = (props) => {
         event.preventDefault()
         props.addCardCallback(formFields)
         setFormFields({
-            card: {
                 text: '',
                 emoji: ''
-            }
         })
     }
 
