@@ -70,26 +70,26 @@ const NewCardForm = (props) => {
 
     return (
         <div className="new-card-form">
-        <h2 className="new-card-form__header">New Card Form</h2>
+            <h2 className="new-card-form__header">New Card Form</h2>
 
-        <form className="new-card-form__form" onSubmit={onFormSubmit}>
+            <form className="new-card-form__form" onSubmit={onFormSubmit}>
 
-            <label className="new-card-form__form-label"></label>
-                <input
-                    name="text"
-                    placeholder='Inspirational text...'
-                    value={formFields.text || ''} 
-                    onChange={onInputChange}
-                    className='new-card-form__form-textarea'
-                    type="text-area" 
-                />
-            <label className="new-card-form__form-select"></label>
-                    <select className="new-card-form__form-select" onChange={onInputChange} name="emoji" value={formFields.emoji}>
-                    <option selected="">Select Emoji...</option>
-                    {generateEmojiList()}
-                    </select>
-            <input type="submit" value="Add Card" className="new-card-form__form-button" />
-        </form>
+                <label className="new-card-form__form-label"></label>
+                    <input
+                        name="text"
+                        placeholder='Inspirational text...'
+                        value={formFields.text || ''} 
+                        onChange={onInputChange}
+                        className='new-card-form__form-textarea'
+                        type="text-area" 
+                    />
+                <label className="new-card-form__form-select"></label>
+                        <select className="new-card-form__form-select" onChange={onInputChange} name="emoji" value={formFields.emoji}>
+                        <option selected="">Select Emoji...</option>
+                        {generateEmojiList()}
+                        </select>
+                <input type="submit" value="Add Card" className="new-card-form__form-button" />
+            </form>
         </div>
     );
 }

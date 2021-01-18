@@ -66,29 +66,32 @@ const Board = (props) => {
 
   const deleteCard = (id) => {
     console.log(id);
+    // make sure the id exists in current list, save it as a var
     const result = cardList.filter(card => card.card.id === id);
     console.log(result);
     if (result) {
       axios.delete(`${CARD_URL_BASE}${id}`)
       .then((response) => {
-        // What should we do when we know the post request worked?
+        // make new list excluding result, as it now should be deleted
         const updatedData = cardList.filter(card => card != result);
         setCardList(updatedData);
-        setErrorMessage('');
+        setErrorMessage(''); // not sure why need this, but it was in the students example
         console.log(`Card ${id} successfully deleted`);
       })
       .catch((error) => {
-        // What should we do when we know the post request failed?
+        // display error message if failure
         setErrorMessage(error.message);
       });
     }
   };
 
   return (
-    <div className = 'board'>
-      { errorMessage ? <div><h2 className="validation-errors-display">{errorMessage}</h2></div> : generateCards(cardList) }
-      <NewCardForm onAddCard={addCard} />
-    </div>
+    <section>
+      <div className = 'board'>
+        { errorMessage ? <div><h2 className="validation-errors-display">{errorMessage}</h2></div> : generateCards(cardList) }
+      </div>
+      <div><NewCardForm onAddCard={addCard} /></div>
+    </section>
   )
 };
 Board.propTypes = {
