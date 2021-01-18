@@ -49,11 +49,14 @@ const Board = (props) => {
     // console.log(id)
     const newCardList = cardList.filter((card) => {
       return card.card.id !== id;
-    });
+    }); // returns an array of every card that doesn't have the same id that was passed in
+
+    console.log(`new card list: ${newCardList.length}`); //22
+    console.log(`old card list: ${cardList.length}`); //23
 
     if (newCardList.length < cardList.length) {
       axios
-        .delete(`${props.url}/${id}`)
+        .delete(`${props.cardUrl}${id}`)
         .then((response) => {
           setErrorMessage(`Student ${id} deleted`);
         })
@@ -64,7 +67,7 @@ const Board = (props) => {
     }
   };
   const renderCard = cardList.map((card) => {
-    console.log(card);
+    // console.log(card);
     return (
       <Card
         key={card.card.id}
@@ -87,6 +90,7 @@ const Board = (props) => {
 Board.propTypes = {
   url: PropTypes.string.isRequired,
   boardName: PropTypes.string.isRequired,
+  cardUrl: PropTypes.string.isRequired,
 };
 
 export default Board;
