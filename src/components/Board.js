@@ -43,7 +43,7 @@ const Board = (props) => {
     }
   } 
 
-  const addCard = (card) => {
+  const addCard = ((card) => {
     axios.post(`${props.url}${props.boardName}/cards`, card)
       .then((response) => {
         const updatedCardData = [...cards,response.data];
@@ -52,7 +52,7 @@ const Board = (props) => {
       .catch((error) =>{
         setErrorMessage(error.message);
       });
-  }
+  })
 
   const cardComponents = cards.map((card) => {
     return (
@@ -62,10 +62,10 @@ const Board = (props) => {
 
   return (
     <div className="board">
-       <NewCardForm addNewCardCallback={addCard}/>
-      { errorMessage ? <div className="validation-errors-display" >
+      <NewCardForm addNewCardCallback={addCard}/>
+        { errorMessage ? <div className="validation-errors-display" >
         <ul className="validation-errors-display__list">{errorMessage}</ul></div> : '' }
-      {cardComponents}
+        {cardComponents}
     </div>
   )
 };
