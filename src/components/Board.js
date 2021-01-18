@@ -17,7 +17,6 @@ const Board = (props) => {
       .get(`${props.url}${props.boardName}/cards`)
       .then((response) => {
         // Get the list of cards
-        // console.log(response.data)
 
         const apiCardList = response.data;
         // Set the state
@@ -46,13 +45,9 @@ const Board = (props) => {
   };
 
   const deleteStudent = (id) => {
-    // console.log(id)
     const newCardList = cardList.filter((card) => {
       return card.card.id !== id;
-    }); // returns an array of every card that doesn't have the same id that was passed in
-
-    console.log(`new card list: ${newCardList.length}`); //22
-    console.log(`old card list: ${cardList.length}`); //23
+    });
 
     if (newCardList.length < cardList.length) {
       axios
@@ -67,7 +62,6 @@ const Board = (props) => {
     }
   };
   const renderCard = cardList.map((card) => {
-    // console.log(card);
     return (
       <Card
         key={card.card.id}
