@@ -35,7 +35,7 @@ const NewCardForm = (props) => {
 
     return(
         <div className="new-card-form">
-            <h3 classname="new-card-form__header">Add A New Card</h3>
+            <h3 className="new-card-form__header">Add A New Card</h3>
             <form className="new-card-form__form">
                 <div>
                     <label htmlFor="text" className="new-card-form__form-label">Text: </label>
