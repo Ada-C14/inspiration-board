@@ -70,6 +70,7 @@ class Board extends Component {
       })
       const cards = this.state.cards
       cards.push(card)
+      this.setState({cards})
   }
 
   render() {
