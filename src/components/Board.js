@@ -94,8 +94,10 @@ const Board = (props) => {
     </section>
   )
 };
+
 Board.propTypes = {
-  // DONT FORGET TO ADD MEEEEE
+  url: PropTypes.string.isRequired, 
+  boardName: PropTypes.string.isRequired
 };
 
 export default Board;

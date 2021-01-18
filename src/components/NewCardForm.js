@@ -92,6 +92,10 @@ const NewCardForm = (props) => {
             </form>
         </div>
     );
-}
+};
+
+NewCardForm.propTypes = {
+    onAddCard: PropTypes.func.isRequired
+};
 
 export default NewCardForm;

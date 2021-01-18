@@ -19,10 +19,13 @@ const Card = (props) => {
       </div>
     </div>
   )
-}
+};
 
 Card.propTypes = {
-  // DONT FORGET TO ADD MEEEEE
+  id: PropTypes.number.isRequired, 
+  text: PropTypes.string.isRequired,
+  emoji: PropTypes.string,
+  deleteCard: PropTypes.func.isRequired
 };
 
 export default Card;
