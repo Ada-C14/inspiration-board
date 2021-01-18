@@ -28,6 +28,18 @@ const Board = (props) => {
       });
   }, []);
 
+  const addCard = (card) => {
+    axios.post(props.url + props.boardName + '/cards', card)
+    .then((response) => {
+      const updatedData = [...cardsList, response.data];
+      setCardsList(updatedData);
+      setErrorMessage('')
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    });
+  }
+
   const deleteCard = (id) => {
     const newCardsList = cardsList.filter((card) => {
       return card.card.id !== id
@@ -56,6 +68,7 @@ const Board = (props) => {
 
   return (
     <div>
+      <NewCardForm onSubmitCallback={addCard} />
       { errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : '' }
       <h3>Board</h3>
       {cardComponentsList}

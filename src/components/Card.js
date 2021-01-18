@@ -13,7 +13,7 @@ const Card = (props) => {
         onClick={() => props.deleteCardCallback(props.id)}>
         Delete
       </button>
-      {/* onClick calls anonymous func that calls calback and passes the id of the card */}
+      {/* onClick calls anonymous func that calls callback and passes the id of the card */}
     </div>
   )
 }
