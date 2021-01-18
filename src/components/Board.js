@@ -18,7 +18,12 @@ const Board = (url, boardName) => {
     axios.get(API_URL_BASE)
       .then((response) => {
         const apiCards = response.data;
-        setCards(apiCards);
+        if (apiCards.length === 0) {
+          setCards(CARD_DATA['cards'])
+          console.log(CARD_DATA['cards'])
+        } else {
+          setCards(apiCards);
+        }
       })
       .catch((error) => {
         setErrorMessage(error.message);
@@ -26,10 +31,10 @@ const Board = (url, boardName) => {
       });
   }, []);
   
-  const makeCards = cards.map((card,i) => {
+  const makeCards = CARD_DATA.cards.map((card,i) => {
     return(
       <Card
-      text={card.card.text}
+      text={card.text}
       key={i}
       />
     );
@@ -42,7 +47,8 @@ const Board = (url, boardName) => {
   )
 };
 Board.propTypes = {
-
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired,
 };
 
 export default Board;
