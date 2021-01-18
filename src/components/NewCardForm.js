@@ -31,40 +31,33 @@ const NewCardForm = (props) => {
     });
   };
 
-  // // validate emoji
-  // const emojiValid = () => {
-  //   return EMOJI_LIST.includes(formFields.emoji)
-  //   // .match(/\S+@\S+/) || formFields.emoji === '';
-  // }
-
   return (
     <form
       className="new-card-form"
       onSubmit={onFormSubmit}
       data-testid="NewCardForm--form"
     >
-      <div>
-        <label htmlFor="text">Text:</label>
-        <input
+      <div >
+        <label htmlFor="text">Text: </label>
+        <input 
           id="text"
           name="text"
           onChange={onInputChange}
           value={formFields.text}
-          className="text"
+          className="new-card-form__form-textarea"
         />
       </div>
       <div>
-        <label htmlFor="emoji">Emoji:</label>
+        <label htmlFor="emoji">Emoji: </label>
         <input
           id="emoji"
           name="emoji"
           onChange={onInputChange}
           value={formFields.emoji}
-          className="text"
-          // className={emojiValid() ? "valid" : "invalid"}
+          className="new-card-form__form-textarea"
         />
       </div>
-      <input
+      <input className="new-card-form__form-button"
         type="submit"
         value="Add Card"
       />

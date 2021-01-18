@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
 const Board = (props) => {
 
@@ -24,21 +24,6 @@ const Board = (props) => {
         setErrorMessage(error.message)
       });
   }, []);
-
-  // const updateCard = (updatedCard) => {
-  //   const cards = [];
-
-  //   cardList.forEach((card) => {
-  //     if (card.id === updatedCard.id) {
-  //       cards.push(updatedCard);
-  //     } else {
-  //       cards.push(card);
-  //     }
-  //   });
-
-  //   setCardList(cards);
-  // }
-
 
   const deleteCard = (id) => {
     const newCardList = cardList.filter((obj) => {
@@ -71,16 +56,9 @@ const Board = (props) => {
       });
   }
 
-  // return (
-  //   <div className="board">
-  //     {errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : ''}
-  //     {/* <CardCollection cards={cardList} onUpdateCard={updateCard} /> */}
-  //     <NewCardForm addCardCallback={addCard} />
-  //   </div>
-
   const boardComponents = cardList.map((obj) => {
     return (
-      <div className="board">
+      <div>
         <Card key={obj.card.id}
           text={obj.card.text}
           emoji={obj.card.emoji}
@@ -92,8 +70,8 @@ const Board = (props) => {
   });
 
   return (
-    <div>
-      {errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : ''}
+    <div className="board">
+      {errorMessage ? <div><h2 className="validation-errors-display">{errorMessage}</h2></div> : ''}
       <NewCardForm addCardCallback={addCard}/>
       {boardComponents}
     </div>
