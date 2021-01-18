@@ -23,6 +23,8 @@ const showEmoji = (emojiString) => {
         </div>
         <button onClick={() => props.onDeleteCardCallback(props.id)}
         className="card__delete">Remove</button>
+        <button onClick={() => props.onUpdateCardCallback(props.id)}
+        className='card__delete'>Update </button>
       </div>
     </div>
   )
@@ -32,7 +34,8 @@ Card.propTypes = {
   id: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   emoji: PropTypes.string.isRequired,
-  onDeleteCardCallback: PropTypes.func.isRequired
+  onDeleteCardCallback: PropTypes.func.isRequired,
+  onUpdateCardCallback: PropTypes.func.isRequired
 };
 
 export default Card;

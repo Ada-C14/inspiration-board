@@ -13,7 +13,7 @@ const Board = (props) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const getCardsURLEndpoint = props.url + props.boardName + "/cards"
-  const deleteCardsURLEndpoint = props.url + "/cards/"
+  const cardsURLEndpoint = props.url + "/cards/"
   
   useEffect(() => {
     axios.get(getCardsURLEndpoint)
@@ -38,7 +38,7 @@ const Board = (props) => {
       return card.id !== cardID;
     })
 
-    axios.delete(deleteCardsURLEndpoint + cardID)
+    axios.delete(cardsURLEndpoint + cardID)
     .then((response) => {
       console.log(`${cardID} was deleted.`)
       setCardList(availableCards)
@@ -49,6 +49,40 @@ const Board = (props) => {
     });
   }
 
+  const addCard = (card) => {
+    axios.post(getCardsURLEndpoint,card)
+    .then((response) => {
+      const newCard = response.data.map((apiCard) => {
+        return {
+          id: apiCard['card']['id'],
+          text: apiCard['card']['text'],
+          emoji: apiCard['card']['emoji'],
+        }
+      });
+      const newCardList = [...cardList, newCard];
+      setCardList(newCardList);
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+      console.log(`Whoops, card not created: ${errorMessage}`);
+    });
+  }
+  const updateCard = (cardID) => {
+    const availableCards = cardList.filter((card) => {
+      return card.id !== cardID;
+    })
+
+    axios.patch(cardsURLEndpoint + cardID)
+    .then((response) => {
+      console.log(`${cardID} was updated.`)
+      setCardList(availableCards)
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+      console.log(`Whoops, card was not updated: ${errorMessage}`)
+    });
+
+  }
   const cards = cardList.map((card) => {
       return (<Card 
       key={card.id}
@@ -56,6 +90,7 @@ const Board = (props) => {
       text={card.text ? card.text : ''}
       emoji={card.emoji ? card.emoji : ''}
       onDeleteCardCallback = {deleteCard}
+      onUpdateCardCallback = {updateCard}
       />
       )
     });
@@ -64,7 +99,8 @@ const Board = (props) => {
   
     return (
       <div>
-        <h1>Board</h1>
+        <NewCardForm onAddCardCallback={addCard} setError={setErrorMessage} />
+        <h1 className='validation-errors-display'> {errorMessage} </h1>
         <main className='board'>
           { cards }
         </main>

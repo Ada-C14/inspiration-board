@@ -13,7 +13,7 @@ const NewCardForm = (props) => {
     });
 
     const onFormFieldChange = (event) => {
-        const newFormFields = {...formFields, };
+        const newFormFields = {...formFields,};
         newFormFields[event.target.name] = event.target.value;
         setFormFields(newFormFields);
     };
@@ -21,11 +21,15 @@ const NewCardForm = (props) => {
     const onFormSubmit = (event) => {
         event.preventDefault();
 
-
-        setFormFields({
-            text: '',
-            emoji: '',
-        });
+        if (formFields.text !== "" || formFields.emoji !== "") {
+            props.onAddCardCallback(formFields);
+            setFormFields({
+                text: '',
+                emoji: '',
+            });
+        } else {
+            props.setError('Must insert text or emoji')
+        };
     };
 
     const selectEmoji = EMOJI_LIST.map((emojiText) => {
@@ -39,7 +43,7 @@ const NewCardForm = (props) => {
     return (
         <form className="new-card-form" onSubmit={onFormSubmit}>
             <div className="new-card-form__header">
-                <h2>Create a new post-it!</h2>
+                <h2>Add your INSPIRATION</h2>
             </div>
             <div className="new-card-form__form" >
                 <label className="new-card-form__form-label">Message</label>
@@ -61,7 +65,7 @@ const NewCardForm = (props) => {
                                 {selectEmoji}
                 </select>
             </div>
-            <input type='submit' value='Add a New Card' className="new-card-form__form-button" />
+            <input type='submit' value='Post it' className="new-card-form__form-button" />
         </form>
     )
 };
