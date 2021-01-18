@@ -31,7 +31,7 @@ const Board = (props) => {
         setErrorMessage('Card successfully added to board!');
       })
       .catch((error) => {
-        setErrorMessage(error.message);
+        setErrorMessage('Not able to add card, try again');
       })
   };
 
