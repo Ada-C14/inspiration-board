@@ -10,10 +10,10 @@ const Card = (props) => {
       <div className="card__content">
         {props.id}
         <p className="card__content-text">
-          {props.quote || ''}
+          {props.text || ''}
         </p>
         <p className="card__content-emoji">
-          {props.emoji}
+          {props.emoji ? emoji.getUnicode(props.emoji) : ''}
         </p>
       </div>
     </div>
@@ -21,7 +21,7 @@ const Card = (props) => {
 }
 
 Card.propTypes = {
-  quote: PropTypes.string,
+  text: PropTypes.string,
   emoji: PropTypes.string,
   id: PropTypes.number.isRequired
 };
