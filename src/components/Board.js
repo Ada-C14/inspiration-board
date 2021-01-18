@@ -23,9 +23,15 @@ const Board = (props) => {
       });
   }, []);
 
+  const cardComponent = cardList.map(({card}) => {
+    return (
+      <Card text={card.text} emoji={card.emoji} id={card.id}/>
+    );
+  });
+
   return (
     <div>
-      Board
+      {cardComponent}
     </div>
   )
 };
