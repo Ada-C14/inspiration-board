@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 
@@ -22,7 +22,7 @@ Card.propTypes = {
   text: PropTypes.number,
   emoji: PropTypes.string,
   id: PropTypes.number,
-  deleteCard: PropTypes.func
+  deleteCard: PropTypes.func.isRequired
 };
 
 export default Card;

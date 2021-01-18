@@ -9,11 +9,11 @@ import CARD_DATA from '../data/card-data.json';
 
 const Board = (props) => {
   const [cardList, setCardList] = useState([])
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [newId, setNewId] = useState(-1);
+  const [errorMessage, setErrorMessage] = useState('')
+  // const [newId, setNewId] = useState(-1);
 
   useEffect(() => {
-    axios.get(`${props.url}${props.boardName}/cards`)
+    axios.get(`${props.url}boards/${props.boardName}/cards`)
       .then((response) => {
         const apiCardList = response.data.map((apiCard) => {
           return {
@@ -23,42 +23,47 @@ const Board = (props) => {
           }
         });
         setCardList(apiCardList);
+        // nextId()
       })
       .catch((error) => {
         setErrorMessage(error.message);
       });
   }, []);
 
-  const nextId = () => {
-    const id = cardList.reduce((accumulator, card) => {
-      return Math.max(accumulator, card.id);
-    }, 0) + 1;
-    setNewId(id)
-    return newId;
-  };
+  // const nextId = () => {
+  //   const id = cardList.reduce((accumulator, card) => {
+  //     return Math.max(accumulator, card.id);
+  //   }, 0) + 1;
+  // };
 
   const deleteCard = (cardId) => {
-    const newCardList = cardList.filter((card) => {return card.id !== cardId});
+    const newCardList = cardList.filter((card) => {
+      return (card.id !== cardId)
+    });
 
-    axios.delete(`${props.url}/cards/${cardId}`)
-      .then((response) => {
-        console.log(`Card ${cardId} was successfully deleted`);
-      })
+
+    if (newCardList.length < cardList.length) {
+      axios.delete(`${props.url}/cards/${cardId}`)
+        .then((response) => {
+          setErrorMessage(`Card ${cardId} was successfully deleted`);
+        })
       .catch((error) => {
         setErrorMessage(`An error occurred when trying to delete card ${cardId}. ${error.message}`);
         console.log(errorMessage);
       })
-    setCardList(newCardList);
+      setCardList(newCardList);
+    }
   };
 
   const cardComponent = cardList.map((card) => {
     return (
-      <Card key={card.id} text={card.text} emoji={card.emoji} id={card.id} deleteCard={deleteCard}/>
+      <Card text={card.text} emoji={card.emoji} id={card.id} deleteCard={deleteCard}/>
     );
   });
 
   return (
     <div>
+      {errorMessage ? <div><h2>{errorMessage}</h2></div> : ''}
       {cardComponent}
     </div>
   )
