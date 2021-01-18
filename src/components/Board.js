@@ -28,8 +28,6 @@ const Board = (props) => {
     const [cards, setCards] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
   
- 
-
     useEffect(() => {
       axios.get(allCards)
         .then((response) => {
@@ -44,14 +42,16 @@ const Board = (props) => {
 
 
     const addCard = ((newCard) => { // need to create NewCardForm
+
       axios.post(allCards, newCard)
         .then((response) => {
           const newCardList = [...cards, response.data.card]
           setCards(newCardList)
+          setErrorMessage('Card successfully added')
         })
         .catch((error) => {
-          setErrorMessage(error.message);
-          console.log(error.message);  
+          setErrorMessage('Card not successfully added');
+          // console.log(error.message);  
         });
     })
 
@@ -75,9 +75,12 @@ const Board = (props) => {
 
 
   return (
-    <div className="board">
-      {cardList(cards, deleteCard)}
-      <button onSubmit={addCard}>Add Card</button>
+    <div>
+      <NewCardForm addCardCallback={addCard}/>
+      <br/>
+      <div className="board">
+        {cardList(cards, deleteCard)}
+      </div>
     </div>
   )
   
