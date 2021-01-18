@@ -5,9 +5,9 @@ import emoji from 'emoji-dictionary';
 import './Card.css';
 
 const Card = (props) => {
-  const removeCard = () => {
-    props.deleteCard(props.id);
-  }
+  // const removeCard = () => {
+  //   props.deleteCard(props.id);
+  // }
 
   return (
     <div className="card">

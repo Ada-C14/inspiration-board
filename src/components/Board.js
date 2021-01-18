@@ -39,6 +39,7 @@ const Board = (props) => {
   {
     cardsComponentArray.push(
       <Card
+          key={card.id}
           id={card[`card`][`id`]}
           text={card[`card`][`text`]}
           emoji={card[`card`][`emoji`]}
@@ -73,7 +74,7 @@ const Board = (props) => {
       axios.delete(`${CARD_URL_BASE}${id}`)
       .then((response) => {
         // make new list excluding result, as it now should be deleted
-        const updatedData = cardList.filter(card => card != result);
+        const updatedData = cardList.filter(card => card !== result);
         setCardList(updatedData);
         setErrorMessage(''); // not sure why need this, but it was in the students example
         console.log(`Card ${id} successfully deleted`);

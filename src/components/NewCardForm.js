@@ -17,10 +17,10 @@ const NewCardForm = (props) => {
         
         for (const emojiOption of EMOJI_LIST)
             if (emojiOption === "") {
-                emojiArray.push(<option>No Emoji</option>)
+                emojiArray.push(<option key={EMOJI_LIST.indexOf(emojiOption)}>No Emoji</option>)
             }
             else {
-                emojiArray.push(<option>{emoji.getUnicode(`${emojiOption}`)}</option>)
+                emojiArray.push(<option key={EMOJI_LIST.indexOf(emojiOption)}>{emoji.getUnicode(`${emojiOption}`)}</option>)
             }; 
         return emojiArray;
     }; 
@@ -30,7 +30,7 @@ const NewCardForm = (props) => {
 
         if (event.target.name === `emoji`) {
             let selectedEmoji = ''
-            if (event.target.value != 'No Emoji') {
+            if (event.target.value !== 'No Emoji') {
                 selectedEmoji = emoji.getName(event.target.value)
             };
 
@@ -85,7 +85,7 @@ const NewCardForm = (props) => {
                     />
                 <label className="new-card-form__form-select"></label>
                         <select className="new-card-form__form-select" onChange={onInputChange} name="emoji" value={formFields.emoji}>
-                        <option selected="">Select Emoji...</option>
+                        <option disabled>Select Emoji...</option>
                         {generateEmojiList()}
                         </select>
                 <input type="submit" value="Add Card" className="new-card-form__form-button" />
