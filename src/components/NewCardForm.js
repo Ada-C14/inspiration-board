@@ -15,7 +15,10 @@ class NewCardForm extends Component {
   
   onChange = (event) => {
     const updateState = this.state
-    this.setState(updateState[event.target.name] = event.target.value)
+    const name = event.target.name
+    const value = event.target.value
+    updateState[name] = value
+    this.setState(updateState)
   }
 
   onSubmit = (event) => {
@@ -29,7 +32,7 @@ class NewCardForm extends Component {
   emojiList = () => {
   const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
   const emojis = EMOJI_LIST.map((emojiString) => {
-      return <option>{emoji.getUnicode(emojiString)}</option>
+      return <option key={emojiString} value={emojiString}>{emoji.getUnicode(emojiString)}</option>
   })
   return emojis
   }
@@ -40,11 +43,10 @@ class NewCardForm extends Component {
       <h1>add a new card</h1>
       <form 
         className="new-card-form"
-        onChange={this.onChange}
-        addCardCallback={(event) => addCardCallback(event.target.value)}  >
-        <textarea>Inspirational Quote..</textarea>
-        <select>{this.emojiList()}</select>
-        <button onSubmit={this.onSubmit}>Submit</button>
+        onSubmmit={this.onSubmit} >
+        <textarea onChange={this.onChange} />
+        <select onChange={this.onChange}>{this.emojiList()}</select>
+        <button type="submit">Submit</button>
       </form>
     </div>
    
