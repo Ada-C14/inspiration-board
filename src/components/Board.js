@@ -35,6 +35,23 @@ const Board = (props) => {
       })
   };
 
+  const deleteCard = (id) => {
+    const newCardList = cardList.filter((card) => {
+      return card.id !== id;
+    });
+
+    if (newCardList.length < cardList.length) {
+      axios.delete(props.cardUrl + id)
+        .then((response) => {
+          setErrorMessage(`Card deleted`);
+          setCardList(newCardList);
+        })
+        .catch((error) => {
+          setErrorMessage(`Cannot delete card`);
+        })
+    }
+  };
+
   const cardComponents = cardList.map((card) => {
     return (
       <Card
@@ -42,6 +59,7 @@ const Board = (props) => {
         id={card.id}
         text={card.text}
         emoji={card.emoji}
+        deleteCardCallBack={deleteCard}
       />
     );
   });
