@@ -5,25 +5,37 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
+const Board = (props) => {
 
-const Board = (url, boardName) => {
-  const[cardList, setCardList] = useState([]);
+  const [cardList, setCardList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    axios.get(`${url}/${boardName}/cards`)
-    .then((response) => {
-      setCardList(response.data);
-    })
-    .catch((error) => {
-      setErrorMessage(error.message);
-    });
-  }, 
-  []);
+    axios.get(props.boardUrl + props.boardName + '/cards')
+      .then((response) => {
+        setCardList(response.data.map(card => card.card));
+        setErrorMessage('');
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+  }, []);
 
-  const cardComponents = cardList.map(({card}) => {
+  const addCard = (card) => {
+    axios.post(props.boardUrl + props.boardName + '/cards', {...card})
+      .then((response) => {
+        const updatedCard = [...cardList, response.data.card];
+        setCardList(updatedCard);
+        setErrorMessage('Card successfully added to board!');
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      })
+  };
+
+  const cardComponents = cardList.map((card) => {
     return (
       <Card
         key={card.id}
@@ -35,14 +47,19 @@ const Board = (url, boardName) => {
   });
 
   return (
-    <div className="board">
-      {errorMessage ? errorMessage : null}
-      {cardComponents}
+    <div>
+      { errorMessage ? <div><h2 className="validation-errors-display">{errorMessage}</h2></div> : '' }
+      <NewCardForm addCardCallback={addCard}/>
+      <div className="board">
+        {cardComponents}
+      </div>  
     </div>
   )
 };
+
 Board.propTypes = {
-  url:PropTypes.string.isRequired,
+  boardUrl: PropTypes.string.isRequired,
+  cardUrl: PropTypes.string.isRequired,
   boardName: PropTypes.string.isRequired
 };
 
