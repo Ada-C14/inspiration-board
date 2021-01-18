@@ -23,6 +23,18 @@ const Board = (props) => {
     });
   }, []);
 
+  const addCard = (card) => {
+    axios.post(props.url,card)
+      .then((response) => {
+        const updatedCards = [...cards, response.data];
+        setCards(updatedCards);
+        setErrorMessage('')
+      })
+      .catch((error) => {
+        setErrorMessage(error.message)
+      });
+  };
+
   const deleteCard = (cardId) => {
     const newCards = cards.filter((card) => {
       return card.card.id !== cardId
@@ -44,13 +56,17 @@ const Board = (props) => {
   });
 
   return (
-    <div>
+    <div className='board'>
+      <div>
       { cardList }
+      </div>
+      <NewCardForm addCardCallback={addCard}/>
     </div>
   )
 };
 Board.propTypes = {
-
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string
 };
 
 export default Board;
