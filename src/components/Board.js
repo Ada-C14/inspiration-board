@@ -14,28 +14,13 @@ const Board = (props) => {
   useEffect(() => {
     axios.get(API_URL_BASE)
       .then((response) => {
-        // need to return card data, need to create list
         const apiCardData = response.data;
         setCardData(apiCardData)
       })
       .catch((error) => {
-        // Still need to handle errors
         setErrorMessage(error.message);
       });
   }, []);
-
-  const updateCards = (updatedCard) => {
-    const cards = [];
-
-    cardData.forEach((card) => {
-      if (card.id === updatedCard.id) {
-        cards.push(updatedCard);
-      } else {
-        cards.push(card);
-      }
-    });
-    setCardData(cards)
-  }
 
   const addCard = (card) => {
     axios.post(API_URL_BASE, card)
@@ -90,7 +75,8 @@ const Board = (props) => {
   )
 };
 Board.propTypes = {
-
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired
 };
 
 export default Board;

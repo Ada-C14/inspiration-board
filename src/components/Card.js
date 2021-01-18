@@ -6,14 +6,11 @@ import './Card.css';
 
 const Card = (props) => {
   
-  const onButtonClick = () => {
-    props.deleteCardCallback(props.key)
-  }
   return (
     <div className="card">
       <ul className="card__content">
         <li className="card__content-text">
-          {props.text}
+          {props.text === '' ? '' : props.text}
         </li>
         <li className="card__content-emoji">
           {props.emoji === null ? '' : emoji_dict.getUnicode(props.emoji)}
@@ -27,7 +24,8 @@ const Card = (props) => {
 }
 
 Card.propTypes = {
-
+  text: PropTypes.string.isRequired,
+  emoji: PropTypes.string.isRequired
 };
 
 export default Card;

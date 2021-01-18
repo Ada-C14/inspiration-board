@@ -76,6 +76,7 @@ const NewCardForm = (props) => {
 }
 
 NewCardForm.propTypes = {
+  sendSubmission: PropTypes.func.isRequired
 }
 
 export default NewCardForm;
