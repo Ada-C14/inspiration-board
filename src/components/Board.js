@@ -38,11 +38,25 @@ const Board = ({ boardName, url }) => {
     })
   }
 
+  const addCard = (cardFields) => {
+    axios.post(`${url}/boards/${boardName}/cards`, cardFields).then(response => {
+      // filter out deleted card
+      setCards([ response.data.card, ...cards ]);
+    }).catch((error) => {
+      console.error(error.message);
+    })
+  }
+
   const cardComponents = generateCardComponents(cards, deleteCard);
 
   return (
     <div>
-      { errorMessage || cardComponents }
+      <div>
+        <NewCardForm addCard={ addCard }/>
+      </div>
+      <div>
+        { errorMessage || cardComponents }
+      </div>
     </div>
   )
 };

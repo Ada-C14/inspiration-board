@@ -30,6 +30,7 @@
 .card__content-text {
   text-overflow: ellipsis;
   overflow: hidden;
+  font-size: 2rem;
 }
 
 .card__content-emoji {
@@ -42,6 +43,6 @@
 }
 
 .card__delete {
-  align-self: start;
+  align-self: center;
   font-family: 'Permanent Marker', Helvetica, sans-serif;
 }
