@@ -42,7 +42,7 @@ class Board extends Component {
             id: card.card.id
           })
         )
-        this.setState(cards)
+        this.setState({cards, message: ''})
       })
       .catch(error => {
         this.setState({message: error.data})
@@ -51,12 +51,12 @@ class Board extends Component {
 
   getCards = () => {
     return this.state.cards.map((card, index) => {
-      return <Card 
+      return (<Card 
         text={card.text}
         emoji={card.emoji}
         id={card.id}
         key={index}
-      />
+      />)
     })
   }
 
@@ -75,6 +75,7 @@ class Board extends Component {
   render() {
     return (
       <div>
+        {this.message}
         <NewCardForm
           addCardCallback={this.addCard}
         />
