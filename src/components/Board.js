@@ -10,6 +10,7 @@ import CARD_DATA from '../data/card-data.json';
 const Board = (props) => {
   
   const API_URL_BOARD = 'https://inspiration-board.herokuapp.com/boards/'
+  const API_URL_CARDS = 'https://inspiration-board.herokuapp.com/cards/'
   
   const [cardsList, setCardsList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -27,9 +28,32 @@ const Board = (props) => {
       });
   }, []);
 
+  const deleteCard = (id) => {
+    const newCardsList = cardsList.filter((card) => {
+      return card.card.id !== id
+    });
+
+    if (newCardsList.length < cardsList.length) {
+      axios.delete(`${API_URL_CARDS}/${id}`)
+      .then((response) => {
+        setErrorMessage(`Card ${ id } deleted`);
+      })
+      .catch((error) => {
+        setErrorMessage(`Unable to delete the card ${ id }`);
+      })
+      setCardsList(newCardsList);
+    }
+  }
+
   const cardComponentsList = cardsList.map((card) => {
-    return <Card text={card.card.text} emoji={card.card.emoji} key={card.key}/>
+    return <Card 
+    text={card.card.text} 
+    emoji={card.card.emoji} 
+    key={card.card.id} 
+    id={card.card.id} 
+    deleteCardCallback={deleteCard}/>
   })
+
   return (
     <div>
       { errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : '' }

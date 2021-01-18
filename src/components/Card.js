@@ -9,6 +9,11 @@ const Card = (props) => {
     <div className="card">
       {props.text}
       {props.emoji ? emoji.getUnicode(props.emoji) : ""} 
+      <button 
+        onClick={() => props.deleteCardCallback(props.id)}>
+        Delete
+      </button>
+      {/* onClick calls anonymous func that calls calback and passes the id of the card */}
     </div>
   )
 }
@@ -16,6 +21,8 @@ const Card = (props) => {
 Card.propTypes = {
   text: PropTypes.string,
   emoji: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  deleteCardCallback: PropTypes.func.isRequired
 };
 
 export default Card;
