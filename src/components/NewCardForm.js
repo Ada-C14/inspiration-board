@@ -29,23 +29,27 @@ const NewCardForm = (props) => {
         console.log(`Changing field ${ event.target.name } to ${ event.target.value }`);
 
         if (event.target.name === `emoji`) {
-            const selectedEmoji = emoji.getName(event.target.value)
+            let selectedEmoji = ''
+            if (event.target.value != 'No Emoji') {
+                selectedEmoji = emoji.getName(event.target.value)
+            };
+
             const newFormFields = {
                 ...formFields,
-              }
+            };
             
-              newFormFields[event.target.name] = selectedEmoji;
-              console.log(newFormFields[event.target.name])
-              setFormFields(newFormFields);
-              console.log(newFormFields);
+            newFormFields[event.target.name] = selectedEmoji;
+            console.log(newFormFields[event.target.name]);
+            setFormFields(newFormFields);
+            console.log(newFormFields);
         }
         else {
             const newFormFields = {
                 ...formFields,
-              }
+              };
             
               newFormFields[event.target.name] = event.target.value;
-              console.log(newFormFields[event.target.name])
+              console.log(newFormFields[event.target.name]);
               setFormFields(newFormFields);
               console.log(newFormFields);
         }
