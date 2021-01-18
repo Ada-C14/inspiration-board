@@ -28,7 +28,7 @@ const Board = (props) => {
       .then((response) => {
         const updatedCards = [...cards, response.data];
         setCards(updatedCards);
-        setErrorMessage('')
+        setErrorMessage('New card successfully created')
       })
       .catch((error) => {
         setErrorMessage(error.message)
@@ -56,11 +56,13 @@ const Board = (props) => {
   });
 
   return (
-    <div className='board'>
-      <div>
+    <div>
+      <p className='validation-errors-display' >{errorMessage}</p>
+      <NewCardForm addCardCallback={addCard}  setError={setErrorMessage} />
+      
+      <div className='board'>
       { cardList }
       </div>
-      <NewCardForm addCardCallback={addCard}/>
     </div>
   )
 };
