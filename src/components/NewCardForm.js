@@ -14,7 +14,6 @@ const NewCardFrom = (props) => {
   const handleFormChange = (event) => {
       const {name, value} = event.target
       setFormData({...formData, [name]: value});
-      
   }
 
   const emojiOptions = EMOJI_LIST.map((emojiTxt, i) => {
@@ -36,15 +35,20 @@ const NewCardFrom = (props) => {
       <form className="new-card-form__form" onSubmit={handleFormSubmit}>
         <label className="new-card-form__form-label">Text</label>
         <textarea className="new-card-form__form-textarea" value={formData.text} name='text' onChange={handleFormChange}></textarea>
+        
         <label className="new-card-form__form-label">Emoji</label>
         <select className="new-card-form__form-select" value={formData.emoji} onChange={handleFormChange} name='emoji'>
           {emojiOptions}
         </select>
+        
         <button className="new-card-form__form-button">Submit</button>
       </form>
     </div>
-
   )
+}
+
+NewCardFrom.propTypes = {
+  addCardCallback: PropTypes.func.isRequired
 }
 
 export default NewCardFrom;

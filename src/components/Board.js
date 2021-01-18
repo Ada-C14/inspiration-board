@@ -43,17 +43,13 @@ const Board = (props) => {
         .catch( (error) => {
           setErrorMessage(`Unable to delete card ${id}`)
         });
-      
     }
   }
 
   const addCard = (card) => {
-    console.log(card)
-    console.log(props.boardUrl + props.boardName + '/cards')
     axios.post(props.boardUrl + props.boardName + '/cards', {...card})
     
       .then( (response) => {
-        console.log(response.data);
         const updatedCards = [response.data, ...cardList];
         setCardList(updatedCards)
         
@@ -80,7 +76,9 @@ const Board = (props) => {
   )
 };
 Board.propTypes = {
-
+  boardUrl: PropTypes.string.isRequired,
+  cardUrl: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired
 };
 
 export default Board;
