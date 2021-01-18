@@ -13,12 +13,14 @@ const NewCardForm = (props) => {
     });
 
     const onFormFieldChange = (event) => {
-        const fieldText = event.target.value;
-        const field
-    }
+        const newFormFields = {...formFields, };
+        newFormFields[event.target.name] = event.target.value;
+        setFormFields(newFormFields);
+    };
 
     const onFormSubmit = (event) => {
         event.preventDefault();
+
 
         setFormFields({
             text: '',
@@ -26,25 +28,46 @@ const NewCardForm = (props) => {
         });
     };
 
+    const selectEmoji = EMOJI_LIST.map((emojiText) => {
+        return (
+            <option value={emojiText}>
+                {emoji.getUnicode(emojiText)}
+            </option>
+        )
+    })
+
     return (
-        <div className="new-card-form" onSubmit={onFormSubmit}>
+        <form className="new-card-form" onSubmit={onFormSubmit}>
             <div className="new-card-form__header">
                 <h2>Create a new post-it!</h2>
             </div>
-            <form className="new-card-form__form" >
-                <div className="new-card-form__form-textarea"></div>
-                <div className="new-card-form__form-label">
-                </div>
-                <div className="new-card-form__form-select"></div>
-
-
-            
-                <button onClick={onFormSubmit} className="new-card-form__form-button">
-            
-                </button>
-            </form
-        </div>
+            <div className="new-card-form__form" >
+                <label className="new-card-form__form-label">Message</label>
+                <input className="new-card-form__form-textarea"
+                            id='text'
+                            name='text'
+                            onChange={onFormFieldChange}
+                            value={formFields.text}
+                />
+            </div>
+            <div className='new-card-form__form'>
+                <label className='new-card-form__form-label'>Emoji</label>
+                <select className='new-card-form__form-select'
+                            id='emoji'
+                            name='emoji'
+                            onChange={onFormFieldChange}
+                            value={formFields.emoji}
+                            >
+                                {selectEmoji}
+                </select>
+            </div>
+            <input type='submit' value='Add a New Card' className="new-card-form__form-button" />
+        </form>
     )
 };
+
+NewCardForm.propTypes = {
+    onAddCardCallback: PropTypes.func.isRequired,
+}
 
 export default NewCardForm;

@@ -49,25 +49,24 @@ const Board = (props) => {
     });
   }
 
-  const cards = () => {
-    return cardList.map((card) => {
-      return <Card 
+  const cards = cardList.map((card) => {
+      return (<Card 
       key={card.id}
       id={card.id}
       text={card.text ? card.text : ''}
       emoji={card.emoji ? card.emoji : ''}
       onDeleteCardCallback = {deleteCard}
       />
-    })
-  } 
+      )
+    });
   
   
   
     return (
       <div>
         <h1>Board</h1>
-        <main>
-          { cards() }
+        <main className='board'>
+          { cards }
         </main>
       </div>
     )
