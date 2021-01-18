@@ -6,10 +6,10 @@ import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
 
-const generateCardComponents = (cards) => {
+const generateCardComponents = (cards, deleteCard) => {
   return cards.map(card => {
     return (
-      <Card key={ card.id } card={ card } />
+      <Card key={ card.id } card={ card } deleteCard={ deleteCard } />
     )
   });
 }
@@ -18,7 +18,7 @@ const Board = ({ boardName, url }) => {
   const [cards, setCards] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   useEffect(() => {
-    axios.get(`${url}${boardName}/cards`)
+    axios.get(`${url}/boards/${boardName}/cards`)
       .then((response) => {
         const responseCards = response.data.map(({ card }) => card);
         setCards(responseCards);
@@ -29,7 +29,16 @@ const Board = ({ boardName, url }) => {
       });
   }, []);
 
-  const cardComponents = generateCardComponents(cards);
+  const deleteCard = (cardId) => {
+    axios.delete(`${url}/cards/${cardId}`).then(() => {
+      // filter out deleted card
+      setCards(cards.filter(card => cardId !== card.id))
+    }).catch((error) => {
+      console.error(error.message);
+    })
+  }
+
+  const cardComponents = generateCardComponents(cards, deleteCard);
 
   return (
     <div>
