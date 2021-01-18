@@ -7,7 +7,7 @@ import Card from './Card';
 import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
-class Board extends Component {
+class Board extends React.Component {
   // const cards = CARD_DATA.cards.map((card) => {
   //   return <Card 
   //     text={card.text}
@@ -56,6 +56,7 @@ class Board extends Component {
         emoji={card.emoji}
         id={card.id}
         key={index}
+        deleteCardCallback={this.deleteCard}
       />)
     })
   }
@@ -70,16 +71,30 @@ class Board extends Component {
       })
       const cards = this.state.cards
       cards.push(card)
-      this.setState({cards})
+      this.setState({cards, message: ''})
+  }
+
+  deleteCard = (id) => {
+    const cards = this.state.cards.filter((card) => card.id !== id)
+    this.setState({cards})
+    axios.delete(`${this.props.url}${this.props.boardName}/cards/${id}`)
+      .then(() => {
+        this.setState({message: 'Card deleted'})
+      })
+      .catch(() => {
+        this.setState({message: 'Hmm.. something went wrong'})
+      })
+      this.setState({})
   }
 
   render() {
     return (
       <div>
-        {this.message}
+        <p>{this.message}</p>
         <NewCardForm
           addCardCallback={this.addCard}
         />
+        {/* <Card deleteCardCallback={this.deleteCard} /> */}
         <main className="board">
           {this.getCards()}
         </main>

@@ -4,7 +4,7 @@ import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
 
 
-class NewCardForm extends Component {
+class NewCardForm extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -30,7 +30,7 @@ class NewCardForm extends Component {
   }
 
   emojiList = () => {
-  const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+  const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog", "sparkles"]
   const emojis = EMOJI_LIST.map((emojiString) => {
       return <option key={emojiString} value={emojiString}>{emoji.getUnicode(emojiString)}</option>
   })
@@ -44,9 +44,9 @@ class NewCardForm extends Component {
       <form 
         className="new-card-form"
         onSubmmit={this.onSubmit} >
-        <textarea onChange={this.onChange} />
-        <select onChange={this.onChange}>{this.emojiList()}</select>
-        <button type="submit">Submit</button>
+        <textarea className="new-card-form__form-textarea" onChange={this.onChange} />
+        <select className="new-card-form__form-select" onChange={this.onChange}>{this.emojiList()}</select>
+        <button type="submit" className="new-card-form__form-button" >Add this card</button>
       </form>
     </div>
    
