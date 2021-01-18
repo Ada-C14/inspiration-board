@@ -28,7 +28,7 @@ const Card = ({ card }) => {
 Card.propTypes = {
   card: PropTypes.shape({
     emoji: PropTypes.string,
-    text: PropTypes.string
+    text: PropTypes.string,
   })
 };
 
