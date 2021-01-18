@@ -22,7 +22,6 @@ const Board = () => {
 
   return (
     <div>
-      Board
       { cards }
     </div>
   )
