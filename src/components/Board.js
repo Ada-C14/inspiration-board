@@ -14,6 +14,7 @@ const Board = (props) => {
   const CARDS_API_URL = `${props.url}/${props.boardName}/cards`;
   // const newCardComponents = ...
   const [cardList, setCardList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
   useEffect(() => {
     axios.get(CARDS_API_URL)
       .then((response) => {
@@ -24,9 +25,11 @@ const Board = (props) => {
       })
       .catch((error) => {
         // Still need to handle errors
+        setErrorMessage(error.message);
+        console.log(error.message);
       });
   }, []);
-  
+
   const cardComponents = cardList.map(({card}) => {
     return (
       <Card
@@ -39,6 +42,7 @@ const Board = (props) => {
 
   return (
     <div className="board">
+        { errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : '' }
       {cardComponents}
     </div>
   )
