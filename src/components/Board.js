@@ -12,6 +12,23 @@ const Board = (props) => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [newId, setNewId] = useState(-1);
 
+  useEffect(() => {
+    axios.get(`${props.url}${props.boardName}/cards`)
+      .then((response) => {
+        const apiCardList = response.data.map((apiCard) => {
+          return {
+            id: apiCard['card']['id'],
+            emoji: apiCard['card']['emoji'],
+            text: apiCard['card']['text']
+          }
+        });
+        setCardList(apiCardList);
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+  }, []);
+
   const nextId = () => {
     const id = cardList.reduce((accumulator, card) => {
       return Math.max(accumulator, card.id);
@@ -20,38 +37,23 @@ const Board = (props) => {
     return newId;
   };
 
-  const deleteCard = (id) => {
-    const newCardList = cardList.filter ((card) => {
-      return card.id !== id;
-    })
+  const deleteCard = (cardId) => {
+    const newCardList = cardList.filter((card) => {return card.id !== cardId});
 
-    if (newCardList.length < cardList.length) {
-      axios.delete(`${props.url}/cards/${id}`)
-        .then((response) => {
-          console.log(`Card ${id} was successfully deleted`);
-        })
-        .catch((error) => {
-        setErrorMessage(`An error occurred when trying to delete card ${id}. ${error.message}`);
-        console.log(errorMessage);
-        })
-      setCardList(newCardList);
-    }
-  }
-
-  useEffect(() => {
-    axios.get(`${props.url}${props.boardName}/cards`)
+    axios.delete(`${props.url}/cards/${cardId}`)
       .then((response) => {
-        const apiCardList = response.data;
-        setCardList(apiCardList);
+        console.log(`Card ${cardId} was successfully deleted`);
       })
       .catch((error) => {
-        setErrorMessage(error.message);
-      });
-  }, []);
+        setErrorMessage(`An error occurred when trying to delete card ${cardId}. ${error.message}`);
+        console.log(errorMessage);
+      })
+    setCardList(newCardList);
+  };
 
-  const cardComponent = cardList.map(({card}) => {
+  const cardComponent = cardList.map((card) => {
     return (
-      <Card text={card.text} emoji={card.emoji} id={card.id} deleteCard={deleteCard}/>
+      <Card key={card.id} text={card.text} emoji={card.emoji} id={card.id} deleteCard={deleteCard}/>
     );
   });
 
