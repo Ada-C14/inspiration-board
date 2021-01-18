@@ -5,7 +5,8 @@
   margin: 0.5rem;
 
   min-height: 250px;
-  min-width: 225px;
+  width: 250px;
+
   flex-basis: 18%;
 
   border-radius: 5px;
@@ -42,6 +43,7 @@
 }
 
 .card__delete {
-  align-self: start;
+  grid-column-start: 2;
+  justify-self: center;
   font-family: 'Permanent Marker', Helvetica, sans-serif;
 }

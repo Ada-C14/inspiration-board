@@ -1,9 +1,13 @@
 .board {
   display: flex;
   flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: center;
 }
 
 .validation-errors-display {
+  font-family: Raleway;
+  color: red;
   text-align: center;
   margin-bottom: 2em;
 }

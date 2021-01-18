@@ -34,7 +34,12 @@
 }
 
 .new-card-form__form-button {
-  background-color: inherit;
-  border: 1px solid black;
+  background-color: #222;
+  padding-bottom: 5px;
+  color: white;
+  border: none;
   font-size: 1em;
+  /* justify-self: center !important; */
+  border-radius: 5px;
+  font-family: 'Permanent Marker', Helvetica, sans-serif;
 }
