@@ -7,8 +7,8 @@ const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_
 
 const NewCardForm = (props) => {
     const [formFields, setFormFields] = useState({
-        text: null,
-        emoji: null,
+        text: "",
+        emoji: "",
     });
 
     const onTextChange = (event) => {
@@ -20,21 +20,31 @@ const NewCardForm = (props) => {
     const onFormSubmit = (event) => {
         event.preventDefault();
 
-        props.addCardCallback(formFields);
-
-        setFormFields({
-            text: "",
-            emoji: "",
-        });
+        if (inputValid()) {
+            props.addCardCallback(formFields);
+            setFormFields({
+                text: "",
+                emoji: "",
+            });
+        }
     };
 
-    const emojiChoiceMenu = EMOJI_LIST.map((emojiName) => {
+    const emojiChoices = EMOJI_LIST.map((emojiName) => {
         return (
             <option value={emojiName} >
                 {emoji.getUnicode(emojiName)}
             </option>
         )
     })
+
+    const inputValid = () => {
+        if (formFields.emoji !== "" || formFields.text !== "") {
+            return true
+        } else {
+            props.setError('Please fill-in at least one field.')
+            return false
+        };
+    };
 
     return (
         <form className='new-card-form' onSubmit={onFormSubmit} >
@@ -55,7 +65,7 @@ const NewCardForm = (props) => {
                         name='emoji'
                         onChange={onTextChange}
                         value={formFields.emoji} >
-                    {emojiChoiceMenu}
+                    {emojiChoices}
                 </select>
             </div>
             <input type='submit' value='Add New Card' className='new-card-form__form-button' />
