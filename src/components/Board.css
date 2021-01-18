@@ -6,6 +6,8 @@
 }
 
 .validation-errors-display {
+  font-family: Raleway;
+  color: red;
   text-align: center;
   margin-bottom: 2em;
 }
