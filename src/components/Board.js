@@ -81,8 +81,8 @@ const Board = (props) => {
       setErrorMessage(error.message);
       console.log(`Whoops, card was not updated: ${errorMessage}`)
     });
-
   }
+
   const cards = cardList.map((card) => {
       return (<Card 
       key={card.id}
@@ -91,6 +91,7 @@ const Board = (props) => {
       emoji={card.emoji ? card.emoji : ''}
       onDeleteCardCallback = {deleteCard}
       onUpdateCardCallback = {updateCard}
+      setError={setErrorMessage}
       />
       )
     });
@@ -100,7 +101,7 @@ const Board = (props) => {
     return (
       <div>
         <NewCardForm onAddCardCallback={addCard} setError={setErrorMessage} />
-        <h1 className='validation-errors-display'> {errorMessage} </h1>
+        <h1 className='validation-errors-display'> {errorMessage}</h1>
         <main className='board'>
           { cards }
         </main>
