@@ -56,7 +56,7 @@ const Board = (props) => {
   });
 
   return (
-    <div>
+    <div className="board">
       <h2>{props.boardName}</h2>
       <NewCardForm addCardCallback={addCard} />
       {cardComponents}
