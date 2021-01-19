@@ -15,7 +15,7 @@ const Card = (props) => {
   };
 
   // const onUpdateFieldChange = (event) => {
-  //   const newUpdateFields = {...updateCard,};
+  //   const newUpdateFields = {...updateCard};
   //   newUpdateFields[event.target.name] = event.target.value;
   //   setUpdateCard(newUpdateFields);
   // };

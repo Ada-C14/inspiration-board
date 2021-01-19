@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+
 
 const Board = (props) => {
 
@@ -52,13 +52,6 @@ const Board = (props) => {
   const addCard = (card) => {
     axios.post(getCardsURLEndpoint,card)
     .then((response) => {
-      // const newCard = response.data.map((apiCard) => {
-      //   return {
-      //     id: apiCard['card']['id'],
-      //     text: apiCard['card']['text'],
-      //     emoji: apiCard['card']['emoji'],
-      //   }
-      // });
       const newCard = response.data.card;
       const newCardList = [...cardList, newCard];
       setCardList(newCardList);
