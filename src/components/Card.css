@@ -25,6 +25,8 @@
   text-align: center;
   font-weight: 100;
   overflow: hidden;
+  list-style-type: none;
+  
 }
 
 .card__content-text {

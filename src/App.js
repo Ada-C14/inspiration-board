@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Board from './components/Board';
+import Card from './components/Card';
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         url="https://inspiration-board.herokuapp.com/boards/"
         boardName={`kej`}
       />
+
     </section>
   );
 };
