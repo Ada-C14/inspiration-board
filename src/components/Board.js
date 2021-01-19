@@ -68,14 +68,19 @@ const Board = (props) => {
   const deleteCard = (id) => {
     console.log(id);
     // make sure the id exists in current list, save it as a var
-    const result = cardList.filter(card => card.card.id === id);
-    console.log(result);
-    if (result) {
+    // const result = cardList.filter(card => card.card.id === id);
+    // console.log(result);
+    // if (result) {
+      const updatedData = cardList.filter(card => card.card.id !== id);
+      console.log(updatedData);
+      setCardList(updatedData);
+      
       axios.delete(`${CARD_URL_BASE}${id}`)
       .then((response) => {
         // make new list excluding result, as it now should be deleted
-        const updatedData = cardList.filter(card => card !== result);
-        setCardList(updatedData);
+        // const updatedData = cardList.filter(card => card !== result);
+        // console.log(updatedData);
+        // setCardList(updatedData);
         setErrorMessage(''); // not sure why need this, but it was in the students example
         console.log(`Card ${id} successfully deleted`);
       })
@@ -83,7 +88,7 @@ const Board = (props) => {
         // display error message if failure
         setErrorMessage(error.message);
       });
-    }
+    // }
   };
 
   return (
