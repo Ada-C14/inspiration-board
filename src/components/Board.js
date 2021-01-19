@@ -10,7 +10,7 @@ import CARD_DATA from '../data/card-data.json';
 const Board = (props) => {
   const [cardList, setCardList] = useState([])
   const [errorMessage, setErrorMessage] = useState('')
-  // const [newId, setNewId] = useState(-1);
+  const [newId, setNewId] = useState(-1);
 
   useEffect(() => {
     axios.get(`${props.url}boards/${props.boardName}/cards`)
@@ -23,18 +23,20 @@ const Board = (props) => {
           }
         });
         setCardList(apiCardList);
-        // nextId()
+        nextId()
       })
       .catch((error) => {
         setErrorMessage(error.message);
       });
   }, []);
 
-  // const nextId = () => {
-  //   const id = cardList.reduce((accumulator, card) => {
-  //     return Math.max(accumulator, card.id);
-  //   }, 0) + 1;
-  // };
+  const nextId = () => {
+    const id = cardList.reduce((accumulator, card) => {
+      return Math.max(accumulator, card.id);
+    }, 0) + 1;
+    setNewId(id);
+    return newId;
+  }
 
   const deleteCard = (cardId) => {
     const newCardList = cardList.filter((card) => {
@@ -55,16 +57,39 @@ const Board = (props) => {
     }
   };
 
-  const cardComponent = cardList.map((card) => {
+  const addNewCard = (event,newCard) => {
+    event.preventDefault();
+    const apiCard = {
+      text: newCard.text, emoji: newCard.emojiName}
+
+    axios.post(`${props.url}/boards/${props.boardName}/cards`, apiCard)
+      .then((response) => {
+        setCardList([...cardList, newCard]);
+        nextId();
+        setErrorMessage('');
+      })
+      .catch((error)=>{
+        const message = `An error occurred and card was not added. ${error.message}`
+        setErrorMessage(message);
+        console.log(message)
+      })
+  }
+
+  const cardComponent = cardList.map((card, i) => {
     return (
-      <Card text={card.text} emoji={card.emoji} id={card.id} deleteCard={deleteCard}/>
+      <Card key={card.id} text={card.text} emoji={card.emoji} id={card.id} deleteCard={deleteCard}/>
     );
   });
 
   return (
     <div>
-      {errorMessage ? <div><h2>{errorMessage}</h2></div> : ''}
-      {cardComponent}
+      <div className='new-card-form'>
+        <NewCardForm newId={newId} addNewCard={addNewCard} />
+      </div>
+      <div className='board'>
+        {errorMessage ? <div><h2>{errorMessage}</h2></div> : ''}
+        {cardComponent}
+      </div>
     </div>
   )
 };
