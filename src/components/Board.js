@@ -28,11 +28,26 @@ const Board = (props) => {
       })
   }, [refresh]);
 
+  const addCard = (formFields) => {
+    console.log(JSON.stringify(formFields));
+    console.log(props.url + props.boardName + '/cards')
+    axios.post(props.url + props.boardName + '/cards', JSON.stringify(formFields), {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response) => {
+        refreshPage();
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+        console.log(error);
+      })
+  };
+
   const deleteCard = (id) => {
-    console.log(id);  
     axios.delete('https://inspiration-board.herokuapp.com/cards/' + id.toString())
       .then((response) => {
-        setCardData([]); // We are going to be lazy and force the cardData to refresh from the API
         refreshPage();
       })
       .catch((error) => {
@@ -62,6 +77,8 @@ const Board = (props) => {
       { errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : '' }
 
       {cardList}
+    <NewCardForm onAddCallback={addCard}/>
+
     </main>
   )
 };
