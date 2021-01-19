@@ -35,10 +35,9 @@ const dropDownEmojis = EMOJI_LIST.map((singleEmoji) => <option value={singleEmoj
 
 return (
     <form
-    className=""
     onSubmit={onFormSubmit}
     >
-    <div >
+    <div>
         <label htmlFor="text">Text:</label>
         <textarea className="new-card-form__form-textarea"
             name="text"
@@ -47,7 +46,7 @@ return (
         />
     </div>
     <div>
-        <label htmlFor="emoji">Emoji:</label>
+        <label className="new-card-form__form-label" htmlFor="emoji">Emoji:</label>
         <select className="new-card-form__form-select"
             name="emoji"
             onChange={onInputChange}

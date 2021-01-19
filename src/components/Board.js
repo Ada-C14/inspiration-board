@@ -5,7 +5,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
 
 
@@ -13,8 +13,6 @@ const Board = (props) => {
   // const BOARD_URL_BASE = `${props.url}/boards/${props.boardName}`;
   const CARDS_API_URL = `${props.url}/boards/${props.boardName}/cards`;
   const DELETE_CARD_URL = `${props.url}/cards`
-
-  // const newCardComponents = ...
 
   const [cardList, setCardList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -27,7 +25,6 @@ const Board = (props) => {
         setCardList(apiCardList);
       })
       .catch((error) => {
-        // Still need to handle errors
         setErrorMessage(error.message);
         console.log(error.message);
       });
@@ -36,13 +33,11 @@ const Board = (props) => {
   const addCard = (card) => {
     axios.post(CARDS_API_URL, card)
       .then((response) => {
-        // What should we do when we know the post request worked?
         const updatedData = [...cardList, response.data];
         setCardList(updatedData);
         setErrorMessage('');
       })
       .catch((error) => {
-        // What should we do when we know the post request failed?
         setErrorMessage(error.message);
       });
   }
