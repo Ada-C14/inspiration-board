@@ -67,11 +67,11 @@ const Board = (props) => {
   })
 
   return (
-    <div>
-      <NewCardForm onSubmitCallback={addCard} />
-      { errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : '' }
-      <h3>Board</h3>
+    <div className="board">
+      <ul><NewCardForm onSubmitCallback={addCard} /></ul>
+      { errorMessage ? <div><h2 className="validation-errors-display-msg">{errorMessage}</h2></div> : '' }
       {cardComponentsList}
+    
     </div>
   )
 };

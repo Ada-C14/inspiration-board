@@ -7,12 +7,14 @@ import './Card.css';
 const Card = (props) => {
   return (
     <div className="card">
+      <ul>
       {props.text}
       {props.emoji ? emoji.getUnicode(props.emoji) : ""} 
       <button 
         onClick={() => props.deleteCardCallback(props.id)}>
         Delete
       </button>
+      </ul>
       {/* onClick calls anonymous func that calls callback and passes the id of the card */}
     </div>
   )

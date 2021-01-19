@@ -38,12 +38,15 @@ const NewCardForm = (props) => {
             id="new-card-form"
             onSubmit={onFormSubmit}
         >
+        <h3 className="new-card-form__header">Add a card</h3>
+        <div className="new-card-form__form">
         <label htmlFor="text">Text</label>
         <input name="text"
             value={formFields.text}
             type="text"
             onChange={onInputChange}
         />
+
         <label htmlFor="emoji">Emoji</label>
         <input name="emoji"
             value={formFields.emoji}
@@ -53,7 +56,9 @@ const NewCardForm = (props) => {
 
         <input type="submit" 
         value="Add Card" 
+        className="new-card-form__form-button"
         />
+        </div>
         </form>
     );
 }
