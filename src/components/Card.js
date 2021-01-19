@@ -14,7 +14,7 @@ const Card = (props) => {
 }
 
 Card.propTypes = {
-  quote: PropTypes.string,
+  text: PropTypes.string,
   emoji: PropTypes.string
 };
 
