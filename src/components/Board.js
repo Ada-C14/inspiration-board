@@ -64,7 +64,7 @@ const Board = (props) => {
     <div className="board">
       { errorMessage ? <div className="validation-errors-display">{errorMessage}</div> : '' }
       {cards}
-      <NewCardForm addCard={addCard} />
+      <NewCardForm addCardCallback={addCard} />
     </div>
   )
 };
