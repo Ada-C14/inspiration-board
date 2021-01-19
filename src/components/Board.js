@@ -46,8 +46,18 @@ const Board = (props) => {
     }
   }
 
-  const addCard = () => {
-
+  const addCard = (card) => {
+    axios.post(`${props.url}${props.boardName}/cards`, card)
+      .then((response) => {
+        const updatedCards = [...cardList, response.data]
+        console.log("Card successfully added.");
+        setCardList(updatedCards);
+        setErrorMessage('');
+      })
+      .catch((error) => {
+        setErrorMessage('Card could not be added');
+        console.log(errorMessage);
+      });
   }
 
   const cardComponents = cardList.map((obj) => {
