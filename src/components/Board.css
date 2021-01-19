@@ -1,6 +1,7 @@
-.board {
+  .board {
   display: flex;
   flex-wrap: wrap;
+  list-style: none;
 }
 
 .validation-errors-display {
