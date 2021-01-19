@@ -10,9 +10,12 @@ import CARD_DATA from '../data/card-data.json';
 
 
 const Board = (props) => {
-  // const API_URL_BASE = `${props.url}/${props.boardName}`;
-  const CARDS_API_URL = `${props.url}/${props.boardName}/cards`;
+  // const BOARD_URL_BASE = `${props.url}/boards/${props.boardName}`;
+  const CARDS_API_URL = `${props.url}/boards/${props.boardName}/cards`;
+  const DELETE_CARD_URL = `${props.url}/cards`
+
   // const newCardComponents = ...
+
   const [cardList, setCardList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   useEffect(() => {
@@ -30,23 +33,60 @@ const Board = (props) => {
       });
   }, []);
 
+  const addCard = (card) => {
+    axios.post(CARDS_API_URL, card)
+      .then((response) => {
+        // What should we do when we know the post request worked?
+        const updatedData = [...cardList, response.data];
+        setCardList(updatedData);
+        setErrorMessage('');
+      })
+      .catch((error) => {
+        // What should we do when we know the post request failed?
+        setErrorMessage(error.message);
+      });
+  }
+
+
+  const deleteCard = (id) => {
+    const newCardList = cardList.filter(({card}) => {
+      return card.id !== id;
+    });
+
+    if (newCardList.length < cardList.length) {
+      axios.delete(`${DELETE_CARD_URL}/${id}`)
+        .then((response) => {
+          setErrorMessage(`Card ${id} deleted`);
+          setCardList(newCardList);
+        })
+        .catch((error) => {
+          console.log(error.message)
+          setErrorMessage(`Unable to delete card ${id}`);
+        })
+    }
+  }
+
   const cardComponents = cardList.map(({card}) => {
     return (
       <Card
+        key={card.id}
+        id={card.id}
         text={card.text}
         emoji={card.emoji} 
+        onDeleteCardCallback={deleteCard}
       />
     );
   });
 
-
   return (
     <div className="board">
-        { errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : '' }
+      { errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : '' }
       {cardComponents}
+      <NewCardForm addCardCallback={addCard} />
     </div>
   )
 };
+
 Board.propTypes = {
   url: PropTypes.string.isRequired,
   boardName: PropTypes.string.isRequired
