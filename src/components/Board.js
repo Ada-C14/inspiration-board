@@ -14,7 +14,6 @@ const Board = ({url, boardName}) => {
   useEffect(() => {
     axios.get(`${url}boards/${boardName}/cards`)
       .then((response) => {
-        // console.log(response);
         const fetchCards = [];
         response.data.forEach((hash) => {
           fetchCards.push(hash.card);
@@ -23,7 +22,6 @@ const Board = ({url, boardName}) => {
         setError('');
       })
       .catch((error) => {
-        // console.log(error.response);
         setError(error.response.data.cause);
       })
   }, []);
@@ -40,11 +38,27 @@ const Board = ({url, boardName}) => {
         setCardList(stillCards);
         setError('');
       })
-      // on success - refresh cards?
       .catch((error) => {
         setError(error.response.data.cause);
       })
-  }
+  };
+
+  const addCard = (cardHash) => {
+    const newId = Math.max(...cardList.map((hash) => hash.id)) + 1
+
+    axios.post(`${url}boards/${boardName}/cards`, {
+        id: newId,
+        text: cardHash.text,
+        emoji: cardHash.emoji,
+      })
+      .then((response) => {
+        setCardList([...cardList, cardHash]);
+        setError('');
+      })
+      .catch((error) => {
+        setError(error.response.data.cause);
+      })
+  };
 
   const cardComponents = cardList.map((hash) => {
     return <Card text={ hash.text } emoji={ hash.emoji } id={ hash.id } onDeleteCallback={ deleteCard } />
@@ -52,7 +66,7 @@ const Board = ({url, boardName}) => {
 
   return (
     <div className="board">
-      {/* TODO - why does CSS class not apply to error? */}
+      <NewCardForm onFormSubmit={ addCard} />
       { error ? <p className='validation-errors-display'>{ error }</p> : null }
       { cardComponents }
     </div>
