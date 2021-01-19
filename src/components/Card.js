@@ -9,7 +9,7 @@ const Card = (props) => {
     <div className="card">
       <div className="card_content">
         <p className='card__content-text'>{props.text}</p>
-        <p className='.card__content-emoji'>{props.emoji}</p>
+        <p className='card__content-emoji'>{props.emoji}</p>
       </div>
     </div>
   )

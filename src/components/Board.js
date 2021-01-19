@@ -23,6 +23,7 @@ const Board = (props) => {
     </div>
   )
 };
+
 Board.propTypes = {
   url: PropTypes.string.isRequired,
   boardName: PropTypes.string.isRequired
