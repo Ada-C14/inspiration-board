@@ -1,7 +1,17 @@
-.card {
-  background-color: #F4FF81;
+.bg-color-yellow {
+  background-color: #FFE7AD;
+}
 
-  padding: 1em 0;
+.bg-color-pink {
+  background-color: #F9B9B4;
+}
+
+.bg-color-orange {
+  background-color: #FEC886;
+}
+
+.card {
+  padding: 0.5rem 0;
   margin: 0.5rem;
 
   min-height: 250px;
@@ -12,11 +22,14 @@
 
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
+  grid-template-rows: 0.5fr 3fr 0.5fr;
   align-items: center;
+  overflow: hidden;
 }
 
 .card__content {
   grid-column-start: 2;
+  grid-row-start: 2;
 
   display: flex;
   flex-direction: column;
@@ -41,7 +54,20 @@
   margin: 0;
 }
 
-.card__delete {
-  align-self: start;
+.delete-button {
   font-family: 'Permanent Marker', Helvetica, sans-serif;
+  margin-left: 30%;
+  border-radius: 25px;
+  font-size: smaller;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .card {
+    min-height: 225px;
+    min-width: 200px;
+  } 
+
+  .delete-button {
+    font-size: 0.7em;
+  }
 }

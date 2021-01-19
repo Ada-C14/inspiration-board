@@ -1,35 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;500;900&display=swap');
 
 * {
   box-sizing: border-box;
+  background-color: #f9faf3;
+  /* border: black 1px solid; */
 }
 
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+  color: #4a6163;
 }
 
 h1, h2 {
-  font-family: 'Permanent Marker', Helvetica, sans-serif;
-}
-
-.header {
-  padding: 4rem;
+  font-family: 'Rubik', sans-serif;
 }
 
 .header__h1 {
   margin: auto 0;
-
-  text-align: center;
+  font-weight: 800;
+  font-size: 5rem;
+  color: #f17a7e !important;
+  margin-bottom: 15px;
+  text-align: left;
 }
 
-.header__text {
-  padding: 1rem;
+.header__text--stroke {
+  -webkit-text-stroke: 2px #f9a66c;
+  color: rgba(0, 0, 0, 0);
+}
 
-  display: inline-block;
-  background-color: #222;
-  color: white;
-  text-transform: uppercase;
-  font-weight: 800;
-  font-size: 3rem;
+textarea, input, button, select {
+  font-family: inherit; 
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  border-radius: 5px;
+  width: 98%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
-  transform: rotate(-3deg) skew(-3deg);
+@media (min-width: 320px) and (max-width: 480px) {
+  .header__h1 {
+    text-align: center;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  * {
+    box-sizing: content-box;
+  }
+
+  .header__h1 {
+    font-size: 6rem;
+    margin: 5% 10% 5% 0;
+    max-width: 300px;
+  }
+
+  textarea, input, button, select {
+    width: 90%;
+  }
 }
