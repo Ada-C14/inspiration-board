@@ -5,23 +5,9 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
-class Board extends React.Component {
-  // const cards = CARD_DATA.cards.map((card) => {
-  //   return <Card 
-  //     text={card.text}
-  //     emoji={card.emoji}
-  //     deleteCardCallback={card.deleteCardCallback}
-  //   />
-  // })
-  // render() 
-  //   return(
-  //     <div>
-  //       {cards}
-  //       {NewCardForm}
-  //     </div>
-  // )
+class Board extends Component {
   constructor() {
     super();
     this.state = {
@@ -42,11 +28,11 @@ class Board extends React.Component {
             id: card.card.id
           })
         )
-        this.setState({cards, message: ''})
+        this.setState({cards})
       })
       .catch(error => {
-        this.setState({message: error.data})
-      })
+        console.log(error.data)
+      });
   };
 
   getCards = () => {
@@ -58,7 +44,7 @@ class Board extends React.Component {
         key={index}
         deleteCardCallback={this.deleteCard}
       />)
-    })
+    });
   }
 
   addCard = (card) => {
@@ -67,34 +53,31 @@ class Board extends React.Component {
         card.id = response.data.card.id
       })
       .catch(error => {
-        this.setState({message: error.data})
-      })
-      const cards = this.state.cards
-      cards.push(card)
-      this.setState({cards, message: ''})
+        console.log(error.data)
+      });
+      const newCards = this.state.cards
+      newCards.push(card);
+      this.setState({newCards});
   }
 
   deleteCard = (id) => {
-    const cards = this.state.cards.filter((card) => card.id !== id)
+    const cards = this.state.cards.filter((card) => card.id !== Number(id))
     this.setState({cards})
     axios.delete(`${this.props.url}${this.props.boardName}/cards/${id}`)
       .then(() => {
-        this.setState({message: 'Card deleted'})
+        console.log('card deleted')
       })
-      .catch(() => {
-        this.setState({message: 'Hmm.. something went wrong'})
+      .catch((error) => {
+        console.log(error.data)
       })
-      this.setState({})
   }
 
   render() {
     return (
       <div>
-        <p>{this.message}</p>
         <NewCardForm
           addCardCallback={this.addCard}
         />
-        {/* <Card deleteCardCallback={this.deleteCard} /> */}
         <main className="board">
           {this.getCards()}
         </main>

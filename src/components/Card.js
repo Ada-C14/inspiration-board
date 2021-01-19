@@ -4,7 +4,7 @@ import emoji from 'emoji-dictionary';
 
 import './Card.css';
 
-class Card extends React.Component {
+class Card extends Component {
   render () {
     return (
       <div className="card">

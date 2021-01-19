@@ -4,7 +4,7 @@ import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
 
 
-class NewCardForm extends React.Component {
+class NewCardForm extends Component {
   constructor() {
     super()
     this.state = {
@@ -13,20 +13,24 @@ class NewCardForm extends React.Component {
     }
   }
   
-  onChange = (event) => {
+  change = (event) => {
     const updateState = this.state
-    const name = event.target.name
-    const value = event.target.value
-    updateState[name] = value
+    const n = event.target.name
+    const v = event.target.value
+    updateState[n] = v
     this.setState(updateState)
   }
 
-  onSubmit = (event) => {
+  submit = (event) => {
     event.preventDefault();
     this.props.addCardCallback({
       text: this.state.text,
       emoji: this.state.emoji
-    })
+    });
+    this.setState({
+        text: '', 
+        emoji: '',
+    });
   }
 
   emojiList = () => {
@@ -39,20 +43,30 @@ class NewCardForm extends React.Component {
 
   render() {
     return (
-    <div>
-      <h1>add a new card</h1>
-      <form 
-        className="new-card-form"
-        onSubmmit={this.onSubmit} >
-        <textarea className="new-card-form__form-textarea" onChange={this.onChange} />
-        <select className="new-card-form__form-select" onChange={this.onChange}>{this.emojiList()}</select>
-        <button type="submit" className="new-card-form__form-button" >Add this card</button>
-      </form>
+    <div className="new-card-form">
+        <h2>add a new card</h2>
+        <div >
+        <form onSubmit={this.submit} className="new-card-form__form" >
+            <textarea 
+            name="text" 
+            className="new-card-form__form-textarea"
+            onChange={this.change} 
+            value={this.state.text} 
+            />
+            <select 
+            name="emoji" 
+            className="new-card-form__form-select"
+            onChange={this.change} 
+            value={this.state.emoji}>
+            {this.emojiList()}
+            </select>
+            <button type="submit" className="new-card-form__form-button">Add this card</button>
+        </form>
+        </div>
     </div>
-   
-    )
+    );
   }
-};
+}
 
 NewCardForm.propTypes = {
   addCardCallback: PropTypes.func.isRequired
