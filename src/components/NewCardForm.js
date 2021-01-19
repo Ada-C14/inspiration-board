@@ -55,15 +55,12 @@ const NewCardForm = (props) => {
                         
                     />
                     {emojiList}
-
                 </div>
+                <input type="submit" value="Add Card" className="new-card-form__form-button" />
             </form>
 
         </div>
-
-
-
     )
-
-
 }
+
+export default NewCardForm;

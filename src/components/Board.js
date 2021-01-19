@@ -8,6 +8,7 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 const cards = CARD_DATA["cards"]
+const apiLink = 'https://inspiration-board.herokuapp.com/cards/'
 
 const Board = (props) => {
 
@@ -29,7 +30,7 @@ const Board = (props) => {
   }, []);
 
   const deleteCard = ((card) => {
-    axios.delete(`https://inspiration-board.herokuapp.com/cards/${card}`)
+    axios.delete(`${apiLink}${card}`)
       .then((response) => {
         const newList = cards.filter(card => card.id !== card)
         setCardList(newList);
@@ -40,6 +41,18 @@ const Board = (props) => {
       })
     }
   );
+
+  const addCardCallback = (card) => {
+    axios.post(`${apiLink}`, card)
+    .then((response) => {
+      const updateCards = [...cardList, response.data];
+      setCardList(updateCards);
+      setErrorMessage(''); 
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    });
+  }
 
   const renderCards = cardList.map((card) => {
     return (
@@ -54,8 +67,13 @@ const Board = (props) => {
   });
 
   return (
-    <div className="board">
-      {renderCards}
+    <div>
+      <div>
+        <NewCardForm addCardCallback={addCardCallback} />
+      </div>
+      <div className="board">
+        {renderCards}
+      </div>
     </div>
   );
 }
