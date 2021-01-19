@@ -37,9 +37,9 @@ const Board = (props) => {
       })
       .catch((error) => {
         setErrorMessage('Card not deleted!');
-      });
-
-  });
+      })
+    }
+  );
 
   const renderCards = cardList.map((card) => {
     return (
@@ -57,8 +57,9 @@ const Board = (props) => {
     <div className="board">
       {renderCards}
     </div>
-  )
-};
+  );
+}
+
 Board.propTypes = {
 
 };
