@@ -8,7 +8,6 @@ const Card = (props) => {
   return (
     <div className="card">
       <div className="card__content">
-        {props.id}
         <p className="card__content-text">
           {props.text || ''}
         </p>
@@ -18,12 +17,12 @@ const Card = (props) => {
       </div>
     </div>
   )
-}
+};
 
 Card.propTypes = {
   text: PropTypes.string,
   emoji: PropTypes.string,
-  id: PropTypes.number.isRequired
+  // id: PropTypes.number.isRequired
 };
 
 export default Card;
