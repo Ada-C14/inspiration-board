@@ -58,8 +58,8 @@ const Board = (props) => {
 
   const boardComponents = cardList.map((obj) => {
     return (
-      <div>
-        <Card key={obj.card.id}
+      <div key={obj.card.id}> 
+        <Card
           text={obj.card.text}
           emoji={obj.card.emoji}
           id={obj.card.id}
@@ -78,10 +78,9 @@ const Board = (props) => {
   )
 }
 
-  
-
 Board.propTypes = {
-
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired
 };
 
 export default Board;
