@@ -30,7 +30,11 @@ const NewCardForm = (props) => {
     };
 
     const options = EMOJI_LIST.map((symbol)=>{
-        return {value: `${emoji.getUnicode(symbol)}`, label: `${emoji.getUnicode(symbol)}`}
+        return {
+            value: `${emoji.getUnicode(symbol)}`, 
+            label: `${emoji.getUnicode(symbol)}`,
+            target: {name: "emoji", value: symbol}
+        }
     });
 
     return (

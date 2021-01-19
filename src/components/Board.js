@@ -15,7 +15,7 @@ const Board = (props) => {
   const[cardList, setCardList] = useState(cards);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const cardsRequest = `${props.url}${props.boardname}/cards`
+  const cardsRequest = `${props.url}${props.boardName}/cards`
 
   useEffect(() => {
     axios.get(cardsRequest)
@@ -43,7 +43,7 @@ const Board = (props) => {
   );
 
   const addCardCallback = ((card) => {
-    axios.post(`${apiLink}`, card)
+    axios.post('https://inspiration-board.herokuapp.com/boards/jello-board/cards', card)
     .then((response) => {
       const updateCards = [...cardList, response.data];
       setCardList(updateCards);
