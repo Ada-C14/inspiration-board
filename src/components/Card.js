@@ -6,8 +6,8 @@ import './Card.css';
 
 const Card = () => {
   return (
-    <div className="card">
-      Card
+    <div className="card_content">
+      <h3>Card</h3>
     </div>
   )
 }
