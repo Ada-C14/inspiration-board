@@ -4,15 +4,28 @@ import emoji from 'emoji-dictionary';
 
 import './Card.css';
 
-const Card = () => {
+const Card = (props) => {
   return (
     <div className="card">
-      Card
+      <div>
+      <p className='card__content-text'>{props.text}</p>
+      </div>
+      <div className='card__delete'>
+        <button className='card__delete-button'
+          onClick={() => props.deleteCard(props.id)}
+        >
+          Delete
+        </button>
+      </div>
+      
     </div>
   )
 }
 
 Card.propTypes = {
+  text: PropTypes.string,
+  id: PropTypes.number,
+  deleteCard: PropTypes.func.isRequired
 
 };
 
