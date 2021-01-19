@@ -4,6 +4,7 @@
   width: 50%;
   margin: auto;
   padding-bottom: 4rem;
+  flex-basis: 100%;
 }
 
 .new-card-form__header {
