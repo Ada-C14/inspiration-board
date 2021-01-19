@@ -17,8 +17,7 @@ const NewCardForm = (props) => {
         const newFormFields = {
             ...formFields,
         }
-        newFormFields.text = event.target.value;
-        newFormFields.emoji = event.target.value
+        newFormFields[event.target.name] = event.target.value;
         setFormFields(newFormFields);
     };
 
@@ -54,7 +53,7 @@ const NewCardForm = (props) => {
                         className="new-card-form__form-select"
                         onChange={onInputChange}
                         name="emoji"
-                        value={formFields.emoji}
+                        value={formFields.emoji.value}
                     />
                 </div>
                 <input type="submit" value="Add Card" className="new-card-form__form-button" />
