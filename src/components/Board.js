@@ -5,7 +5,6 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
 
 const Board = (props) => {
   // A toggle to force refreshes of board
@@ -77,6 +76,7 @@ const Board = (props) => {
       { errorMessage ? <div><h2 className="error-msg">{errorMessage}</h2></div> : '' }
 
       {cardList}
+      <br />
     <NewCardForm onAddCallback={addCard}/>
 
     </main>

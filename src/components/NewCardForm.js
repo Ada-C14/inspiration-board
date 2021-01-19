@@ -30,7 +30,7 @@ const NewCardForm = (props) => {
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-    if (formFields.text != '') {
+    if (formFields.text !== '') {
       props.onAddCallback(formFields);
 
       setFormFields({
@@ -47,7 +47,7 @@ const NewCardForm = (props) => {
       </h2>
       <form className="new-card-form__form" onSubmit={onFormSubmit}>
       <div>
-        <label htmlFor="text" className="new-card-form__form-label">Text (required):</label>
+        <label htmlFor="text" className="new-card-form__form-label">Text :</label>
         <input name="text" className="new-card-form__form-textarea" value={formFields.text} onChange={onInputChange}/>
       </div>
       <div>
