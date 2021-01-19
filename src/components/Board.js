@@ -42,7 +42,7 @@ const Board = (props) => {
     }
   );
 
-  const addCardCallback = (card) => {
+  const addCardCallback = ((card) => {
     axios.post(`${apiLink}`, card)
     .then((response) => {
       const updateCards = [...cardList, response.data];
@@ -52,14 +52,14 @@ const Board = (props) => {
     .catch((error) => {
       setErrorMessage(error.message);
     });
-  }
+  })
 
   const renderCards = cardList.map((card) => {
     return (
         <Card 
           text={card.text} 
           emoji={card.emoji} 
-          deleteCard={deleteCard}
+          deleteCard={(id) => deleteCard(id)}
           id={card.id}
           key={card.id}
          />
@@ -72,6 +72,7 @@ const Board = (props) => {
         <NewCardForm addCardCallback={addCardCallback} />
       </div>
       <div className="board">
+      { errorMessage ? <div className="validation-errors-display"><h2>{errorMessage}</h2></div> : '' }
         {renderCards}
       </div>
     </div>
@@ -79,7 +80,8 @@ const Board = (props) => {
 }
 
 Board.propTypes = {
-
+  url: PropTypes.string.isRequired,
+  boardname: PropTypes.string.isRequired
 };
 
 export default Board;
