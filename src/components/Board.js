@@ -55,7 +55,7 @@ const Board = (props) => {
           setCardList(newCardList);
         })
         .catch((error) => {
-          console.log(error.message)
+          // console.log(error.message)
           setErrorMessage(`Unable to delete card ${id}`);
         })
     }

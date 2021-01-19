@@ -38,7 +38,7 @@ return (
     onSubmit={onFormSubmit}
     >
     <div>
-        <label htmlFor="text">Text:</label>
+        <label className="new-card-form__form-label" htmlFor="text">Text:</label>
         <textarea className="new-card-form__form-textarea"
             name="text"
             onChange={onInputChange}
