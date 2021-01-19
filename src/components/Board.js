@@ -17,6 +17,7 @@ const Board = () => {
       />
     )
   })
+  
   return (
     <div>
       Board
@@ -24,6 +25,7 @@ const Board = () => {
     </div>
   )
 };
+
 Board.propTypes = {
 
 };
