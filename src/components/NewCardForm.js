@@ -28,18 +28,34 @@ const NewCardForm = (props) => {
         setFormFields(emptyFields);
     };
 
+    const emojiList = EMOJI_LIST.map((symbol,i)=>{
+        return <option key={i} value={symbol}>{emoji.getUnicode(symbol)}</option>
+    })
+
     return (
         <div className="new-card-form">
             <h1 class="new-card-form__header">New Card</h1>
             <form className="new-card-form__form" onSubmit={onFormSubmit}>
                 <div>
-                    <label className="new-card-form__form-label">Card Text</label>
+                    <label className="new-card-form__form-label">Text</label>
                     <input 
                         className="new-card-form__form-textarea"
                         onChange={onInputChange}
                         value={formFields.text}
                         name="text"
                     />
+                </div>
+                <div>
+                    <label className="new-card-form__form-label">Emoji</label>
+                    <select
+                        className="new-card-form__form-select"
+                        onChange={onInputChange}
+                        value={formFields.emoji}
+                        name="emoji"
+                        
+                    />
+                    {emojiList}
+
                 </div>
             </form>
 
