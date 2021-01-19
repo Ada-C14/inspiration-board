@@ -8,12 +8,12 @@ const Card = (props) => {
 
     <div className="card">
       Card
-      <ul className="card_content">
-        {props.text && 
-      <li className="card_content-text">{props.text}</li>}
-      {props.emoji && 
-      <li className="card_content-emoji">{emoji.getUnicode(`${props.emoji}`)}</li>}
-      </ul>
+      <section className="card_content">
+        {props.card.text && 
+      <p className="card_content-text">{props.card.text}</p>}
+      {props.card.emoji && 
+      <p className="card_content-emoji">{emoji.getUnicode(`${props.card.emoji}`)}</p>}
+      </section>
     </div>
   )
 }
