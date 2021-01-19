@@ -19,17 +19,18 @@ const NewCardForm = (props) => {
     }
 
     return (
-        <div>
-            <h3>Add a new card to your board!</h3>
-            <form>
+        <div className='new-card-form'>
+            <h3 className='new-card-form__header'>Add a new card to your board!</h3>
+            <form className='new-card-form__form'>
                 <input
+                    className='new-card-form__form-textarea'
                     placeholder= 'Enter a quote'
                     name='text'
                     type='text'
                     value={formFields.text}
                     onChange={onInputChange} 
                 />
-                <select>
+                <select name='selectedEmoji' onChange={onInputChange} id='selectedEmoji'>
                     {
                         EMOJI_LIST.map((selectedEmoji, i) => {
                             return (
@@ -38,7 +39,7 @@ const NewCardForm = (props) => {
                         })
                     }
                 </select>
-                <input value='Add inspirational quote' onClick={(event) => {props.addNewCard(event, formFields)}} type='submit' />
+                <input className='new-card-form__form-button' value='Add inspirational quote' onClick={(event) => {props.addNewCard(event, formFields)}} type='submit' />
             </form>
         </div>
     )
