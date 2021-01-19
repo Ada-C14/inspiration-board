@@ -57,7 +57,7 @@ const Board = (props) => {
             id={cardObj.card.id} 
             text={cardObj.card.text} 
             emoji={cardObj.card.emoji} 
-            onDeleteCard={deleteCard} />
+            deleteCardCallback={deleteCard} />
   });
 
   return (
