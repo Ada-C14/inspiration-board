@@ -56,6 +56,7 @@ const Board = (url, boardName) => {
       <Card
       text={card.text}
       key={i}
+      deleteCard={deleteCard}
       />
     );
   })

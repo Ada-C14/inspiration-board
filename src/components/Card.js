@@ -10,6 +10,13 @@ const Card = (props) => {
       <div>
       <p className='card__content-text'>{props.text}</p>
       </div>
+      <div className='card__delete'>
+        <button className='card__delete-button'
+          onClick={() => props.deleteCard(props.id)}
+        >
+          Delete
+        </button>
+      </div>
       
     </div>
   )
@@ -17,7 +24,8 @@ const Card = (props) => {
 
 Card.propTypes = {
   text: PropTypes.string,
-  id: PropTypes.number
+  id: PropTypes.number,
+  deleteCard: PropTypes.func.isRequired
 
 };
 
