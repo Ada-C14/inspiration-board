@@ -8,13 +8,7 @@ import NewCardForm from './NewCardForm';
 import CARD_DATA from '../data/card-data.json';
 
 const Board = (props) => {
-  // const boardCards = CARD_DATA.cards.map((card, i) => {
-  //   return (
-  //       <Card text={card.text} key={i}/>
-  //   )
-  // })
 
-  // ada-students start of code
   const API_URL_BASE = `${props.url}${props.boardName}/cards`
   const [cardList, setCardList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -22,21 +16,29 @@ const Board = (props) => {
   useEffect(() => {
       axios.get(API_URL_BASE)
         .then((response) => {
-          // do something here
+            console.log(response)
 
+            //convert from array of card data to array of individual fields
+            const result = response.data.map( (arrayElement) => {
+              return arrayElement.card
+            })
+
+            setCardList(result)
         })
         .catch((error) => {
           setErrorMessage(error.message);
         });
     }, []);  
-  
-  
-  // ada-students end of code
 
+  const boardCards = cardList.map((card) => {
+    return (
+        <Card text={card.text} key={card.id} emoji={card.emoji}/>
+    )
+  })
 
   return (
     <div>
-      {cardList}
+      {boardCards}
     </div>
   )
 };
