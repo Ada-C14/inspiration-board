@@ -33,7 +33,7 @@ const Board = (props) => {
   const deleteFunction = (cardID) => {
     axios.delete(`https://inspiration-board.herokuapp.com/cards/${cardID}`)
         .then((response) => {
-        
+        getCards()
         })
         .catch((error) => {
           setErrorMessage(error.message);
