@@ -51,7 +51,7 @@ const Board = (props) => {
   })
 
   return (
-    <div>
+    <div className="board">
       {boardCards}
     </div>
   )

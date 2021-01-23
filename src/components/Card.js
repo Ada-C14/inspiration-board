@@ -11,9 +11,10 @@ const Card = (props) => {
   }
   return (
     <div className="card">
-      {props.text}
+      <div className="card__content">{props.text}
       {props.emoji? emoji.getUnicode(props.emoji) : null}
-      <button onClick={deleteCardFunction}>Delete Card</button>
+      <button onClick={deleteCardFunction} className="card__delete">Delete Card</button>
+      </div>
     </div>
   )
 }
