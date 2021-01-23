@@ -19,16 +19,6 @@ const App = () => {
 
 export default App;
 
-// function in app should receive card id
-// and use that id to issue a request to delete the card
-// reload the cards
-// pass down a function to the card.js to tell card which card to delete
-
-// a button on each card
-// passed down the function to card (using props),
-// that each card can use when clicking on that button
-
-
 // for the create a new card
 // similar to users submisison form in exquisite react
 // collect text

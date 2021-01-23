@@ -40,6 +40,16 @@ const Board = (props) => {
         });
   }
 
+  const addCard = (card) => {
+    axios.post(`https://inspiration-board.herokuapp.com/boards/Alice-D/cards?text=${card.text}&emoji=${card.emoji}`)
+    .then((response) => {
+      getCards()
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    });
+  }
+
   useEffect(() => {
      getCards()
     }, [getCards]);
@@ -47,11 +57,13 @@ const Board = (props) => {
   const boardCards = cardList.map((card) => {
     return (
         <Card text={card.text} key={card.id} emoji={card.emoji} deleteFunction={deleteFunction} id={card.id}/>
-    )
+        )
   })
+
 
   return (
     <div className="board">
+      <NewCardForm addCard={addCard} />
       {boardCards}
     </div>
   )
@@ -62,19 +74,3 @@ Board.propTypes = {
 
 export default Board;
 
-// function in app should receive card id
-// and use that id to issue a request to delete the card
-// reload the cards
-// pass down a function to the card.js to tell card which card to delete
-
-// a button on each card
-// passed down the function to card (using props),
-// that each card can use when clicking on that button
-
-
-// for the create a new card
-// similar to users submisison form in exquisite react
-// collect text
-// collect emoji as a form
-// use that to issue a post request
-// reload the cards
